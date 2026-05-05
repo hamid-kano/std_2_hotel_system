@@ -2,16 +2,18 @@
 
 
 
-    define('SITE_URL','http://localhost/my_project/last pr/');
-    define("ABOUT_IMG_PATH",SITE_URL.'images/about/');
-    define("CAROUSEL_IMG_PATH",SITE_URL.'images/carousel/');
-    define("FACILITIES_IMG_PATH",SITE_URL.'images/facilities/');
-    define("ROOMS_IMG_PATH",SITE_URL.'images/rooms/');
-    define("USERS_IMG_PATH",SITE_URL.'images/users/');
+    // ====== SITE PATHS ======
+    // Change PROJECT_FOLDER to match your htdocs folder name
+    define('PROJECT_FOLDER', basename(dirname(dirname(__FILE__))));
+    define('SITE_URL', 'http://localhost/' . PROJECT_FOLDER . '/');
+    define("ABOUT_IMG_PATH",    SITE_URL . 'images/about/');
+    define("CAROUSEL_IMG_PATH", SITE_URL . 'images/carousel/');
+    define("FACILITIES_IMG_PATH",SITE_URL . 'images/facilities/');
+    define("ROOMS_IMG_PATH",    SITE_URL . 'images/rooms/');
+    define("USERS_IMG_PATH",    SITE_URL . 'images/users/');
 
-
-
-    define('UPLOAD_IMAGE_PATH',$_SERVER['DOCUMENT_ROOT'].'/last pr/images/');
+    define('UPLOAD_IMAGE_PATH', $_SERVER['DOCUMENT_ROOT'] . '/' . PROJECT_FOLDER . '/images/');
+    // ====== END SITE PATHS ======
 
     define('ABOUT_FOLDER','about/');
     define('CAROUSEL_FOLDER','carousel/');

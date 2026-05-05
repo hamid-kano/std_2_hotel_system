@@ -209,7 +209,18 @@
 
         
         function chk_avail_filter(){
+          const today = new Date().toISOString().split('T')[0];
           if(checkin.value!='' && checkout.value!=''){
+            if(checkin.value < today){
+              alert('error','Check-in date cannot be in the past!');
+              checkin.value='';
+              return;
+            }
+            if(checkout.value <= checkin.value){
+              alert('error','Check-out must be after check-in!');
+              checkout.value='';
+              return;
+            }
             fetch_rooms();
             chk_avail_btn.classList.remove('d-none');
           }

@@ -11,7 +11,9 @@
     $con = mysqli_connect($hname,$uname,$pass,$db,$port);
 
     if(!$con){
-        die("Cannot Connect to Database".mysqli_connect_error());
+        error_log("DB Connection failed: " . mysqli_connect_error());
+        http_response_code(500);
+        exit('Service temporarily unavailable.');
     }
 
         // START FILTERATION
@@ -49,12 +51,15 @@
                 return $res; 
             }
             else{
+                $err = mysqli_stmt_error($stmt);
                 mysqli_stmt_close($stmt);
-                die("Query cannot be executed - Select");
+                error_log("Select execute failed: " . $err);
+                return false;
             }
         }
         else{
-            die("Query cannot be prepared - Select");
+            error_log("Select prepare failed: " . mysqli_error($GLOBALS['con']));
+            return false;
         }
     }
         // END SELECT
@@ -71,12 +76,15 @@
                 return $res; 
             }
             else{
+                $err = mysqli_stmt_error($stmt);
                 mysqli_stmt_close($stmt);
-                die("Query cannot be executed - Update");
+                error_log("Update execute failed: " . $err);
+                return false;
             }
         }
         else{
-            die("Query cannot be prepared - Update");
+            error_log("Update prepare failed: " . mysqli_error($con));
+            return false;
         }
     }
 
@@ -114,12 +122,15 @@
                 return $res; 
             }
             else{
+                $err = mysqli_stmt_error($stmt);
                 mysqli_stmt_close($stmt);
-                die("Query cannot be executed - Delete");
+                error_log("Delete execute failed: " . $err);
+                return false;
             }
         }
         else{
-            die("Query cannot be prepared - Delete");
+            error_log("Delete prepare failed: " . mysqli_error($con));
+            return false;
         }
     }
         

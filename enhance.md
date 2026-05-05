@@ -15,14 +15,14 @@
 
 ## 🟠 المرحلة الثانية — مشاكل الباكيند
 
-- [ ] 7. عدم وجود `index.php` في الجذر — إنشاء ملف يعيد التوجيه لـ `hotel.php`
-- [ ] 8. `die()` يكشف أخطاء قاعدة البيانات — استبداله بـ `error_log()`
-- [ ] 9. عدم التحقق من الجلسة في `pay.php`
-- [ ] 10. مسارات خاطئة — توحيدها في `essentials.php`
-- [ ] 11. عدم وجود Rate Limiting على تسجيل الدخول
-- [ ] 12. عدم وجود Pagination في قوائم الغرف والحجوزات
-- [ ] 13. التحقق من التواريخ غير مكتمل في فورم الحجز
-- [ ] 14. استخدام `require` بدل `require_once` في عدة ملفات
+- [x] 7. عدم وجود `index.php` في الجذر — إنشاء ملف يعيد التوجيه لـ `hotel.php`
+- [x] 8. `die()` يكشف أخطاء قاعدة البيانات — استبداله بـ `error_log()`
+- [x] 9. عدم التحقق من الجلسة في `pay.php`
+- [x] 10. مسارات خاطئة — توحيدها في `essentials.php` (PROJECT_FOLDER تلقائي)
+- [x] 11. عدم وجود Rate Limiting على تسجيل الدخول (5 محاولات / 10 دقائق)
+- [x] 12. عدم وجود Pagination في الحجوزات (6 لكل صفحة)
+- [x] 13. التحقق من التواريخ غير مكتمل — إضافة تحقق في الفرونت إند
+- [x] 14. استخدام `require` بدل `require_once` في `header1.php`
 
 ---
 
@@ -83,4 +83,10 @@
 | 5 | session_regenerate_id | ✅ | أضيفت في login و admin login |
 | 6 | booking_debug.log | ✅ | حذف + .gitignore |
 | 7 | index.php | ✅ | redirect إلى hotel.php |
-| 25 | نظام اللغات (AR/EN/KU) | ✅ | lang/ar.php, en.php, ku.php + دالة lang() |
+| 8 | die() → error_log() | ✅ | في db_config.php كاملاً |
+| 9 | session check في pay.php | ✅ | redirect إذا غير مسجل |
+| 10 | توحيد المسارات | ✅ | PROJECT_FOLDER تلقائي |
+| 11 | Rate Limiting | ✅ | 5 محاولات / 10 دقائق |
+| 12 | Pagination | ✅ | bookings.php — 6 لكل صفحة |
+| 13 | تحقق التواريخ | ✅ | فرونت إند في rooms.php |
+| 14 | require_once | ✅ | header1.php |

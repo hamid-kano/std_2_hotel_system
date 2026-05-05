@@ -65,14 +65,22 @@
             </div>
 
             <?php
+              $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+              $per_page = 6;
+              $offset = ($page - 1) * $per_page;
+
+              $count_res = select("SELECT COUNT(*) AS total FROM `booking_order` WHERE ((booking_status='booked') OR (booking_status='cancelled') OR (booking_status='failed')) AND user_id=?", [$_SESSION['uId']], 'i');
+              $total_rows = mysqli_fetch_assoc($count_res)['total'];
+              $total_pages = ceil($total_rows / $per_page);
 
               $query="SELECT bo.* , bd.* FROM `booking_order` bo INNER JOIN `booking_details` bd ON bo.booking_id = bd.booking_id WHERE ((bo.booking_status='booked')    
               OR (bo.booking_status='cancelled')
               OR (bo.booking_status='failed'))
               AND(bo.user_id=? )
-              ORDER BY bo.booking_id DESC";
+              ORDER BY bo.booking_id DESC
+              LIMIT ? OFFSET ?";
 
-              $result=select($query,[$_SESSION['uId']],'i');
+              $result=select($query,[$_SESSION['uId'], $per_page, $offset],'iii');
               while($data = mysqli_fetch_assoc($result)){
                 $date = date("d-m-Y",strtotime($data['datentime']));
                 $checkin = date("d-m-Y",strtotime($data['check_in']));
@@ -155,6 +163,21 @@
             
             
             ?>
+
+            <!-- Pagination -->
+            <?php if($total_pages > 1): ?>
+            <div class="col-12 px-4 mt-2 mb-4">
+              <nav>
+                <ul class="pagination justify-content-center">
+                  <?php for($i=1; $i<=$total_pages; $i++): ?>
+                  <li class="page-item <?php echo ($i==$page)?'active':'' ?>">
+                    <a class="page-link shadow-none" href="bookings.php?page=<?php echo $i ?>"><?php echo $i ?></a>
+                  </li>
+                  <?php endfor; ?>
+                </ul>
+              </nav>
+            </div>
+            <?php endif; ?>
 
           </div>
       </div>

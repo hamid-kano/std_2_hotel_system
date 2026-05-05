@@ -176,7 +176,10 @@
                     alert("error","Account Suspended! Please Contact Admin.");
                 }
                 else if(this.responseText=="invalid_pass"){
-                    alert("error","Incorect Password!");
+                    alert("error","Incorrect Password!");
+                }
+                else if(this.responseText=="rate_limit"){
+                    alert("error","Too many login attempts. Please wait 10 minutes.");
                 }
                 else{
                     let fileurl = window.location.href.split('/').pop().split('?').shift(); 

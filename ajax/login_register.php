@@ -84,6 +84,19 @@
 
     if(isset($_POST['login'])){
         $data = filteration($_POST);
+
+        // Rate limiting: max 5 attempts per 10 minutes per IP
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $rate_key = 'login_attempts_' . md5($ip);
+        if(!isset($_SESSION[$rate_key])) $_SESSION[$rate_key] = ['count'=>0,'time'=>time()];
+        if(time() - $_SESSION[$rate_key]['time'] > 600){
+            $_SESSION[$rate_key] = ['count'=>0,'time'=>time()];
+        }
+        if($_SESSION[$rate_key]['count'] >= 5){
+            echo "rate_limit";
+            exit;
+        }
+        $_SESSION[$rate_key]['count']++;
         $u_exist = select("SELECT * FROM `user_cred` WHERE  `email`= ? OR `phonenum`=? LIMIT 1",[$data['email_mob'],$data['email_mob']],"ss");
         if(mysqli_num_rows($u_exist)==0){
             echo "inv_email_mob";
