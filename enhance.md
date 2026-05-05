@@ -65,8 +65,8 @@
 
 - [x] 35. تحديث Header + تبديل اللغة
 - [x] 36. تحسين بطاقات الغرف — `room-card` class + hover
-- [ ] 37. تحديث صفحة الحجز `confirm_booking.php`
-- [ ] 38. تحسين صفحة تفاصيل الغرفة `room_details.php`
+- [x] 37. تحديث صفحة الحجز `confirm_booking.php`
+- [x] 38. تحسين صفحة تفاصيل الغرفة `room_details.php`
 - [x] 39. صفحة 404
 - [x] 40. تحسين Footer + اسم Vana
 
@@ -80,4 +80,4 @@
 | 7-14 | المرحلة الثانية (باكيند) | done | كاملة |
 | 15-30| المرحلة الثالثة (فرونت + لغات) | done | كاملة |
 | 31-34| المرحلة الرابعة (اداء)   | done | كاملة |
-| 37-38| المرحلة الخامسة (واجهة)  | pending | confirm_booking + room_details |
+| 37-38| المرحلة الخامسة (واجهة)  | done | confirm_booking + room_details مكتملة |
