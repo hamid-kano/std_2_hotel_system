@@ -61,20 +61,36 @@
                     // FUN 1 
             $frm_data = filteration($_POST);
             
-            $query = "SELECT * FROM `admin_cred` WHERE `admin_name`=? AND `admin_pass`=?";
-            $values = [$frm_data['admin_name'],$frm_data['admin_pass']];
+            // Fetch admin by name only, then verify password with bcrypt
+            $query = "SELECT * FROM `admin_cred` WHERE `admin_name`=? LIMIT 1";
+            $values = [$frm_data['admin_name']];
                     // FUN 2
-            $res= select($query,$values,"ss");
+            $res= select($query,$values,"s");
             if($res->num_rows==1){
                 $row= mysqli_fetch_assoc($res);
-                $_SESSION['adminLogin']=true;
-                $_SESSION['adminId']=$row['sr_no'];
-                // FUN 3
-                redirect('dashboard.php');
+                // Support both bcrypt hashed and plain-text passwords (migration period)
+                $pass_valid = password_verify($frm_data['admin_pass'], $row['admin_pass'])
+                              || $row['admin_pass'] === $frm_data['admin_pass'];
+                if($pass_valid){
+                    // Upgrade plain-text password to bcrypt on first login
+                    if(!password_get_info($row['admin_pass'])['algo']){
+                        $hashed = password_hash($frm_data['admin_pass'], PASSWORD_BCRYPT);
+                        update("UPDATE `admin_cred` SET `admin_pass`=? WHERE `sr_no`=?",
+                               [$hashed, $row['sr_no']], 'si');
+                    }
+                    session_regenerate_id(true); // prevent session fixation
+                    $_SESSION['adminLogin']=true;
+                    $_SESSION['adminId']=$row['sr_no'];
+                    // FUN 3
+                    redirect('dashboard.php');
+                }
+                else{
+                    alert('error','Login failed - Invalid Credentials!');
+                }
             }
             else{
                 // FUN 4
-                alert('error','Login failed - Invalid Credentails!');
+                alert('error','Login failed - Invalid Credentials!');
             }
         }
     

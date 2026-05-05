@@ -22,6 +22,27 @@
 
     // define('SENDGRID_API_KEY', getenv('SENDGRID_API_KEY'));
 
+    // ====== LANGUAGE SYSTEM ======
+    function lang($key) {
+        static $translations = null;
+        if ($translations === null) {
+            $supported = ['ar', 'en', 'ku'];
+            $lang = $_SESSION['lang'] ?? 'ar';
+            if (!in_array($lang, $supported)) $lang = 'ar';
+            $file = $_SERVER['DOCUMENT_ROOT'] . '/std_2_hotel_system/lang/' . $lang . '.php';
+            $translations = file_exists($file) ? require $file : [];
+        }
+        return $translations[$key] ?? $key;
+    }
+
+    function setLang($lang) {
+        $supported = ['ar', 'en', 'ku'];
+        if (in_array($lang, $supported)) {
+            $_SESSION['lang'] = $lang;
+        }
+    }
+    // ====== END LANGUAGE SYSTEM ======
+
 
     function adminLogin(){
         session_start();

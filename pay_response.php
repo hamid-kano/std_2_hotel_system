@@ -14,8 +14,10 @@
     unset($_SESSION['room']);
     $isValidCheckSum="FALSE";
     $paramList = $_POST;
-    $slct_query = "SELECT `booking_id` , `user_id` FROM `booking_order` WHERE `order_id` = `$_POST[ORDERID]`";
-    $slct_res=mysqli_query($con,$slct_query);
+    
+    // Fixed SQL Injection - using prepared statement
+    $slct_query = "SELECT `booking_id`, `user_id` FROM `booking_order` WHERE `order_id` = ?";
+    $slct_res = select($slct_query, [$_POST['ORDERID']], 's');
     if(mysqli_num_rows($slct_res)==0){
         redirect('hotel.php');
     }

@@ -1,0 +1,25 @@
+# Logs
+*.log
+booking_debug.log
+
+# Environment files
+.env
+.env.local
+
+# Database backups
+*.sql.gz
+*.sql.bak
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads (optional - uncomment if you don't want to track uploads)
+# images/users/*
+# !images/users/.gitkeep
