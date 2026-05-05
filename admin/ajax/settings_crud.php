@@ -2,6 +2,7 @@
 <?php
     require('../inc/db_config.php');
     require('../inc/essentials.php');
+    require_once(dirname(__DIR__, 2) . '/inc/cache.php');
     adminLogin();  
 
     if(isset($_POST['get_general'])){
@@ -16,12 +17,10 @@
 
     if(isset($_POST['upd_general'])){
         $frm_data = filteration($_POST);
-
         $q="UPDATE `settings` SET `site_title`=?,`site_about`=? WHERE `sr_no`=?";
-
         $values= [$frm_data['site_title'],$frm_data['site_about'],1];
         $res=update($q,$values,'ssi');
-
+        cache_delete('settings_1'); // invalidate cache
         echo $res;
     }
 
@@ -49,11 +48,10 @@
 
     if(isset($_POST['upd_contacts'])){
         $frm_data = filteration($_POST);
-
         $q="UPDATE `contact_details` SET `address`=?,`gmap`=?,`pn1`=?,`pn2`=?,`email`=?,`fb`=?,`insta`=?,`tw`=? , `iframe`=? WHERE `sr_no`=?";
-
         $values= [$frm_data['address'],$frm_data['gmap'],$frm_data['pn1'],$frm_data['pn2'],$frm_data['email'],$frm_data['fb'],$frm_data['insta'],$frm_data['tw'],$frm_data['iframe'],1];
         $res=update($q,$values,'sssssssssi');
+        cache_delete('contact_1'); // invalidate cache
         echo $res;
     }
 

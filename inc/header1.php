@@ -1,21 +1,26 @@
 <?php
   require_once('admin/inc/db_config.php');
   require_once('admin/inc/essentials.php');
+  require_once('inc/cache.php');
 
   // Language switcher handler
   if(isset($_GET['set_lang'])){
       setLang($_GET['set_lang']);
-      // redirect back without the query param
       $redirect = strtok($_SERVER['REQUEST_URI'], '?');
       header('Location: ' . $redirect);
       exit;
   }
 
-  $contact_q  = "SELECT * FROM `contact_details` WHERE `sr_no`=?";
-  $settings_q = "SELECT * FROM `settings` WHERE `sr_no`=?";
-  $values     = [1];
-  $contact_r  = mysqli_fetch_assoc(select($contact_q, $values, 'i'));
-  $settings_r = mysqli_fetch_assoc(select($settings_q, $values, 'i'));
+  // #26 Cache settings & contact (TTL 5 min) — avoids 2 DB queries on every page load
+  $settings_r = cache_get('settings_1');
+  $contact_r  = cache_get('contact_1');
+
+  if($settings_r === null || $contact_r === null){
+      $settings_r = mysqli_fetch_assoc(select("SELECT * FROM `settings` WHERE `sr_no`=?", [1], 'i'));
+      $contact_r  = mysqli_fetch_assoc(select("SELECT * FROM `contact_details` WHERE `sr_no`=?", [1], 'i'));
+      cache_set('settings_1', $settings_r, 300);
+      cache_set('contact_1',  $contact_r,  300);
+  }
 
   $current_lang = $_SESSION['lang'] ?? 'ar';
   $lang_labels  = ['ar'=>'العربية 🇮🇶', 'en'=>'English 🇬🇧', 'ku'=>'کوردی 🏳'];

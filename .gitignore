@@ -10,6 +10,10 @@ booking_debug.log
 *.sql.gz
 *.sql.bak
 
+# Cache
+/inc/cache/
+*.cache
+
 # IDE
 .vscode/
 .idea/
