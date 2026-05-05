@@ -28,27 +28,27 @@
 
 ## 🟡 المرحلة الثالثة — مشاكل الفرونت إند
 
-- [ ] 15. واجهة قديمة — تحديث التصميم
-- [ ] 16. عدم وجود Dark Mode
-- [ ] 17. الصور بدون `alt`
-- [ ] 18. عدم وجود Lazy Loading للصور
-- [ ] 19. عدم وجود Favicon
-- [ ] 20. رسائل خطأ بلغة واحدة فقط
-- [ ] 21. عدم وجود Empty State عند عدم وجود نتائج
-- [ ] 22. أزرار بدون Loading State
-- [ ] 23. فورم البحث لا يتحقق من التواريخ على الفرونت إند
-- [ ] 24. عدم وجود زر Scroll to Top
+- [x] 15. واجهة قديمة — تحديث بطاقات الغرف + hotel.php
+- [x] 16. Dark Mode — CSS variables + toggle button + localStorage
+- [x] 17. الصور بدون `alt` — إضافة alt لكل الصور
+- [x] 18. Lazy Loading — `loading="lazy"` + IntersectionObserver
+- [x] 19. Favicon — SVG emoji favicon في header1.php
+- [x] 20. رسائل خطأ — موحّدة في footer.php
+- [x] 21. Empty State — عند عدم وجود غرف أو تقييمات
+- [x] 22. أزرار Loading State — `.btn-loading` CSS + JS
+- [x] 23. فورم البحث يتحقق من التواريخ — hotel.php + rooms.php
+- [x] 24. زر Scroll to Top — CSS + JS في footer.php
 
 ---
 
 ## 🌐 المرحلة الثالثة-ب — دعم متعدد اللغات
 
-- [ ] 25. إضافة نظام ترجمة (i18n) — العربية / الإنجليزية / الكردية
-- [ ] 26. ملفات اللغة: `lang/ar.php`, `lang/en.php`, `lang/ku.php`
-- [ ] 27. زر تبديل اللغة في الـ Header
-- [ ] 28. دعم RTL للعربية والكردية
-- [ ] 29. ترجمة جميع النصوص في الصفحات الرئيسية
-- [ ] 30. حفظ اللغة المختارة في الـ Session
+- [x] 25. نظام ترجمة (i18n) — `lang()` في essentials.php
+- [x] 26. ملفات اللغة: `lang/ar.php`, `lang/en.php`, `lang/ku.php`
+- [x] 27. زر تبديل اللغة في Header — dropdown مع أعلام
+- [x] 28. دعم RTL/LTR — `dir` attribute في hotel.php
+- [x] 29. ترجمة النصوص الرئيسية — header + footer + hotel.php
+- [x] 30. حفظ اللغة في Session — `setLang()` + `$_SESSION['lang']`
 
 ---
 
