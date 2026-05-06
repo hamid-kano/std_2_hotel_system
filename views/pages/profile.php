@@ -5,11 +5,11 @@
     <div class="row">
         <div class="col-12 my-5 px-4">
             <h2 class="fw-bold">
-                <i class="fas fa-user-circle me-2" class="text-primary-custom"></i><?php echo lang('profile'); ?>
+                <i class="fas fa-user-circle" class="text-primary-custom"></i><?php echo lang('profile'); ?>
             </h2>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>" class="text-decoration-none"><i class="fas fa-home me-1"></i>Home</a></li>
+                    <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>" class="text-decoration-none"><i class="fas fa-home"></i>Home</a></li>
                     <li class="breadcrumb-item active">Profile</li>
                 </ol>
             </nav>
@@ -21,37 +21,37 @@
             <div class="card border-0 shadow-sm rounded-3">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4">
-                        <i class="fas fa-id-card me-2" class="text-primary-custom"></i>Basic Information
+                        <i class="fas fa-id-card" class="text-primary-custom"></i>Basic Information
                     </h5>
                     <form id="info-form">
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">
-                                    <i class="fas fa-user me-1"></i>Name
+                                    <i class="fas fa-user"></i>Name
                                 </label>
                                 <input type="text" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">
-                                    <i class="fas fa-envelope me-1"></i>Email
+                                    <i class="fas fa-envelope"></i>Email
                                 </label>
                                 <input type="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">
-                                    <i class="fas fa-phone me-1"></i>Phone Number
+                                    <i class="fas fa-phone"></i>Phone Number
                                 </label>
                                 <input type="text" name="phonenum" value="<?php echo htmlspecialchars($user['phonenum']); ?>" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-8 mb-4">
                                 <label class="form-label">
-                                    <i class="fas fa-map-marker-alt me-1"></i>Address
+                                    <i class="fas fa-map-marker-alt"></i>Address
                                 </label>
                                 <input type="text" name="address" value="<?php echo htmlspecialchars($user['address']); ?>" class="form-control shadow-none" required>
                             </div>
                         </div>
                         <button type="submit" class="btn text-white custom-bg shadow-none">
-                            <i class="fas fa-save me-1"></i>Save Changes
+                            <i class="fas fa-save"></i>Save Changes
                         </button>
                     </form>
                 </div>
@@ -63,31 +63,31 @@
             <div class="card border-0 shadow-sm rounded-3">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4">
-                        <i class="fas fa-lock me-2" class="text-primary-custom"></i>Change Password
+                        <i class="fas fa-lock" class="text-primary-custom"></i>Change Password
                     </h5>
                     <form id="pass-form">
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">
-                                    <i class="fas fa-lock me-1"></i>Current Password
+                                    <i class="fas fa-lock"></i>Current Password
                                 </label>
                                 <input type="password" name="current_pass" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">
-                                    <i class="fas fa-key me-1"></i>New Password
+                                    <i class="fas fa-key"></i>New Password
                                 </label>
                                 <input type="password" name="new_pass" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-4 mb-4">
                                 <label class="form-label">
-                                    <i class="fas fa-check-circle me-1"></i>Confirm Password
+                                    <i class="fas fa-check-circle"></i>Confirm Password
                                 </label>
                                 <input type="password" name="confirm_pass" class="form-control shadow-none" required>
                             </div>
                         </div>
                         <button type="submit" class="btn text-white custom-bg shadow-none">
-                            <i class="fas fa-save me-1"></i>Update Password
+                            <i class="fas fa-save"></i>Update Password
                         </button>
                     </form>
                 </div>

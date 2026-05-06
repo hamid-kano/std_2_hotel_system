@@ -22,26 +22,26 @@
 <div class="container availability-form">
     <div class="card shadow-lg border-0 p-4">
         <h5 class="mb-4 fw-600">
-            <i class="fas fa-search me-2 text-primary-custom"></i>
+            <i class="fas fa-search text-primary-custom"></i>
             <?php echo lang('check_in'); ?> / <?php echo lang('check_out'); ?>
         </h5>
         <form action="<?php echo SITE_URL; ?>rooms" id="avail-form">
             <div class="row align-items-end g-3">
                 <div class="col-lg-3">
                     <label class="form-label">
-                        <i class="fas fa-calendar-check me-1"></i><?php echo lang('check_in'); ?>
+                        <i class="fas fa-calendar-check"></i><?php echo lang('check_in'); ?>
                     </label>
                     <input type="date" class="form-control" name="checkin" id="home_checkin" required>
                 </div>
                 <div class="col-lg-3">
                     <label class="form-label">
-                        <i class="fas fa-calendar-times me-1"></i><?php echo lang('check_out'); ?>
+                        <i class="fas fa-calendar-times"></i><?php echo lang('check_out'); ?>
                     </label>
                     <input type="date" class="form-control" name="checkout" id="home_checkout" required>
                 </div>
                 <div class="col-lg-3">
                     <label class="form-label">
-                        <i class="fas fa-user-friends me-1"></i>Adults
+                        <i class="fas fa-user-friends"></i>Adults
                     </label>
                     <select class="form-select" name="adult">
                         <?php for($i=1; $i<=($maxGuests['max_adult'] ?? 5); $i++): ?>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-lg-2">
                     <label class="form-label">
-                        <i class="fas fa-child me-1"></i>Children
+                        <i class="fas fa-child"></i>Children
                     </label>
                     <select class="form-select" name="children">
                         <?php for($i=0; $i<=($maxGuests['max_children'] ?? 5); $i++): ?>
@@ -73,7 +73,7 @@
 <!-- Our Rooms -->
 <div class="container mt-5 pt-4">
     <div class="section-header">
-        <h2><i class="fas fa-bed me-2 text-primary-custom"></i><?php echo lang('rooms'); ?></h2>
+        <h2><i class="fas fa-bed text-primary-custom"></i><?php echo lang('rooms'); ?></h2>
         <div class="section-divider"></div>
         <p>Discover our luxurious rooms designed for your comfort</p>
     </div>
@@ -101,12 +101,12 @@
                         <h5 class="fw-700 mb-0"><?php echo htmlspecialchars($room['name']); ?></h5>
                         <?php if($rating > 0): ?>
                         <span class="badge bg-light ms-2">
-                            <i class="fas fa-star text-warning me-1"></i><?php echo $rating; ?>
+                            <i class="fas fa-star text-warning"></i><?php echo $rating; ?>
                         </span>
                         <?php endif; ?>
                     </div>
                     <p class="text-secondary mb-3" style="font-size:var(--text-sm);">
-                        <i class="fas fa-moon me-1 text-primary-custom"></i>
+                        <i class="fas fa-moon text-primary-custom"></i>
                         <strong><?php echo $room['price']; ?></strong> <?php echo lang('per_night'); ?>
                     </p>
 
@@ -120,7 +120,7 @@
 
                     <div class="mb-3">
                         <small class="fw-600 text-secondary text-uppercase d-block mb-1" style="font-size:var(--text-xs); letter-spacing:.5px;">
-                            <i class="fas fa-concierge-bell me-1"></i><?php echo lang('facilities'); ?>
+                            <i class="fas fa-concierge-bell"></i><?php echo lang('facilities'); ?>
                         </small>
                         <?php foreach(array_slice($facilities[$rid] ?? [], 0, 3) as $f): ?>
                         <span class="badge bg-light me-1 mb-1"><?php echo htmlspecialchars($f['name']); ?></span>
@@ -129,21 +129,21 @@
 
                     <div class="mb-3">
                         <span class="badge bg-light me-1">
-                            <i class="fas fa-user me-1"></i><?php echo $room['adult']; ?> Adults
+                            <i class="fas fa-user"></i><?php echo $room['adult']; ?> Adults
                         </span>
                         <span class="badge bg-light">
-                            <i class="fas fa-child me-1"></i><?php echo $room['children']; ?> Children
+                            <i class="fas fa-child"></i><?php echo $room['children']; ?> Children
                         </span>
                     </div>
 
                     <div class="d-flex gap-2 mt-auto">
                         <button onclick="checkLoginToBook(<?php echo $login; ?>,<?php echo $rid; ?>)"
                                 class="btn btn-sm custom-bg flex-fill">
-                            <i class="fas fa-calendar-check me-1"></i><?php echo lang('book_now'); ?>
+                            <i class="fas fa-calendar-check"></i><?php echo lang('book_now'); ?>
                         </button>
                         <a href="<?php echo SITE_URL; ?>room/<?php echo $rid; ?>"
                            class="btn btn-sm btn-outline-secondary flex-fill">
-                            <i class="fas fa-eye me-1"></i><?php echo lang('room_details'); ?>
+                            <i class="fas fa-eye"></i><?php echo lang('room_details'); ?>
                         </a>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
         <?php endforeach; ?>
         <div class="col-12 text-center mt-2 mb-4">
             <a href="<?php echo SITE_URL; ?>rooms" class="btn btn-outline-secondary px-5">
-                <i class="fas fa-th-list me-2"></i>More Rooms
+                <i class="fas fa-th-list"></i>More Rooms
             </a>
         </div>
         <?php endif; ?>
@@ -162,7 +162,7 @@
 <!-- Facilities -->
 <div class="container mt-5 pt-2">
     <div class="section-header">
-        <h2><i class="fas fa-concierge-bell me-2 text-primary-custom"></i><?php echo lang('facilities'); ?></h2>
+        <h2><i class="fas fa-concierge-bell text-primary-custom"></i><?php echo lang('facilities'); ?></h2>
         <div class="section-divider"></div>
         <p>Everything you need for a perfect stay</p>
     </div>
@@ -180,7 +180,7 @@
         <?php endforeach; ?>
         <div class="col-12 text-center mt-2 mb-4">
             <a href="<?php echo SITE_URL; ?>facilities" class="btn btn-outline-secondary px-5">
-                <i class="fas fa-plus me-2"></i>Know More
+                <i class="fas fa-plus"></i>Know More
             </a>
         </div>
     </div>
@@ -189,7 +189,7 @@
 <!-- Testimonials -->
 <div class="container mt-5 pt-2">
     <div class="section-header">
-        <h2><i class="fas fa-quote-left me-2 text-primary-custom"></i>Testimonials</h2>
+        <h2><i class="fas fa-quote-left text-primary-custom"></i>Testimonials</h2>
         <div class="section-divider"></div>
         <p>What our guests say about us</p>
     </div>
@@ -230,7 +230,7 @@
 <!-- Reach Us -->
 <div class="container mt-5 pt-2 mb-5">
     <div class="section-header">
-        <h2><i class="fas fa-map-marker-alt me-2 text-primary-custom"></i>Reach Us</h2>
+        <h2><i class="fas fa-map-marker-alt text-primary-custom"></i>Reach Us</h2>
         <div class="section-divider"></div>
     </div>
     <div class="row g-4">
@@ -244,7 +244,7 @@
         <div class="col-lg-4">
             <div class="card border-0 shadow-sm p-4 h-100" style="border-radius:var(--radius-xl);">
                 <h5 class="fw-700 mb-3">
-                    <i class="fas fa-phone me-2 text-primary-custom"></i>Call us
+                    <i class="fas fa-phone text-primary-custom"></i>Call us
                 </h5>
                 <?php if(!empty($contact['pn1'])): ?>
                 <a href="tel:+<?php echo htmlspecialchars($contact['pn1']); ?>"

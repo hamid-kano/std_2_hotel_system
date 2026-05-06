@@ -3,7 +3,7 @@
 
 <div class="my-5 px-4 text-center">
     <h2 class="fw-bold">
-        <i class="fas fa-envelope me-2" class="text-primary-custom"></i>Contact Us
+        <i class="fas fa-envelope" class="text-primary-custom"></i>Contact Us
     </h2>
     <hr class="mx-auto" style="width:80px;border-color:var(--primary);border-width:3px;">
 </div>
@@ -17,7 +17,7 @@
                         class="w-100 rounded-3 mb-4" height="280" title="Map" loading="lazy"></iframe>
 
                 <h5 class="fw-bold mb-3">
-                    <i class="fas fa-map-marker-alt me-2" class="text-primary-custom"></i>Address
+                    <i class="fas fa-map-marker-alt" class="text-primary-custom"></i>Address
                 </h5>
                 <a href="<?php echo htmlspecialchars($contact['gmap'] ?? '#'); ?>" target="_blank"
                    class="d-block text-decoration-none text-dark mb-4">
@@ -25,33 +25,33 @@
                 </a>
 
                 <h5 class="fw-bold mb-3">
-                    <i class="fas fa-phone me-2" class="text-primary-custom"></i>Call Us
+                    <i class="fas fa-phone" class="text-primary-custom"></i>Call Us
                 </h5>
                 <?php if(!empty($contact['pn1'])): ?>
                 <a href="tel:+<?php echo htmlspecialchars($contact['pn1']); ?>"
                    class="d-block mb-2 text-decoration-none text-dark">
-                    <i class="fas fa-phone-alt me-2"></i>+<?php echo htmlspecialchars($contact['pn1']); ?>
+                    <i class="fas fa-phone-alt"></i>+<?php echo htmlspecialchars($contact['pn1']); ?>
                 </a>
                 <?php endif; ?>
                 <?php if(!empty($contact['pn2'])): ?>
                 <a href="tel:+<?php echo htmlspecialchars($contact['pn2']); ?>"
                    class="d-block mb-2 text-decoration-none text-dark">
-                    <i class="fas fa-phone-alt me-2"></i>+<?php echo htmlspecialchars($contact['pn2']); ?>
+                    <i class="fas fa-phone-alt"></i>+<?php echo htmlspecialchars($contact['pn2']); ?>
                 </a>
                 <?php endif; ?>
 
                 <?php if(!empty($contact['email'])): ?>
                 <h5 class="fw-bold mt-3 mb-3">
-                    <i class="fas fa-envelope me-2" class="text-primary-custom"></i>Email
+                    <i class="fas fa-envelope" class="text-primary-custom"></i>Email
                 </h5>
                 <a href="mailto:<?php echo htmlspecialchars($contact['email']); ?>"
                    class="d-block mb-2 text-decoration-none text-dark">
-                    <i class="fas fa-at me-2"></i><?php echo htmlspecialchars($contact['email']); ?>
+                    <i class="fas fa-at"></i><?php echo htmlspecialchars($contact['email']); ?>
                 </a>
                 <?php endif; ?>
 
                 <h5 class="fw-bold mt-3 mb-3">
-                    <i class="fas fa-share-alt me-2" class="text-primary-custom"></i>Follow Us
+                    <i class="fas fa-share-alt" class="text-primary-custom"></i>Follow Us
                 </h5>
                 <div class="d-flex gap-3">
                     <?php if(!empty($contact['fb'])): ?>
@@ -77,32 +77,32 @@
         <div class="col-lg-6 px-4">
             <div class="card border-0 shadow-sm rounded-3 p-4">
                 <h5 class="fw-bold mb-4">
-                    <i class="fas fa-paper-plane me-2" class="text-primary-custom"></i>Send a Message
+                    <i class="fas fa-paper-plane" class="text-primary-custom"></i>Send a Message
                 </h5>
                 <?php if(Session::flash('contact_status') === 'success'): ?>
-                <div class="alert alert-success"><i class="fas fa-check-circle me-2"></i>Message sent successfully!</div>
+                <div class="alert alert-success"><i class="fas fa-check-circle"></i>Message sent successfully!</div>
                 <?php elseif(Session::flash('contact_status') === 'error'): ?>
-                <div class="alert alert-danger"><i class="fas fa-exclamation-circle me-2"></i>Failed to send. Try again.</div>
+                <div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i>Failed to send. Try again.</div>
                 <?php endif; ?>
                 <form method="POST" action="<?php echo SITE_URL; ?>contact">
                     <div class="mb-3">
-                        <label class="form-label"><i class="fas fa-user me-1"></i>Name</label>
+                        <label class="form-label"><i class="fas fa-user"></i>Name</label>
                         <input type="text" name="name" required class="form-control shadow-none">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label"><i class="fas fa-envelope me-1"></i>Email</label>
+                        <label class="form-label"><i class="fas fa-envelope"></i>Email</label>
                         <input type="email" name="email" required class="form-control shadow-none">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label"><i class="fas fa-tag me-1"></i>Subject</label>
+                        <label class="form-label"><i class="fas fa-tag"></i>Subject</label>
                         <input type="text" name="subject" required class="form-control shadow-none">
                     </div>
                     <div class="mb-4">
-                        <label class="form-label"><i class="fas fa-comment me-1"></i>Message</label>
+                        <label class="form-label"><i class="fas fa-comment"></i>Message</label>
                         <textarea name="message" required class="form-control shadow-none" rows="5" style="resize:none;"></textarea>
                     </div>
                     <button type="submit" name="send" class="btn text-white custom-bg shadow-none w-100">
-                        <i class="fas fa-paper-plane me-2"></i>Send Message
+                        <i class="fas fa-paper-plane"></i>Send Message
                     </button>
                 </form>
             </div>

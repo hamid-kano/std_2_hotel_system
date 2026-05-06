@@ -5,8 +5,8 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>" class="text-decoration-none"><i class="fas fa-home me-1"></i><?php echo lang('home'); ?></a></li>
-            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>rooms" class="text-decoration-none"><i class="fas fa-bed me-1"></i><?php echo lang('rooms'); ?></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>" class="text-decoration-none"><i class="fas fa-home"></i><?php echo lang('home'); ?></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>rooms" class="text-decoration-none"><i class="fas fa-bed"></i><?php echo lang('rooms'); ?></a></li>
             <li class="breadcrumb-item active"><?php echo htmlspecialchars($room['name']); ?></li>
         </ol>
     </nav>
@@ -45,7 +45,7 @@
             <?php if(!empty($room['description'])): ?>
             <div class="card border-0 shadow-sm rounded-3 mt-4 p-4">
                 <h5 class="fw-bold mb-3">
-                    <i class="fas fa-align-left me-2" class="text-primary-custom"></i>Description
+                    <i class="fas fa-align-left" class="text-primary-custom"></i>Description
                 </h5>
                 <p class="text-muted mb-0"><?php echo nl2br(htmlspecialchars($room['description'])); ?></p>
             </div>
@@ -54,7 +54,7 @@
             <!-- Reviews -->
             <div class="card border-0 shadow-sm rounded-3 mt-4 p-4">
                 <h5 class="fw-bold mb-4">
-                    <i class="fas fa-star me-2" class="text-primary-custom"></i>Reviews &amp; Ratings
+                    <i class="fas fa-star" class="text-primary-custom"></i>Reviews &amp; Ratings
                     <?php if(!empty($reviews)): ?>
                     <span class="badge bg-light text-dark border ms-2" style="font-size:13px;">
                         <?php echo count($reviews); ?> reviews
@@ -70,7 +70,7 @@
                 <?php foreach($reviews as $rev): ?>
                 <div class="border-start border-3 ps-3 mb-4" style="border-color:var(--primary)!important;">
                     <div class="d-flex align-items-center mb-1">
-                        <i class="fas fa-user-circle me-2 text-muted fs-5"></i>
+                        <i class="fas fa-user-circle text-muted fs-5"></i>
                         <strong><?php echo htmlspecialchars($rev['uname']); ?></strong>
                     </div>
                     <p class="text-muted mb-1 small"><?php echo htmlspecialchars($rev['review']); ?></p>
@@ -92,7 +92,7 @@
                     <?php echo $room['price']; ?>
                 </div>
                 <p class="text-muted mb-3 small">
-                    <i class="fas fa-moon me-1"></i><?php echo lang('per_night'); ?>
+                    <i class="fas fa-moon"></i><?php echo lang('per_night'); ?>
                 </p>
 
                 <?php if($room['rating'] > 0): ?>
@@ -106,14 +106,14 @@
 
                 <div class="d-flex flex-wrap gap-2 mb-3">
                     <span class="badge bg-light text-dark border">
-                        <i class="fas fa-user me-1"></i><?php echo $room['adult']; ?> Adults
+                        <i class="fas fa-user"></i><?php echo $room['adult']; ?> Adults
                     </span>
                     <span class="badge bg-light text-dark border">
-                        <i class="fas fa-child me-1"></i><?php echo $room['children']; ?> Children
+                        <i class="fas fa-child"></i><?php echo $room['children']; ?> Children
                     </span>
                     <?php if(!empty($room['area'])): ?>
                     <span class="badge bg-light text-dark border">
-                        <i class="fas fa-expand-arrows-alt me-1"></i><?php echo htmlspecialchars($room['area']); ?> m²
+                        <i class="fas fa-expand-arrows-alt"></i><?php echo htmlspecialchars($room['area']); ?> m²
                     </span>
                     <?php endif; ?>
                 </div>
@@ -121,7 +121,7 @@
                 <?php if(!empty($room['features'])): ?>
                 <div class="mb-3">
                     <small class="fw-bold text-muted text-uppercase d-block mb-1">
-                        <i class="fas fa-list me-1"></i>Features
+                        <i class="fas fa-list"></i>Features
                     </small>
                     <?php foreach($room['features'] as $f): ?>
                     <span class="badge rounded-pill bg-light text-dark border me-1 mb-1"><?php echo htmlspecialchars($f['name']); ?></span>
@@ -132,7 +132,7 @@
                 <?php if(!empty($room['facilities'])): ?>
                 <div class="mb-4">
                     <small class="fw-bold text-muted text-uppercase d-block mb-1">
-                        <i class="fas fa-concierge-bell me-1"></i><?php echo lang('facilities'); ?>
+                        <i class="fas fa-concierge-bell"></i><?php echo lang('facilities'); ?>
                     </small>
                     <?php foreach($room['facilities'] as $f): ?>
                     <span class="badge rounded-pill bg-light text-dark border me-1 mb-1"><?php echo htmlspecialchars($f['name']); ?></span>
@@ -144,10 +144,10 @@
                 <?php $login = Auth::isUserLoggedIn() ? 1 : 0; ?>
                 <button onclick="checkLoginToBook(<?php echo $login; ?>,<?php echo $room['id']; ?>)"
                         class="btn w-100 text-white custom-bg shadow-none">
-                    <i class="fas fa-calendar-check me-2"></i><?php echo lang('book_now'); ?>
+                    <i class="fas fa-calendar-check"></i><?php echo lang('book_now'); ?>
                 </button>
                 <p class="text-muted small text-center mt-2 mb-0">
-                    <i class="fas fa-shield-alt me-1"></i>Free cancellation before check-in
+                    <i class="fas fa-shield-alt"></i>Free cancellation before check-in
                 </p>
             </div>
         </div>

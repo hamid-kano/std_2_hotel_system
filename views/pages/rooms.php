@@ -9,25 +9,25 @@
             <div class="card border-0 shadow-sm rounded-3">
                 <div class="card-body p-3">
                     <h5 class="fw-bold mb-3">
-                        <i class="fas fa-filter me-2" class="text-primary-custom"></i>Filters
+                        <i class="fas fa-filter" class="text-primary-custom"></i>Filters
                     </h5>
 
                     <!-- Availability -->
                     <div class="border rounded-3 p-3 mb-3">
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6 class="mb-0 fw-bold">
-                                <i class="fas fa-calendar-alt me-2"></i>Availability
+                                <i class="fas fa-calendar-alt"></i>Availability
                             </h6>
                             <button id="chk_avail_btn" onclick="chk_avail_clear()" class="btn btn-sm text-secondary shadow-none d-none">
-                                <i class="fas fa-times me-1"></i>Reset
+                                <i class="fas fa-times"></i>Reset
                             </button>
                         </div>
                         <label class="form-label small text-muted">
-                            <i class="fas fa-calendar-check me-1"></i>Check-in
+                            <i class="fas fa-calendar-check"></i>Check-in
                         </label>
                         <input type="date" class="form-control shadow-none mb-3" id="checkin" onchange="chk_avail_filter()">
                         <label class="form-label small text-muted">
-                            <i class="fas fa-calendar-times me-1"></i>Check-out
+                            <i class="fas fa-calendar-times"></i>Check-out
                         </label>
                         <input type="date" class="form-control shadow-none" id="checkout" onchange="chk_avail_filter()">
                     </div>
@@ -36,10 +36,10 @@
                     <div class="border rounded-3 p-3 mb-3">
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6 class="mb-0 fw-bold">
-                                <i class="fas fa-concierge-bell me-2"></i>Facilities
+                                <i class="fas fa-concierge-bell"></i>Facilities
                             </h6>
                             <button id="facilities_btn" onclick="facilities_clear()" class="btn btn-sm text-secondary shadow-none d-none">
-                                <i class="fas fa-times me-1"></i>Reset
+                                <i class="fas fa-times"></i>Reset
                             </button>
                         </div>
                         <?php foreach($facilities_list as $fac): ?>
@@ -58,22 +58,22 @@
                     <div class="border rounded-3 p-3">
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6 class="mb-0 fw-bold">
-                                <i class="fas fa-users me-2"></i>Guests
+                                <i class="fas fa-users"></i>Guests
                             </h6>
                             <button id="guests_btn" onclick="guests_clear()" class="btn btn-sm text-secondary shadow-none d-none">
-                                <i class="fas fa-times me-1"></i>Reset
+                                <i class="fas fa-times"></i>Reset
                             </button>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label class="form-label small text-muted">
-                                    <i class="fas fa-user me-1"></i>Adults
+                                    <i class="fas fa-user"></i>Adults
                                 </label>
                                 <input type="number" min="1" id="adults" oninput="guests_filter()" class="form-control shadow-none">
                             </div>
                             <div class="col-6">
                                 <label class="form-label small text-muted">
-                                    <i class="fas fa-child me-1"></i>Children
+                                    <i class="fas fa-child"></i>Children
                                 </label>
                                 <input type="number" min="0" id="children" oninput="guests_filter()" class="form-control shadow-none">
                             </div>
@@ -117,7 +117,7 @@ function fetch_rooms(){
 
     roomsData.innerHTML = `<div class="text-center py-5">
         <div class="spinner-border text-info" role="status"></div>
-        <p class="text-muted mt-3"><i class="fas fa-search me-2"></i>Searching rooms...</p>
+        <p class="text-muted mt-3"><i class="fas fa-search"></i>Searching rooms...</p>
     </div>`;
 
     fetch(`${APP.siteUrl}api/rooms/search?fetch_rooms&chk_avail=${encodeURIComponent(chk_avail)}&guests=${encodeURIComponent(guests)}&facility_list=${encodeURIComponent(JSON.stringify(facList))}`)

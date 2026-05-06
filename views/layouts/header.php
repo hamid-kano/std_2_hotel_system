@@ -21,7 +21,7 @@ $isRTL = $lang === 'ar';
 <nav class="navbar navbar-expand-lg sticky-top" id="nav-bar">
     <div class="container-fluid px-lg-4">
         <a class="navbar-brand" href="<?php echo SITE_URL; ?>">
-            <i class="fas fa-hotel me-2"></i><?php echo APP_NAME; ?>
+            <i class="fas fa-hotel"></i><?php echo APP_NAME; ?>
         </a>
 
         <button class="navbar-toggler shadow-none border-0" type="button"
@@ -33,27 +33,27 @@ $isRTL = $lang === 'ar';
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo SITE_URL; ?>">
-                        <i class="fas fa-home me-1"></i><?php echo lang('home'); ?>
+                        <i class="fas fa-home"></i><?php echo lang('home'); ?>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo SITE_URL; ?>rooms">
-                        <i class="fas fa-bed me-1"></i><?php echo lang('rooms'); ?>
+                        <i class="fas fa-bed"></i><?php echo lang('rooms'); ?>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo SITE_URL; ?>facilities">
-                        <i class="fas fa-concierge-bell me-1"></i><?php echo lang('facilities'); ?>
+                        <i class="fas fa-concierge-bell"></i><?php echo lang('facilities'); ?>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo SITE_URL; ?>contact">
-                        <i class="fas fa-envelope me-1"></i><?php echo lang('contact'); ?>
+                        <i class="fas fa-envelope"></i><?php echo lang('contact'); ?>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo SITE_URL; ?>about">
-                        <i class="fas fa-info-circle me-1"></i><?php echo lang('about'); ?>
+                        <i class="fas fa-info-circle"></i><?php echo lang('about'); ?>
                     </a>
                 </li>
             </ul>
@@ -66,7 +66,7 @@ $isRTL = $lang === 'ar';
                 <div class="dropdown lang-switcher">
                     <button class="btn btn-sm btn-outline-secondary dropdown-toggle shadow-none"
                             type="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-language me-1"></i>
+                        <i class="fas fa-language"></i>
                         <?php echo ['ar'=>'العربية','en'=>'English','ku'=>'کوردی'][$lang]; ?>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -86,23 +86,23 @@ $isRTL = $lang === 'ar';
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle shadow-none"
                             data-bs-toggle="dropdown">
-                        <i class="fas fa-user-circle me-1"></i><?php echo htmlspecialchars(Auth::userName()); ?>
+                        <i class="fas fa-user-circle"></i><?php echo htmlspecialchars(Auth::userName()); ?>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-lg-end">
                         <li>
                             <a class="dropdown-item" href="<?php echo SITE_URL; ?>profile">
-                                <i class="fas fa-user me-2 text-primary-custom"></i><?php echo lang('profile'); ?>
+                                <i class="fas fa-user text-primary-custom"></i><?php echo lang('profile'); ?>
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="<?php echo SITE_URL; ?>bookings">
-                                <i class="fas fa-calendar-check me-2 text-primary-custom"></i><?php echo lang('bookings'); ?>
+                                <i class="fas fa-calendar-check text-primary-custom"></i><?php echo lang('bookings'); ?>
                             </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <a class="dropdown-item text-danger" href="<?php echo SITE_URL; ?>logout">
-                                <i class="fas fa-sign-out-alt me-2"></i><?php echo lang('logout'); ?>
+                                <i class="fas fa-sign-out-alt"></i><?php echo lang('logout'); ?>
                             </a>
                         </li>
                     </ul>
@@ -110,11 +110,11 @@ $isRTL = $lang === 'ar';
                 <?php else: ?>
                 <button type="button" class="btn btn-sm btn-outline-secondary shadow-none"
                         data-bs-toggle="modal" data-bs-target="#LoginModal">
-                    <i class="fas fa-sign-in-alt me-1"></i><?php echo lang('login'); ?>
+                    <i class="fas fa-sign-in-alt"></i><?php echo lang('login'); ?>
                 </button>
                 <button type="button" class="btn btn-sm custom-bg shadow-none"
                         data-bs-toggle="modal" data-bs-target="#RegisterModal">
-                    <i class="fas fa-user-plus me-1"></i><?php echo lang('register'); ?>
+                    <i class="fas fa-user-plus"></i><?php echo lang('register'); ?>
                 </button>
                 <?php endif; ?>
             </div>
@@ -129,25 +129,25 @@ $isRTL = $lang === 'ar';
             <form id="login-form">
                 <div class="modal-header">
                     <h5 class="modal-title fw-700">
-                        <i class="fas fa-sign-in-alt me-2 text-primary-custom"></i><?php echo lang('login'); ?>
+                        <i class="fas fa-sign-in-alt text-primary-custom"></i><?php echo lang('login'); ?>
                     </h5>
                     <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">
-                            <i class="fas fa-envelope me-1"></i><?php echo lang('email'); ?> / Mobile
+                            <i class="fas fa-envelope"></i><?php echo lang('email'); ?> / Mobile
                         </label>
                         <input type="text" name="email_mob" required class="form-control">
                     </div>
                     <div class="mb-4">
                         <label class="form-label">
-                            <i class="fas fa-lock me-1"></i><?php echo lang('password'); ?>
+                            <i class="fas fa-lock"></i><?php echo lang('password'); ?>
                         </label>
                         <input type="password" required name="pass" class="form-control">
                     </div>
                     <button type="submit" class="btn custom-bg w-100">
-                        <i class="fas fa-sign-in-alt me-1"></i><?php echo lang('login'); ?>
+                        <i class="fas fa-sign-in-alt"></i><?php echo lang('login'); ?>
                     </button>
                 </div>
             </form>
@@ -162,47 +162,47 @@ $isRTL = $lang === 'ar';
             <form id="register-form">
                 <div class="modal-header">
                     <h5 class="modal-title fw-700">
-                        <i class="fas fa-user-plus me-2 text-primary-custom"></i><?php echo lang('register'); ?>
+                        <i class="fas fa-user-plus text-primary-custom"></i><?php echo lang('register'); ?>
                     </h5>
                     <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-user me-1"></i><?php echo lang('name'); ?></label>
+                            <label class="form-label"><i class="fas fa-user"></i><?php echo lang('name'); ?></label>
                             <input type="text" name="name" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-envelope me-1"></i><?php echo lang('email'); ?></label>
+                            <label class="form-label"><i class="fas fa-envelope"></i><?php echo lang('email'); ?></label>
                             <input type="email" name="email" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-phone me-1"></i><?php echo lang('phone'); ?></label>
+                            <label class="form-label"><i class="fas fa-phone"></i><?php echo lang('phone'); ?></label>
                             <input type="text" name="phonenum" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-map-marker-alt me-1"></i>Address</label>
+                            <label class="form-label"><i class="fas fa-map-marker-alt"></i>Address</label>
                             <input name="address" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-map-pin me-1"></i>Pincode</label>
+                            <label class="form-label"><i class="fas fa-map-pin"></i>Pincode</label>
                             <input name="pincode" type="text" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-calendar me-1"></i>Date of birth</label>
+                            <label class="form-label"><i class="fas fa-calendar"></i>Date of birth</label>
                             <input name="dob" type="date" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-lock me-1"></i><?php echo lang('password'); ?></label>
+                            <label class="form-label"><i class="fas fa-lock"></i><?php echo lang('password'); ?></label>
                             <input name="pass" type="password" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-lock me-1"></i>Confirm Password</label>
+                            <label class="form-label"><i class="fas fa-lock"></i>Confirm Password</label>
                             <input name="cpass" type="password" class="form-control" required>
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn custom-bg w-100">
-                                <i class="fas fa-user-plus me-1"></i><?php echo lang('register'); ?>
+                                <i class="fas fa-user-plus"></i><?php echo lang('register'); ?>
                             </button>
                         </div>
                     </div>

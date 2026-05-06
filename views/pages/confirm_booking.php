@@ -4,8 +4,8 @@
 <div class="container my-5">
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>" class="text-decoration-none"><i class="fas fa-home me-1"></i>Home</a></li>
-            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>rooms" class="text-decoration-none"><i class="fas fa-bed me-1"></i>Rooms</a></li>
+            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>" class="text-decoration-none"><i class="fas fa-home"></i>Home</a></li>
+            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>rooms" class="text-decoration-none"><i class="fas fa-bed"></i>Rooms</a></li>
             <li class="breadcrumb-item active"><?php echo lang('booking_confirm'); ?></li>
         </ol>
     </nav>
@@ -19,7 +19,7 @@
                 <div class="card-body p-4">
                     <h4 class="fw-bold mb-1"><?php echo htmlspecialchars($room['name']); ?></h4>
                     <p class="text-muted mb-2">
-                        <i class="fas fa-moon me-1"></i>
+                        <i class="fas fa-moon"></i>
                         <strong><?php echo $room['price']; ?></strong> <?php echo lang('per_night'); ?>
                     </p>
                     <?php if($rating > 0): ?>
@@ -31,14 +31,14 @@
                     <?php endif; ?>
                     <div class="d-flex gap-2 flex-wrap mt-3">
                         <span class="badge bg-light text-dark border">
-                            <i class="fas fa-user me-1"></i><?php echo $room['adult']; ?> Adults
+                            <i class="fas fa-user"></i><?php echo $room['adult']; ?> Adults
                         </span>
                         <span class="badge bg-light text-dark border">
-                            <i class="fas fa-child me-1"></i><?php echo $room['children']; ?> Children
+                            <i class="fas fa-child"></i><?php echo $room['children']; ?> Children
                         </span>
                         <?php if(!empty($room['area'])): ?>
                         <span class="badge bg-light text-dark border">
-                            <i class="fas fa-expand-arrows-alt me-1"></i><?php echo htmlspecialchars($room['area']); ?> m²
+                            <i class="fas fa-expand-arrows-alt"></i><?php echo htmlspecialchars($room['area']); ?> m²
                         </span>
                         <?php endif; ?>
                     </div>
@@ -58,28 +58,28 @@
                     <form action="<?php echo SITE_URL; ?>booking/pay" method="POST" id="booking_form">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label"><i class="fas fa-user me-1"></i><?php echo lang('name'); ?></label>
+                                <label class="form-label"><i class="fas fa-user"></i><?php echo lang('name'); ?></label>
                                 <input type="text" name="name" value="<?php echo htmlspecialchars($user['name']); ?>"
                                        class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label"><i class="fas fa-phone me-1"></i><?php echo lang('phone'); ?></label>
+                                <label class="form-label"><i class="fas fa-phone"></i><?php echo lang('phone'); ?></label>
                                 <input type="text" name="phonenum" value="<?php echo htmlspecialchars($user['phonenum']); ?>"
                                        class="form-control shadow-none" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label"><i class="fas fa-map-marker-alt me-1"></i>Address</label>
+                                <label class="form-label"><i class="fas fa-map-marker-alt"></i>Address</label>
                                 <input name="address" value="<?php echo htmlspecialchars($user['address']); ?>"
                                        class="form-control shadow-none" required>
                             </div>
                             <div class="col-12"><hr class="my-1"></div>
                             <div class="col-md-6">
-                                <label class="form-label"><i class="fas fa-calendar-check me-1"></i><?php echo lang('check_in'); ?></label>
+                                <label class="form-label"><i class="fas fa-calendar-check"></i><?php echo lang('check_in'); ?></label>
                                 <input type="date" name="checkin" id="checkin_input" onchange="check_availability()"
                                        class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label"><i class="fas fa-calendar-times me-1"></i><?php echo lang('check_out'); ?></label>
+                                <label class="form-label"><i class="fas fa-calendar-times"></i><?php echo lang('check_out'); ?></label>
                                 <input type="date" name="checkout" id="checkout_input" onchange="check_availability()"
                                        class="form-control shadow-none" required>
                             </div>
@@ -97,11 +97,11 @@
                             <div class="col-12 d-none" id="summary_box">
                                 <div class="p-3 rounded-3 border" style="background:rgba(46,193,172,.08);">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <span class="text-muted small"><i class="fas fa-moon me-1"></i>Nights</span>
+                                        <span class="text-muted small"><i class="fas fa-moon"></i>Nights</span>
                                         <strong id="summary_nights">—</strong>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <span class="text-muted small"><i class="fas fa-dollar-sign me-1"></i><?php echo lang('total_price'); ?></span>
+                                        <span class="text-muted small"><i class="fas fa-dollar-sign"></i><?php echo lang('total_price'); ?></span>
                                         <strong id="summary_total" class="text-primary-custom">—</strong>
                                     </div>
                                 </div>
@@ -110,10 +110,10 @@
                             <div class="col-12 mt-2">
                                 <button name="pay_now" id="pay_btn" type="submit"
                                         class="btn w-100 text-white custom-bg shadow-none" disabled>
-                                    <i class="fas fa-credit-card me-2"></i><?php echo lang('booking_confirm'); ?>
+                                    <i class="fas fa-credit-card"></i><?php echo lang('booking_confirm'); ?>
                                 </button>
                                 <p class="text-muted small text-center mt-2 mb-0">
-                                    <i class="fas fa-shield-alt me-1"></i>Secure booking
+                                    <i class="fas fa-shield-alt"></i>Secure booking
                                 </p>
                             </div>
                         </div>
@@ -140,7 +140,7 @@ ci.addEventListener('change', ()=>{ if(ci.value) co.min = ci.value; });
 function setStatus(msg, type){
     const icons = {success:'fa-check-circle', danger:'fa-exclamation-circle', warning:'fa-exclamation-triangle'};
     status.className = `alert alert-${type} rounded-3 p-3 small`;
-    status.innerHTML = `<i class="fas ${icons[type]||'fa-info-circle'} me-2"></i>${msg}`;
+    status.innerHTML = `<i class="fas ${icons[type]||'fa-info-circle'}"></i>${msg}`;
     status.classList.remove('d-none');
 }
 

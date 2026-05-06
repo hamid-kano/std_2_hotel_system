@@ -6,7 +6,7 @@
     <h1 class="fw-bold display-4">404</h1>
     <p class="text-muted fs-5 mb-4">Oops! The page you're looking for doesn't exist.</p>
     <a href="<?php echo SITE_URL; ?>" class="btn text-white custom-bg shadow-none">
-        <i class="fas fa-home me-2"></i>Back to Home
+        <i class="fas fa-home"></i>Back to Home
     </a>
 </div>
 

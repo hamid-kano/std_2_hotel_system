@@ -8,7 +8,7 @@
         <div class="row g-4">
             <div class="col-lg-4">
                 <h4 class="fw-800 mb-3" class="text-primary-custom">
-                    <i class="fas fa-hotel me-2"></i><?php echo htmlspecialchars($settings['site_title'] ?? APP_NAME); ?>
+                    <i class="fas fa-hotel"></i><?php echo htmlspecialchars($settings['site_title'] ?? APP_NAME); ?>
                 </h4>
                 <p style="color:var(--text-secondary); font-size:var(--text-sm); line-height:1.7;">
                     <?php echo htmlspecialchars($settings['site_about'] ?? ''); ?>
@@ -71,7 +71,7 @@
         </div>
     </div>
     <div class="border-top py-3 text-center" style="font-size:var(--text-xs); color:var(--text-muted);">
-        <i class="fas fa-copyright me-1"></i><?php echo date('Y'); ?>
+        <i class="fas fa-copyright"></i><?php echo date('Y'); ?>
         <?php echo htmlspecialchars($settings['site_title'] ?? APP_NAME); ?> — All rights reserved.
     </div>
 </footer>

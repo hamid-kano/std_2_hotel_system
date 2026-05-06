@@ -4,7 +4,7 @@
 <!-- Hero -->
 <div class="my-5 px-4 text-center">
     <h2 class="fw-bold">
-        <i class="fas fa-info-circle me-2" class="text-primary-custom"></i>About Us
+        <i class="fas fa-info-circle" class="text-primary-custom"></i>About Us
     </h2>
     <hr class="mx-auto" style="width:80px;border-color:var(--primary);border-width:3px;">
     <p class="text-muted mt-3 mx-auto" style="max-width:700px;">
@@ -18,7 +18,7 @@
     <div class="row justify-content-between align-items-center">
         <div class="col-lg-6 mb-4 order-lg-1 order-2">
             <h3 class="mb-3 fw-bold">
-                <i class="fas fa-star me-2" class="text-primary-custom"></i>Elevated Experiences
+                <i class="fas fa-star" class="text-primary-custom"></i>Elevated Experiences
             </h3>
             <p class="text-muted">
                 At our prestigious hotel, we are dedicated to exceeding the expectations of our discerning guests.
@@ -58,7 +58,7 @@
 <div class="container mb-5">
     <div class="text-center mb-5">
         <h3 class="fw-bold">
-            <i class="fas fa-users me-2" class="text-primary-custom"></i>Management Team
+            <i class="fas fa-users" class="text-primary-custom"></i>Management Team
         </h3>
     </div>
     <div class="swiper swiper-team">

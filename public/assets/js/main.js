@@ -16,20 +16,24 @@ function alert(type, msg){
 (function(){
     const saved = localStorage.getItem('vana_theme') || 'light';
     document.documentElement.setAttribute('data-theme', saved);
-    const btn = document.getElementById('darkToggle');
-    if(btn){
-        const icon = btn.querySelector('i');
-        if(icon) icon.className = saved==='dark' ? 'fas fa-sun' : 'fas fa-moon';
-    }
+    _applyDarkToggleIcon(saved);
 })();
+
+function _applyDarkToggleIcon(theme) {
+    const btn = document.getElementById('darkToggle');
+    if (!btn) return;
+    const icon = btn.querySelector('i');
+    if (icon) {
+        icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+}
 
 document.getElementById('darkToggle')?.addEventListener('click', function(){
     const current = document.documentElement.getAttribute('data-theme');
-    const next = current==='dark' ? 'light' : 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('vana_theme', next);
-    const icon = this.querySelector('i');
-    if(icon) icon.className = next==='dark' ? 'fas fa-sun' : 'fas fa-moon';
+    _applyDarkToggleIcon(next);
 });
 
 /* ===== SCROLL TO TOP ===== */
