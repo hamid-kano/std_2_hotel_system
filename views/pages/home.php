@@ -201,23 +201,26 @@
             <?php foreach($testimonials as $review): ?>
             <div class="swiper-slide">
                 <div class="testimonial-card">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0"
-                             style="width:44px;height:44px;background:var(--primary-light);color:var(--primary);">
+                    <i class="fas fa-quote-left testimonial-quote"></i>
+                    <p class="testimonial-text">
+                        <?php echo htmlspecialchars($review['review']); ?>
+                    </p>
+                    <div class="testimonial-footer">
+                        <div class="testimonial-avatar">
                             <i class="fas fa-user"></i>
                         </div>
                         <div>
-                            <h6 class="mb-0 fw-600"><?php echo htmlspecialchars($review['uname']); ?></h6>
-                            <div>
+                            <p class="testimonial-name"><?php echo htmlspecialchars($review['uname']); ?></p>
+                            <div class="testimonial-stars">
                                 <?php for($i=0; $i<(int)$review['rating']; $i++): ?>
-                                <i class="fas fa-star text-warning" style="font-size:var(--text-xs);"></i>
+                                <i class="fas fa-star"></i>
+                                <?php endfor; ?>
+                                <?php for($i=(int)$review['rating']; $i<5; $i++): ?>
+                                <i class="far fa-star"></i>
                                 <?php endfor; ?>
                             </div>
                         </div>
                     </div>
-                    <p class="text-secondary mb-0" style="font-size:var(--text-sm);">
-                        "<?php echo htmlspecialchars($review['review']); ?>"
-                    </p>
                 </div>
             </div>
             <?php endforeach; ?>
