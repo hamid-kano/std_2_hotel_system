@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-12 my-5 px-4">
             <h2 class="fw-bold">
-                <i class="fas fa-calendar-check me-2" style="color:var(--teal);"></i><?php echo lang('bookings'); ?>
+                <i class="fas fa-calendar-check me-2" class="text-primary-custom"></i><?php echo lang('bookings'); ?>
             </h2>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -125,7 +125,7 @@
             <form id="review-form">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <i class="fas fa-star me-2" style="color:var(--teal);"></i>Rate & Review
+                        <i class="fas fa-star me-2" class="text-primary-custom"></i>Rate & Review
                     </h5>
                     <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
                 </div>

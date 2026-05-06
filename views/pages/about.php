@@ -4,9 +4,9 @@
 <!-- Hero -->
 <div class="my-5 px-4 text-center">
     <h2 class="fw-bold">
-        <i class="fas fa-info-circle me-2" style="color:var(--teal);"></i>About Us
+        <i class="fas fa-info-circle me-2" class="text-primary-custom"></i>About Us
     </h2>
-    <hr class="mx-auto" style="width:80px;border-color:var(--teal);border-width:3px;">
+    <hr class="mx-auto" style="width:80px;border-color:var(--primary);border-width:3px;">
     <p class="text-muted mt-3 mx-auto" style="max-width:700px;">
         At our hotel, we aim to provide a comfortable and enjoyable stay for all our guests.
         Our experienced team is dedicated to consistently delivering the highest levels of service.
@@ -18,7 +18,7 @@
     <div class="row justify-content-between align-items-center">
         <div class="col-lg-6 mb-4 order-lg-1 order-2">
             <h3 class="mb-3 fw-bold">
-                <i class="fas fa-star me-2" style="color:var(--teal);"></i>Elevated Experiences
+                <i class="fas fa-star me-2" class="text-primary-custom"></i>Elevated Experiences
             </h3>
             <p class="text-muted">
                 At our prestigious hotel, we are dedicated to exceeding the expectations of our discerning guests.
@@ -44,8 +44,8 @@
         foreach($stats as $s):
         ?>
         <div class="col-lg-3 col-md-6 mb-4 px-4">
-            <div class="card border-0 shadow-sm rounded-3 p-4 text-center border-top border-4" style="border-color:var(--teal)!important;">
-                <i class="<?php echo $s['icon']; ?> fa-2x mb-3" style="color:var(--teal);"></i>
+            <div class="card border-0 shadow-sm rounded-3 p-4 text-center border-top border-4" style="border-color:var(--primary)!important;">
+                <i class="<?php echo $s['icon']; ?> fa-2x mb-3" class="text-primary-custom"></i>
                 <h4 class="fw-bold"><?php echo $s['value']; ?></h4>
                 <p class="text-muted mb-0"><?php echo $s['label']; ?></p>
             </div>
@@ -58,7 +58,7 @@
 <div class="container mb-5">
     <div class="text-center mb-5">
         <h3 class="fw-bold">
-            <i class="fas fa-users me-2" style="color:var(--teal);"></i>Management Team
+            <i class="fas fa-users me-2" class="text-primary-custom"></i>Management Team
         </h3>
     </div>
     <div class="swiper swiper-team">

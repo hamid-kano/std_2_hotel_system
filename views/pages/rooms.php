@@ -9,7 +9,7 @@
             <div class="card border-0 shadow-sm rounded-3">
                 <div class="card-body p-3">
                     <h5 class="fw-bold mb-3">
-                        <i class="fas fa-filter me-2" style="color:var(--teal);"></i>Filters
+                        <i class="fas fa-filter me-2" class="text-primary-custom"></i>Filters
                     </h5>
 
                     <!-- Availability -->

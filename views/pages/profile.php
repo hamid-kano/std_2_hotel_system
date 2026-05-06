@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-12 my-5 px-4">
             <h2 class="fw-bold">
-                <i class="fas fa-user-circle me-2" style="color:var(--teal);"></i><?php echo lang('profile'); ?>
+                <i class="fas fa-user-circle me-2" class="text-primary-custom"></i><?php echo lang('profile'); ?>
             </h2>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -21,7 +21,7 @@
             <div class="card border-0 shadow-sm rounded-3">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4">
-                        <i class="fas fa-id-card me-2" style="color:var(--teal);"></i>Basic Information
+                        <i class="fas fa-id-card me-2" class="text-primary-custom"></i>Basic Information
                     </h5>
                     <form id="info-form">
                         <div class="row">
@@ -63,7 +63,7 @@
             <div class="card border-0 shadow-sm rounded-3">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4">
-                        <i class="fas fa-lock me-2" style="color:var(--teal);"></i>Change Password
+                        <i class="fas fa-lock me-2" class="text-primary-custom"></i>Change Password
                     </h5>
                     <form id="pass-form">
                         <div class="row">

@@ -45,7 +45,7 @@
             <?php if(!empty($room['description'])): ?>
             <div class="card border-0 shadow-sm rounded-3 mt-4 p-4">
                 <h5 class="fw-bold mb-3">
-                    <i class="fas fa-align-left me-2" style="color:var(--teal);"></i>Description
+                    <i class="fas fa-align-left me-2" class="text-primary-custom"></i>Description
                 </h5>
                 <p class="text-muted mb-0"><?php echo nl2br(htmlspecialchars($room['description'])); ?></p>
             </div>
@@ -54,7 +54,7 @@
             <!-- Reviews -->
             <div class="card border-0 shadow-sm rounded-3 mt-4 p-4">
                 <h5 class="fw-bold mb-4">
-                    <i class="fas fa-star me-2" style="color:var(--teal);"></i>Reviews &amp; Ratings
+                    <i class="fas fa-star me-2" class="text-primary-custom"></i>Reviews &amp; Ratings
                     <?php if(!empty($reviews)): ?>
                     <span class="badge bg-light text-dark border ms-2" style="font-size:13px;">
                         <?php echo count($reviews); ?> reviews
@@ -68,7 +68,7 @@
                 </div>
                 <?php else: ?>
                 <?php foreach($reviews as $rev): ?>
-                <div class="border-start border-3 ps-3 mb-4" style="border-color:var(--teal)!important;">
+                <div class="border-start border-3 ps-3 mb-4" style="border-color:var(--primary)!important;">
                     <div class="d-flex align-items-center mb-1">
                         <i class="fas fa-user-circle me-2 text-muted fs-5"></i>
                         <strong><?php echo htmlspecialchars($rev['uname']); ?></strong>
@@ -88,7 +88,7 @@
         <!-- Right: Info & Booking -->
         <div class="col-lg-5">
             <div class="card border-0 shadow-sm rounded-3 p-4 sticky-top" style="top:80px;">
-                <div class="mb-1" style="font-size:1.8rem; font-weight:700; color:var(--teal);">
+                <div class="mb-1" style="font-size:1.8rem; font-weight:700; color:var(--primary);">
                     <?php echo $room['price']; ?>
                 </div>
                 <p class="text-muted mb-3 small">

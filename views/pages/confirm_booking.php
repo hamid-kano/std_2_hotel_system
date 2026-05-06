@@ -51,7 +51,7 @@
             <div class="card border-0 shadow-sm rounded-3">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-4">
-                        <span class="badge rounded-circle me-2 text-white" style="background:var(--teal);width:28px;height:28px;line-height:28px;">1</span>
+                        <span class="badge rounded-circle me-2 text-white" style="background:var(--primary);width:28px;height:28px;line-height:28px;">1</span>
                         <?php echo lang('booking_confirm'); ?>
                     </h5>
 
@@ -102,7 +102,7 @@
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <span class="text-muted small"><i class="fas fa-dollar-sign me-1"></i><?php echo lang('total_price'); ?></span>
-                                        <strong id="summary_total" style="color:var(--teal);">—</strong>
+                                        <strong id="summary_total" class="text-primary-custom">—</strong>
                                     </div>
                                 </div>
                             </div>
