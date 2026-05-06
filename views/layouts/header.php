@@ -108,106 +108,16 @@ $isRTL = $lang === 'ar';
                     </ul>
                 </div>
                 <?php else: ?>
-                <button type="button" class="btn btn-sm btn-outline-secondary shadow-none"
-                        data-bs-toggle="modal" data-bs-target="#LoginModal">
+                <a href="<?php echo SITE_URL; ?>login"
+                   class="btn btn-sm btn-outline-secondary shadow-none">
                     <i class="fas fa-sign-in-alt"></i><?php echo lang('login'); ?>
-                </button>
-                <button type="button" class="btn btn-sm custom-bg shadow-none"
-                        data-bs-toggle="modal" data-bs-target="#RegisterModal">
+                </a>
+                <a href="<?php echo SITE_URL; ?>register"
+                   class="btn btn-sm custom-bg shadow-none">
                     <i class="fas fa-user-plus"></i><?php echo lang('register'); ?>
-                </button>
+                </a>
                 <?php endif; ?>
             </div>
         </div>
     </div>
 </nav>
-
-<!-- Login Modal -->
-<div class="modal fade" id="LoginModal" data-bs-backdrop="static" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="login-form">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-700">
-                        <i class="fas fa-sign-in-alt text-primary-custom"></i><?php echo lang('login'); ?>
-                    </h5>
-                    <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">
-                            <i class="fas fa-envelope"></i><?php echo lang('email'); ?> / Mobile
-                        </label>
-                        <input type="text" name="email_mob" required class="form-control">
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">
-                            <i class="fas fa-lock"></i><?php echo lang('password'); ?>
-                        </label>
-                        <input type="password" required name="pass" class="form-control">
-                    </div>
-                    <button type="submit" class="btn custom-bg w-100">
-                        <i class="fas fa-sign-in-alt"></i><?php echo lang('login'); ?>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Register Modal -->
-<div class="modal fade" id="RegisterModal" data-bs-backdrop="static" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <form id="register-form">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-700">
-                        <i class="fas fa-user-plus text-primary-custom"></i><?php echo lang('register'); ?>
-                    </h5>
-                    <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-user"></i><?php echo lang('name'); ?></label>
-                            <input type="text" name="name" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-envelope"></i><?php echo lang('email'); ?></label>
-                            <input type="email" name="email" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-phone"></i><?php echo lang('phone'); ?></label>
-                            <input type="text" name="phonenum" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-map-marker-alt"></i>Address</label>
-                            <input name="address" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-map-pin"></i>Pincode</label>
-                            <input name="pincode" type="text" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-calendar"></i>Date of birth</label>
-                            <input name="dob" type="date" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-lock"></i><?php echo lang('password'); ?></label>
-                            <input name="pass" type="password" class="form-control" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label"><i class="fas fa-lock"></i>Confirm Password</label>
-                            <input name="cpass" type="password" class="form-control" required>
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn custom-bg w-100">
-                                <i class="fas fa-user-plus"></i><?php echo lang('register'); ?>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

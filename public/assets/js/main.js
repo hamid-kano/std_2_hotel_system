@@ -68,77 +68,12 @@ function setActive(){
     });
 }
 
-/* ===== REGISTER FORM ===== */
-const register_form = document.getElementById('register-form');
-if(register_form){
-    register_form.addEventListener('submit', (e)=>{
-        e.preventDefault();
-        const btn = register_form.querySelector('[type=submit]');
-        btn.classList.add('btn-loading');
-
-        const data = new FormData();
-        ['name','email','phonenum','address','pincode','dob','pass','cpass'].forEach(k=>{
-            data.append(k, register_form.elements[k].value);
-        });
-        data.append('register','');
-
-        bootstrap.Modal.getInstance(document.getElementById('RegisterModal'))?.hide();
-
-        fetch(APP.siteUrl + 'api/auth/register', {
-            method: 'POST',
-            body: data
-        })
-        .then(r => r.text())
-        .then(r => {
-            btn.classList.remove('btn-loading');
-            if(r==='pass_mismatch') alert('error','Password Mismatch');
-            else if(r==='email_already') alert('error','Email already registered!');
-            else if(r==='phone_already') alert('error','Phone already registered!');
-            else if(r==='ins_failed') alert('error','Registration failed!');
-            else{ alert('success','Registration successful!'); register_form.reset(); }
-        })
-        .catch(()=>{ btn.classList.remove('btn-loading'); alert('error','Connection error'); });
-    });
-}
-
-/* ===== LOGIN FORM ===== */
-const login_form = document.getElementById('login-form');
-if(login_form){
-    login_form.addEventListener('submit', (e)=>{
-        e.preventDefault();
-        const btn = login_form.querySelector('[type=submit]');
-        btn.classList.add('btn-loading');
-
-        const data = new FormData();
-        data.append('email_mob', login_form.elements['email_mob'].value);
-        data.append('pass', login_form.elements['pass'].value);
-        data.append('login','');
-
-        bootstrap.Modal.getInstance(document.getElementById('LoginModal'))?.hide();
-
-        fetch(APP.siteUrl + 'api/auth/login', {
-            method: 'POST',
-            body: data
-        })
-        .then(r => r.text())
-        .then(r => {
-            btn.classList.remove('btn-loading');
-            if(r==="inv_email_mob") alert("error","Invalid Email or Mobile!");
-            else if(r==="inactive") alert("error","Account Suspended!");
-            else if(r==="invalid_pass") alert("error","Incorrect Password!");
-            else if(r==="rate_limit") alert("error","Too many attempts. Wait 10 minutes.");
-            else{ window.location.reload(); }
-        })
-        .catch(()=>{ btn.classList.remove('btn-loading'); alert('error','Connection error'); });
-    });
-}
-
 /* ===== BOOK ROOM ===== */
 function checkLoginToBook(status, room_id){
     if(status){
         window.location.href = APP.siteUrl + 'booking/confirm?id=' + room_id;
     } else {
-        alert('error','Please login to book a room!');
+        window.location.href = APP.siteUrl + 'login';
     }
 }
 

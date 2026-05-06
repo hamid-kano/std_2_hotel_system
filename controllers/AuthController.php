@@ -5,7 +5,26 @@
  */
 
 class AuthController extends BaseController {
-    
+
+    public function loginPage() {
+        if (Auth::isUserLoggedIn()) {
+            $this->redirect(SITE_URL);
+        }
+        // Auth pages use their own layout — no settings/contact needed
+        $lang = Session::getLang();
+        require BASE_PATH . '/views/auth/login.php';
+        exit;
+    }
+
+    public function registerPage() {
+        if (Auth::isUserLoggedIn()) {
+            $this->redirect(SITE_URL);
+        }
+        $lang = Session::getLang();
+        require BASE_PATH . '/views/auth/register.php';
+        exit;
+    }
+
     public function login() {
         if (!Request::isPost()) {
             $this->error('Method not allowed', 405);
