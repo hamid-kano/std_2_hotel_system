@@ -1,29 +1,32 @@
-# Logs
-*.log
-booking_debug.log
+# Storage
+/storage/cache/*
+!/storage/cache/.gitkeep
+/storage/logs/*
+!/storage/logs/.gitkeep
 
-# Environment files
-.env
-.env.local
-
-# Database backups
-*.sql.gz
-*.sql.bak
-
-# Cache
-/inc/cache/
-*.cache
+# Uploads
+/public/images/users/*
+!/public/images/users/.gitkeep
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Uploads (optional - uncomment if you don't want to track uploads)
-# images/users/*
-# !images/users/.gitkeep
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+booking_debug.log
+
+# Temporary files
+*.tmp
+*.bak
