@@ -22,21 +22,21 @@ $pageTitle = APP_NAME . ' — ' . lang('login');
                 <span><?php echo APP_NAME; ?></span>
             </a>
             <div class="auth-panel-tagline">
-                <h2>Welcome back.</h2>
-                <p>Sign in to manage your bookings, explore our rooms, and enjoy a seamless stay experience.</p>
+                <h2><?php echo lang('login_welcome'); ?></h2>
+                <p><?php echo lang('login_welcome_sub'); ?></p>
             </div>
             <div class="auth-panel-features">
                 <div class="auth-feature">
                     <i class="fas fa-calendar-check"></i>
-                    <span>Manage your bookings</span>
+                    <span><?php echo lang('feat_manage_book'); ?></span>
                 </div>
                 <div class="auth-feature">
                     <i class="fas fa-star"></i>
-                    <span>Rate & review your stay</span>
+                    <span><?php echo lang('feat_rate_review'); ?></span>
                 </div>
                 <div class="auth-feature">
                     <i class="fas fa-wallet"></i>
-                    <span>Track your balance</span>
+                    <span><?php echo lang('feat_track_bal'); ?></span>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@ $pageTitle = APP_NAME . ' — ' . lang('login');
         <div class="auth-topbar">
             <a href="<?php echo SITE_URL; ?>" class="auth-back">
                 <i class="fas fa-arrow-left"></i>
-                <span>Back to site</span>
+                <span><?php echo lang('back_to_site'); ?></span>
             </a>
             <div class="d-flex align-items-center gap-2">
                 <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
@@ -66,7 +66,7 @@ $pageTitle = APP_NAME . ' — ' . lang('login');
                     <i class="fas fa-sign-in-alt"></i>
                 </div>
                 <h1 class="auth-title"><?php echo lang('login'); ?></h1>
-                <p class="auth-subtitle">Enter your credentials to access your account</p>
+                <p class="auth-subtitle"><?php echo lang('login_subtitle'); ?></p>
             </div>
 
             <!-- Alert area -->
@@ -80,7 +80,7 @@ $pageTitle = APP_NAME . ' — ' . lang('login');
                     </label>
                     <input type="text" name="email_mob" id="email_mob"
                            class="form-control form-control-lg"
-                           placeholder="email@example.com or 07xxxxxxxx"
+                           placeholder="<?php echo lang('email_hint'); ?> <?php echo lang('phone_hint'); ?>"
                            autocomplete="username" required>
                 </div>
 
@@ -93,9 +93,9 @@ $pageTitle = APP_NAME . ' — ' . lang('login');
                     <div class="auth-password-wrap">
                         <input type="password" name="pass" id="pass"
                                class="form-control form-control-lg"
-                               placeholder="••••••••"
+                               placeholder="<?php echo lang('pass_placeholder'); ?>"
                                autocomplete="current-password" required>
-                        <button type="button" class="auth-eye" id="togglePass" aria-label="Show password">
+                        <button type="button" class="auth-eye" id="togglePass" aria-label="<?php echo lang('show_password'); ?>">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
@@ -108,7 +108,7 @@ $pageTitle = APP_NAME . ' — ' . lang('login');
             </form>
 
             <p class="auth-switch">
-                Don't have an account?
+                <?php echo lang('no_account'); ?>
                 <a href="<?php echo SITE_URL; ?>register">
                     <i class="fas fa-user-plus"></i><?php echo lang('register'); ?>
                 </a>
@@ -178,15 +178,15 @@ document.getElementById('login-form').addEventListener('submit', function(e){
             btn.classList.remove('btn-loading');
             btn.disabled = false;
             const msgs = {
-                inv_email_mob: 'Invalid email or mobile number.',
-                inactive:      'Your account has been suspended. Contact support.',
-                invalid_pass:  'Incorrect password.',
-                rate_limit:    'Too many attempts. Please wait 10 minutes.'
+                inv_email_mob: '<?php echo lang('err_inv_email_mob'); ?>',
+                inactive:      '<?php echo lang('err_inactive'); ?>',
+                invalid_pass:  '<?php echo lang('err_invalid_pass'); ?>',
+                rate_limit:    '<?php echo lang('err_rate_limit'); ?>'
             };
             if(msgs[r]){
                 showAlert(msgs[r], 'danger');
             } else {
-                showAlert('Login successful! Redirecting…', 'success');
+                showAlert('<?php echo lang('login_redirecting'); ?>', 'success');
                 setTimeout(() => window.location.href = APP.siteUrl, 800);
             }
         })

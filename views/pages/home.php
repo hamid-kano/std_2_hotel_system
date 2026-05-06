@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-lg-3">
                     <label class="form-label">
-                        <i class="fas fa-user-friends"></i>Adults
+                        <i class="fas fa-user-friends"></i><?php echo lang('adults'); ?>
                     </label>
                     <select class="form-select" name="adult">
                         <?php for($i=1; $i<=($maxGuests['max_adult'] ?? 5); $i++): ?>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-lg-2">
                     <label class="form-label">
-                        <i class="fas fa-child"></i>Children
+                        <i class="fas fa-child"></i><?php echo lang('children'); ?>
                     </label>
                     <select class="form-select" name="children">
                         <?php for($i=0; $i<=($maxGuests['max_children'] ?? 5); $i++): ?>
@@ -75,13 +75,13 @@
     <div class="section-header">
         <h2><i class="fas fa-bed text-primary-custom"></i><?php echo lang('rooms'); ?></h2>
         <div class="section-divider"></div>
-        <p>Discover our luxurious rooms designed for your comfort</p>
+        <p><?php echo lang('rooms_subtitle'); ?></p>
     </div>
     <div class="row">
         <?php if(empty($rooms)): ?>
         <div class="col-12 empty-state">
             <i class="fas fa-door-closed"></i>
-            <p>No rooms available at the moment.</p>
+            <p><?php echo lang('no_rooms'); ?></p>
         </div>
         <?php else: ?>
         <?php foreach($rooms as $room):
@@ -105,11 +105,10 @@
                         </span>
                         <?php endif; ?>
                     </div>
-                    <p class="text-secondary mb-3" style="font-size:var(--text-sm);">
+                    <p class="text-secondary mb-3" style="font-size:var(--fs-sm);">
                         <i class="fas fa-moon text-primary-custom"></i>
                         <strong><?php echo $room['price']; ?></strong> <?php echo lang('per_night'); ?>
                     </p>
-
                     <?php if(!empty($features[$rid])): ?>
                     <div class="mb-2">
                         <?php foreach(array_slice($features[$rid], 0, 3) as $f): ?>
@@ -117,25 +116,22 @@
                         <?php endforeach; ?>
                     </div>
                     <?php endif; ?>
-
                     <div class="mb-3">
-                        <small class="fw-600 text-secondary text-uppercase d-block mb-1" style="font-size:var(--text-xs); letter-spacing:.5px;">
+                        <small class="fw-600 text-secondary text-uppercase d-block mb-1" style="font-size:var(--fs-xs); letter-spacing:.5px;">
                             <i class="fas fa-concierge-bell"></i><?php echo lang('facilities'); ?>
                         </small>
                         <?php foreach(array_slice($facilities[$rid] ?? [], 0, 3) as $f): ?>
                         <span class="badge bg-light me-1 mb-1"><?php echo htmlspecialchars($f['name']); ?></span>
                         <?php endforeach; ?>
                     </div>
-
                     <div class="mb-3">
                         <span class="badge bg-light me-1">
-                            <i class="fas fa-user"></i><?php echo $room['adult']; ?> Adults
+                            <i class="fas fa-user"></i><?php echo $room['adult']; ?> <?php echo lang('adults'); ?>
                         </span>
                         <span class="badge bg-light">
-                            <i class="fas fa-child"></i><?php echo $room['children']; ?> Children
+                            <i class="fas fa-child"></i><?php echo $room['children']; ?> <?php echo lang('children'); ?>
                         </span>
                     </div>
-
                     <div class="d-flex gap-2 mt-auto">
                         <button onclick="checkLoginToBook(<?php echo $login; ?>,<?php echo $rid; ?>)"
                                 class="btn btn-sm custom-bg flex-fill">
@@ -152,7 +148,7 @@
         <?php endforeach; ?>
         <div class="col-12 text-center mt-2 mb-4">
             <a href="<?php echo SITE_URL; ?>rooms" class="btn btn-outline-secondary px-5">
-                <i class="fas fa-th-list"></i>More Rooms
+                <i class="fas fa-th-list"></i><?php echo lang('more_rooms'); ?>
             </a>
         </div>
         <?php endif; ?>
@@ -164,7 +160,7 @@
     <div class="section-header">
         <h2><i class="fas fa-concierge-bell text-primary-custom"></i><?php echo lang('facilities'); ?></h2>
         <div class="section-divider"></div>
-        <p>Everything you need for a perfect stay</p>
+        <p><?php echo lang('facilities_subtitle'); ?></p>
     </div>
     <div class="row justify-content-center">
         <?php foreach($facilitiesList as $fac): ?>
@@ -172,15 +168,13 @@
             <div class="facility-card">
                 <img src="<?php echo FACILITIES_IMG_PATH . htmlspecialchars($fac['icon']); ?>"
                      width="52" alt="<?php echo htmlspecialchars($fac['name']); ?>" loading="lazy">
-                <h6 class="mt-3 mb-0 fw-600" style="font-size:var(--text-sm);">
-                    <?php echo htmlspecialchars($fac['name']); ?>
-                </h6>
+                <h6><?php echo htmlspecialchars($fac['name']); ?></h6>
             </div>
         </div>
         <?php endforeach; ?>
         <div class="col-12 text-center mt-2 mb-4">
             <a href="<?php echo SITE_URL; ?>facilities" class="btn btn-outline-secondary px-5">
-                <i class="fas fa-plus"></i>Know More
+                <i class="fas fa-plus"></i><?php echo lang('know_more'); ?>
             </a>
         </div>
     </div>
@@ -189,12 +183,12 @@
 <!-- Testimonials -->
 <div class="container mt-5 pt-2">
     <div class="section-header">
-        <h2><i class="fas fa-quote-left text-primary-custom"></i>Testimonials</h2>
+        <h2><i class="fas fa-quote-left text-primary-custom"></i><?php echo lang('testimonials'); ?></h2>
         <div class="section-divider"></div>
-        <p>What our guests say about us</p>
+        <p><?php echo lang('testimonials_subtitle'); ?></p>
     </div>
     <?php if(empty($testimonials)): ?>
-    <div class="empty-state"><i class="fas fa-comment-slash"></i><p>No reviews yet.</p></div>
+    <div class="empty-state"><i class="fas fa-comment-slash"></i><p><?php echo lang('no_reviews'); ?></p></div>
     <?php else: ?>
     <div class="swiper swiper-testimonials">
         <div class="swiper-wrapper pb-5">
@@ -202,22 +196,14 @@
             <div class="swiper-slide">
                 <div class="testimonial-card">
                     <i class="fas fa-quote-left testimonial-quote"></i>
-                    <p class="testimonial-text">
-                        <?php echo htmlspecialchars($review['review']); ?>
-                    </p>
+                    <p class="testimonial-text"><?php echo htmlspecialchars($review['review']); ?></p>
                     <div class="testimonial-footer">
-                        <div class="testimonial-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
+                        <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
                         <div>
                             <p class="testimonial-name"><?php echo htmlspecialchars($review['uname']); ?></p>
                             <div class="testimonial-stars">
-                                <?php for($i=0; $i<(int)$review['rating']; $i++): ?>
-                                <i class="fas fa-star"></i>
-                                <?php endfor; ?>
-                                <?php for($i=(int)$review['rating']; $i<5; $i++): ?>
-                                <i class="far fa-star"></i>
-                                <?php endfor; ?>
+                                <?php for($i=0; $i<(int)$review['rating']; $i++): ?><i class="fas fa-star"></i><?php endfor; ?>
+                                <?php for($i=(int)$review['rating']; $i<5; $i++): ?><i class="far fa-star"></i><?php endfor; ?>
                             </div>
                         </div>
                     </div>
@@ -233,21 +219,20 @@
 <!-- Reach Us -->
 <div class="container mt-5 pt-2 mb-5">
     <div class="section-header">
-        <h2><i class="fas fa-map-marker-alt text-primary-custom"></i>Reach Us</h2>
+        <h2><i class="fas fa-map-marker-alt text-primary-custom"></i><?php echo lang('reach_us'); ?></h2>
         <div class="section-divider"></div>
     </div>
     <div class="row g-4">
         <div class="col-lg-8">
-            <div class="card border-0 shadow-sm overflow-hidden" style="border-radius:var(--radius-xl);">
+            <div class="card border-0 shadow-sm overflow-hidden" style="border-radius:var(--r-xl);">
                 <iframe src="<?php echo htmlspecialchars($contact['iframe'] ?? ''); ?>"
-                        class="w-100 d-block" height="340" title="Map" loading="lazy"
-                        style="border:none;"></iframe>
+                        class="w-100 d-block" height="340" title="Map" loading="lazy" style="border:none;"></iframe>
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm p-4 h-100" style="border-radius:var(--radius-xl);">
+            <div class="card border-0 shadow-sm p-4 h-100" style="border-radius:var(--r-xl);">
                 <h5 class="fw-700 mb-3">
-                    <i class="fas fa-phone text-primary-custom"></i>Call us
+                    <i class="fas fa-phone text-primary-custom"></i><?php echo lang('call_us'); ?>
                 </h5>
                 <?php if(!empty($contact['pn1'])): ?>
                 <a href="tel:+<?php echo htmlspecialchars($contact['pn1']); ?>"
@@ -272,21 +257,21 @@
 
 <script>
 new Swiper('.swiper-hero', {
-    effect: 'fade', loop: true,
-    autoplay: { delay: 3500, disableOnInteraction: false },
-    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-    pagination: { el: '.swiper-pagination', clickable: true }
+    effect:'fade', loop:true,
+    autoplay:{delay:3500, disableOnInteraction:false},
+    navigation:{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'},
+    pagination:{el:'.swiper-pagination', clickable:true}
 });
 new Swiper('.swiper-testimonials', {
-    grabCursor: true, loop: true, spaceBetween: 24,
-    pagination: { el: '.swiper-pagination', clickable: true },
-    breakpoints: { 320: { slidesPerView: 1 }, 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+    grabCursor:true, loop:true, spaceBetween:24,
+    pagination:{el:'.swiper-pagination', clickable:true},
+    breakpoints:{320:{slidesPerView:1}, 768:{slidesPerView:2}, 1024:{slidesPerView:3}}
 });
 document.getElementById('avail-form')?.addEventListener('submit', function(e){
     const today = new Date().toISOString().split('T')[0];
     const ci = document.getElementById('home_checkin').value;
     const co = document.getElementById('home_checkout').value;
-    if(ci < today){ e.preventDefault(); alert('error','Check-in cannot be in the past!'); return; }
-    if(co <= ci){ e.preventDefault(); alert('error','Check-out must be after check-in!'); return; }
+    if(ci < today){ e.preventDefault(); alert('error','<?php echo lang('avail_in_past'); ?>'); return; }
+    if(co <= ci){ e.preventDefault(); alert('error','<?php echo lang('avail_out_earlier'); ?>'); return; }
 });
 </script>

@@ -1,4 +1,3 @@
-<!-- Scroll to Top -->
 <button id="scroll-top" aria-label="Scroll to top">
     <i class="fas fa-arrow-up"></i>
 </button>
@@ -6,21 +5,15 @@
 <footer class="mt-5">
     <div class="container py-5">
         <div class="row g-4">
-
-            <!-- Brand -->
             <div class="col-lg-4">
                 <h4 class="fw-800 mb-3 text-primary-custom d-flex align-items-center gap-2">
                     <i class="fas fa-hotel"></i>
                     <?php echo htmlspecialchars($settings['site_title'] ?? APP_NAME); ?>
                 </h4>
-                <p class="footer-about">
-                    <?php echo htmlspecialchars($settings['site_about'] ?? ''); ?>
-                </p>
+                <p class="footer-about"><?php echo htmlspecialchars($settings['site_about'] ?? ''); ?></p>
             </div>
-
-            <!-- Quick Links -->
             <div class="col-lg-4">
-                <p class="footer-label">Quick Links</p>
+                <p class="footer-label"><?php echo lang('quick_links'); ?></p>
                 <nav class="d-flex flex-column gap-2">
                     <a href="<?php echo SITE_URL; ?>"><i class="fas fa-home"></i><?php echo lang('home'); ?></a>
                     <a href="<?php echo SITE_URL; ?>rooms"><i class="fas fa-bed"></i><?php echo lang('rooms'); ?></a>
@@ -29,10 +22,8 @@
                     <a href="<?php echo SITE_URL; ?>about"><i class="fas fa-info-circle"></i><?php echo lang('about'); ?></a>
                 </nav>
             </div>
-
-            <!-- Social + Email -->
             <div class="col-lg-4">
-                <p class="footer-label">Follow Us</p>
+                <p class="footer-label"><?php echo lang('follow_us'); ?></p>
                 <div class="d-flex gap-3 mb-4">
                     <?php if(!empty($contact['fb'])): ?>
                     <a href="<?php echo htmlspecialchars($contact['fb']); ?>" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
@@ -57,25 +48,19 @@
                 </a>
                 <?php endif; ?>
             </div>
-
         </div>
     </div>
-
     <div class="footer-bottom">
         <i class="fas fa-copyright"></i>
         <?php echo date('Y'); ?>
-        <?php echo htmlspecialchars($settings['site_title'] ?? APP_NAME); ?> — All rights reserved.
+        <?php echo htmlspecialchars($settings['site_title'] ?? APP_NAME); ?> —
+        <?php echo lang('all_rights_reserved'); ?>
     </div>
 </footer>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<!-- App config -->
 <script>const APP = { siteUrl: '<?php echo SITE_URL; ?>' };</script>
-<!-- Main JS -->
 <script src="<?php echo ASSETS_URL; ?>js/main.js"></script>
-
 </body>
 </html>

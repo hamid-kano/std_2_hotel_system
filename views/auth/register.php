@@ -22,21 +22,21 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
                 <span><?php echo APP_NAME; ?></span>
             </a>
             <div class="auth-panel-tagline">
-                <h2>Join us today.</h2>
-                <p>Create your account and start enjoying exclusive access to our rooms, offers, and seamless booking experience.</p>
+                <h2><?php echo lang('register_welcome'); ?></h2>
+                <p><?php echo lang('register_welcome_sub'); ?></p>
             </div>
             <div class="auth-panel-features">
                 <div class="auth-feature">
                     <i class="fas fa-bed"></i>
-                    <span>Browse & book premium rooms</span>
+                    <span><?php echo lang('feat_browse_rooms'); ?></span>
                 </div>
                 <div class="auth-feature">
                     <i class="fas fa-shield-alt"></i>
-                    <span>Secure & private account</span>
+                    <span><?php echo lang('feat_secure'); ?></span>
                 </div>
                 <div class="auth-feature">
                     <i class="fas fa-history"></i>
-                    <span>Full booking history</span>
+                    <span><?php echo lang('feat_history'); ?></span>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
         <div class="auth-topbar">
             <a href="<?php echo SITE_URL; ?>" class="auth-back">
                 <i class="fas fa-arrow-left"></i>
-                <span>Back to site</span>
+                <span><?php echo lang('back_to_site'); ?></span>
             </a>
             <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
                 <i class="fas fa-moon"></i>
@@ -62,7 +62,7 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
                     <i class="fas fa-user-plus"></i>
                 </div>
                 <h1 class="auth-title"><?php echo lang('register'); ?></h1>
-                <p class="auth-subtitle">Fill in your details to create an account</p>
+                <p class="auth-subtitle"><?php echo lang('register_subtitle'); ?></p>
             </div>
 
             <div id="auth-alert" class="auth-alert d-none"></div>
@@ -96,25 +96,25 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
 
                     <div class="col-md-6 auth-field">
                         <label class="form-label">
-                            <i class="fas fa-calendar"></i>Date of Birth
+                            <i class="fas fa-calendar"></i><?php echo lang('date_of_birth'); ?>
                         </label>
                         <input type="date" name="dob" class="form-control" required>
                     </div>
 
                     <div class="col-12 auth-field">
                         <label class="form-label">
-                            <i class="fas fa-map-marker-alt"></i>Address
+                            <i class="fas fa-map-marker-alt"></i><?php echo lang('address'); ?>
                         </label>
                         <input type="text" name="address" class="form-control"
-                               placeholder="Street, City" autocomplete="street-address" required>
+                               placeholder="<?php echo lang('address_hint'); ?>" autocomplete="street-address" required>
                     </div>
 
                     <div class="col-md-6 auth-field">
                         <label class="form-label">
-                            <i class="fas fa-map-pin"></i>Pincode
+                            <i class="fas fa-map-pin"></i><?php echo lang('pincode'); ?>
                         </label>
                         <input type="text" name="pincode" class="form-control"
-                               placeholder="Postal code" required>
+                               placeholder="<?php echo lang('pincode_hint'); ?>" required>
                     </div>
 
                     <div class="col-md-6"></div><!-- spacer -->
@@ -136,12 +136,12 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
 
                     <div class="col-md-6 auth-field">
                         <label class="form-label">
-                            <i class="fas fa-lock"></i>Confirm Password
+                            <i class="fas fa-lock"></i><?php echo lang('confirm_password'); ?>
                         </label>
                         <div class="auth-password-wrap">
                             <input type="password" name="cpass" id="cpass"
                                    class="form-control"
-                                   placeholder="Repeat password"
+                                   placeholder="<?php echo lang('pass_repeat'); ?>"
                                    autocomplete="new-password" required>
                             <button type="button" class="auth-eye" id="toggleCpass" aria-label="Show password">
                                 <i class="fas fa-eye"></i>
@@ -167,7 +167,7 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
             </form>
 
             <p class="auth-switch">
-                Already have an account?
+                <?php echo lang('have_account'); ?>
                 <a href="<?php echo SITE_URL; ?>login">
                     <i class="fas fa-sign-in-alt"></i><?php echo lang('login'); ?>
                 </a>
@@ -221,10 +221,10 @@ document.getElementById('pass')?.addEventListener('input', function(){
     if(/[^A-Za-z0-9]/.test(v)) score++;
     const levels = [
         { w:'0%',   color:'transparent', text:'' },
-        { w:'25%',  color:'#dc3545',     text:'Weak' },
-        { w:'50%',  color:'#ffc107',     text:'Fair' },
-        { w:'75%',  color:'#17a2b8',     text:'Good' },
-        { w:'100%', color:'#28a745',     text:'Strong' },
+        { w:'25%',  color:'#dc3545',     text:'<?php echo lang('pass_strength_weak'); ?>' },
+        { w:'50%',  color:'#ffc107',     text:'<?php echo lang('pass_strength_fair'); ?>' },
+        { w:'75%',  color:'#17a2b8',     text:'<?php echo lang('pass_strength_good'); ?>' },
+        { w:'100%', color:'#28a745',     text:'<?php echo lang('pass_strength_strong'); ?>' },
     ];
     bar.style.width  = levels[score].w;
     bar.style.background = levels[score].color;
@@ -245,8 +245,8 @@ document.getElementById('register-form').addEventListener('submit', function(e){
     e.preventDefault();
     const pass  = this.elements['pass'].value;
     const cpass = this.elements['cpass'].value;
-    if(pass !== cpass){ showAlert('Passwords do not match.', 'warning'); return; }
-    if(pass.length < 8){ showAlert('Password must be at least 8 characters.', 'warning'); return; }
+    if(pass !== cpass){ showAlert('<?php echo lang('err_pass_mismatch'); ?>', 'warning'); return; }
+    if(pass.length < 8){ showAlert('<?php echo lang('err_pass_min'); ?>', 'warning'); return; }
 
     const btn = document.getElementById('submit-btn');
     btn.classList.add('btn-loading');
@@ -264,15 +264,15 @@ document.getElementById('register-form').addEventListener('submit', function(e){
             btn.classList.remove('btn-loading');
             btn.disabled = false;
             const msgs = {
-                pass_mismatch: 'Passwords do not match.',
-                email_already: 'This email is already registered.',
-                phone_already: 'This phone number is already registered.',
-                ins_failed:    'Registration failed. Please try again.'
+                pass_mismatch: '<?php echo lang('err_pass_mismatch'); ?>',
+                email_already: '<?php echo lang('err_email_exists'); ?>',
+                phone_already: '<?php echo lang('err_phone_exists'); ?>',
+                ins_failed:    '<?php echo lang('err_reg_failed'); ?>'
             };
             if(msgs[r]){
                 showAlert(msgs[r], 'danger');
             } else {
-                showAlert('Account created! Redirecting to login…', 'success');
+                showAlert('<?php echo lang('register_created'); ?>', 'success');
                 setTimeout(() => window.location.href = APP.siteUrl + 'login', 1200);
             }
         })

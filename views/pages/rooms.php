@@ -6,77 +6,69 @@
 
         <!-- Sidebar Filters -->
         <div class="col-lg-3 col-md-12 mb-lg-0 mb-4 ps-4">
-            <div class="card border-0 shadow-sm rounded-3">
-                <div class="card-body p-3">
-                    <h5 class="fw-bold mb-3">
-                        <i class="fas fa-filter" class="text-primary-custom"></i>Filters
-                    </h5>
+            <div class="filter-card p-3">
+                <h5 class="fw-700 mb-3">
+                    <i class="fas fa-filter text-primary-custom"></i><?php echo lang('filters'); ?>
+                </h5>
 
-                    <!-- Availability -->
-                    <div class="border rounded-3 p-3 mb-3">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6 class="mb-0 fw-bold">
-                                <i class="fas fa-calendar-alt"></i>Availability
-                            </h6>
-                            <button id="chk_avail_btn" onclick="chk_avail_clear()" class="btn btn-sm text-secondary shadow-none d-none">
-                                <i class="fas fa-times"></i>Reset
-                            </button>
-                        </div>
-                        <label class="form-label small text-muted">
-                            <i class="fas fa-calendar-check"></i>Check-in
-                        </label>
-                        <input type="date" class="form-control shadow-none mb-3" id="checkin" onchange="chk_avail_filter()">
-                        <label class="form-label small text-muted">
-                            <i class="fas fa-calendar-times"></i>Check-out
-                        </label>
-                        <input type="date" class="form-control shadow-none" id="checkout" onchange="chk_avail_filter()">
+                <!-- Availability -->
+                <div class="filter-section">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h6><i class="fas fa-calendar-alt text-primary-custom"></i><?php echo lang('availability'); ?></h6>
+                        <button id="chk_avail_btn" onclick="chk_avail_clear()" class="btn btn-sm text-secondary shadow-none d-none">
+                            <i class="fas fa-times"></i><?php echo lang('reset'); ?>
+                        </button>
                     </div>
+                    <label class="form-label">
+                        <i class="fas fa-calendar-check"></i><?php echo lang('check_in'); ?>
+                    </label>
+                    <input type="date" class="form-control mb-3" id="checkin" onchange="chk_avail_filter()">
+                    <label class="form-label">
+                        <i class="fas fa-calendar-times"></i><?php echo lang('check_out'); ?>
+                    </label>
+                    <input type="date" class="form-control" id="checkout" onchange="chk_avail_filter()">
+                </div>
 
-                    <!-- Facilities -->
-                    <div class="border rounded-3 p-3 mb-3">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6 class="mb-0 fw-bold">
-                                <i class="fas fa-concierge-bell"></i>Facilities
-                            </h6>
-                            <button id="facilities_btn" onclick="facilities_clear()" class="btn btn-sm text-secondary shadow-none d-none">
-                                <i class="fas fa-times"></i>Reset
-                            </button>
-                        </div>
-                        <?php foreach($facilities_list as $fac): ?>
-                        <div class="mb-2">
-                            <input type="checkbox" onclick="fetch_rooms()" name="facilities"
-                                   value="<?php echo $fac['id']; ?>" id="fac_<?php echo $fac['id']; ?>"
-                                   class="form-check-input shadow-none me-2">
-                            <label for="fac_<?php echo $fac['id']; ?>" class="form-check-label small">
-                                <?php echo htmlspecialchars($fac['name']); ?>
+                <!-- Facilities -->
+                <div class="filter-section">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h6><i class="fas fa-concierge-bell text-primary-custom"></i><?php echo lang('facilities'); ?></h6>
+                        <button id="facilities_btn" onclick="facilities_clear()" class="btn btn-sm text-secondary shadow-none d-none">
+                            <i class="fas fa-times"></i><?php echo lang('reset'); ?>
+                        </button>
+                    </div>
+                    <?php foreach($facilities_list as $fac): ?>
+                    <div class="mb-2">
+                        <input type="checkbox" onclick="fetch_rooms()" name="facilities"
+                               value="<?php echo $fac['id']; ?>" id="fac_<?php echo $fac['id']; ?>"
+                               class="form-check-input me-2">
+                        <label for="fac_<?php echo $fac['id']; ?>" class="form-check-label" style="font-size:var(--fs-sm);">
+                            <?php echo htmlspecialchars($fac['name']); ?>
+                        </label>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <!-- Guests -->
+                <div class="filter-section mb-0">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h6><i class="fas fa-users text-primary-custom"></i><?php echo lang('guests'); ?></h6>
+                        <button id="guests_btn" onclick="guests_clear()" class="btn btn-sm text-secondary shadow-none d-none">
+                            <i class="fas fa-times"></i><?php echo lang('reset'); ?>
+                        </button>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <label class="form-label">
+                                <i class="fas fa-user"></i><?php echo lang('adults'); ?>
                             </label>
+                            <input type="number" min="1" id="adults" oninput="guests_filter()" class="form-control">
                         </div>
-                        <?php endforeach; ?>
-                    </div>
-
-                    <!-- Guests -->
-                    <div class="border rounded-3 p-3">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6 class="mb-0 fw-bold">
-                                <i class="fas fa-users"></i>Guests
-                            </h6>
-                            <button id="guests_btn" onclick="guests_clear()" class="btn btn-sm text-secondary shadow-none d-none">
-                                <i class="fas fa-times"></i>Reset
-                            </button>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="form-label small text-muted">
-                                    <i class="fas fa-user"></i>Adults
-                                </label>
-                                <input type="number" min="1" id="adults" oninput="guests_filter()" class="form-control shadow-none">
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label small text-muted">
-                                    <i class="fas fa-child"></i>Children
-                                </label>
-                                <input type="number" min="0" id="children" oninput="guests_filter()" class="form-control shadow-none">
-                            </div>
+                        <div class="col-6">
+                            <label class="form-label">
+                                <i class="fas fa-child"></i><?php echo lang('children'); ?>
+                            </label>
+                            <input type="number" min="0" id="children" oninput="guests_filter()" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -87,7 +79,7 @@
         <div class="col-lg-9 col-md-12 px-4" id="rooms-data">
             <div class="text-center py-5">
                 <div class="spinner-border text-info" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                    <span class="visually-hidden"><?php echo lang('loading'); ?></span>
                 </div>
             </div>
         </div>
@@ -98,6 +90,13 @@
 <?php require BASE_PATH . '/views/layouts/footer.php'; ?>
 
 <script>
+const LANG = {
+    avail_in_past:   '<?php echo lang('avail_in_past'); ?>',
+    avail_out_earlier:'<?php echo lang('avail_out_earlier'); ?>',
+    searching:       '<?php echo lang('searching_rooms'); ?>',
+    error_loading:   '<?php echo lang('error_loading'); ?>',
+};
+
 const roomsData = document.getElementById('rooms-data');
 const checkin   = document.getElementById('checkin');
 const checkout  = document.getElementById('checkout');
@@ -111,26 +110,25 @@ function fetch_rooms(){
     const chk_avail = JSON.stringify({checkin: checkin.value, checkout: checkout.value});
     const guests    = JSON.stringify({adults: adults.value || 0, children: children.value || 0});
     const facList   = {facilities:[]};
-
     document.querySelectorAll('[name="facilities"]:checked').forEach(f => facList.facilities.push(f.value));
     facBtn.classList.toggle('d-none', facList.facilities.length === 0);
 
     roomsData.innerHTML = `<div class="text-center py-5">
         <div class="spinner-border text-info" role="status"></div>
-        <p class="text-muted mt-3"><i class="fas fa-search"></i>Searching rooms...</p>
+        <p class="text-muted mt-3"><i class="fas fa-search"></i> ${LANG.searching}</p>
     </div>`;
 
     fetch(`${APP.siteUrl}api/rooms/search?fetch_rooms&chk_avail=${encodeURIComponent(chk_avail)}&guests=${encodeURIComponent(guests)}&facility_list=${encodeURIComponent(JSON.stringify(facList))}`)
         .then(r => r.text())
         .then(html => { roomsData.innerHTML = html; })
-        .catch(() => { roomsData.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-circle"></i><p>Error loading rooms.</p></div>'; });
+        .catch(() => { roomsData.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-circle"></i><p>${LANG.error_loading}</p></div>`; });
 }
 
 function chk_avail_filter(){
     const today = new Date().toISOString().split('T')[0];
     if(checkin.value && checkout.value){
-        if(checkin.value < today){ alert('error','Check-in cannot be in the past!'); checkin.value=''; return; }
-        if(checkout.value <= checkin.value){ alert('error','Check-out must be after check-in!'); checkout.value=''; return; }
+        if(checkin.value < today){ alert('error', LANG.avail_in_past); checkin.value=''; return; }
+        if(checkout.value <= checkin.value){ alert('error', LANG.avail_out_earlier); checkout.value=''; return; }
         fetch_rooms();
         chkBtn.classList.remove('d-none');
     }
@@ -143,6 +141,5 @@ function facilities_clear(){
     facBtn.classList.add('d-none');
     fetch_rooms();
 }
-
 window.onload = fetch_rooms;
 </script>
