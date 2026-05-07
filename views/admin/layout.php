@@ -31,11 +31,30 @@ function adminActive(string $path): string {
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Inter (EN) + Tajawal (AR) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>css/style.css">
 
     <style>
         body { background: var(--bg-body); }
+
+        /* ── Fonts — inherit from design system ── */
+        /* Inter for LTR, Tajawal for RTL (set on <html dir>) */
+        [dir="rtl"] body,
+        [dir="rtl"] .admin-nav-link,
+        [dir="rtl"] .admin-nav-label,
+        [dir="rtl"] .admin-topbar-title,
+        [dir="rtl"] .admin-content {
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+            font-size: 1.02rem;
+            line-height: 1.75;
+        }
+        [dir="rtl"] h1,[dir="rtl"] h2,[dir="rtl"] h3,
+        [dir="rtl"] h4,[dir="rtl"] h5,[dir="rtl"] h6 {
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+        }
 
         /* ── Sidebar tokens ── */
         :root {
@@ -350,79 +369,155 @@ function adminActive(string $path): string {
     </style>
 </head>
 <body>
+
+<!-- Mobile overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 <div class="admin-wrapper">
 
     <!-- Sidebar -->
-    <aside class="admin-sidebar" id="adminSidebar">
-        <a href="<?php echo SITE_URL; ?>admin/dashboard" class="admin-sidebar-brand">
-            <i class="fas fa-hotel"></i><?php echo APP_NAME; ?>
-        </a>
+    <aside class="admin-sidebar" id="adminSidebar" role="navigation" aria-label="<?php echo lang('admin_panel'); ?>">
+
+        <!-- Brand + collapse toggle -->
+        <div class="admin-sidebar-brand">
+            <i class="fas fa-hotel" aria-hidden="true"></i>
+            <span><?php echo APP_NAME; ?></span>
+            <button class="sidebar-collapse-btn ms-auto d-none d-lg-flex"
+                    id="sidebarCollapseBtn"
+                    aria-label="Collapse sidebar"
+                    title="Collapse sidebar">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
 
         <nav class="admin-nav">
-            <div class="admin-nav-label"><?php echo lang('admin_overview'); ?></div>
-            <a href="<?php echo SITE_URL; ?>admin/dashboard" class="admin-nav-link <?php echo adminActive('dashboard'); ?>">
-                <i class="fas fa-tachometer-alt"></i><?php echo lang('admin_dashboard'); ?>
+
+            <!-- Overview -->
+            <div class="admin-nav-section">
+                <div class="admin-nav-label"><?php echo lang('admin_overview'); ?></div>
+                <a href="<?php echo SITE_URL; ?>admin/dashboard"
+                   class="admin-nav-link <?php echo adminActive('dashboard'); ?>"
+                   data-tooltip="<?php echo lang('admin_dashboard'); ?>">
+                    <i class="fas fa-tachometer-alt" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('admin_dashboard'); ?></span>
+                </a>
+            </div>
+
+            <!-- Bookings -->
+            <div class="admin-nav-section">
+                <div class="admin-nav-label"><?php echo lang('admin_bookings'); ?></div>
+                <a href="<?php echo SITE_URL; ?>admin/bookings/new"
+                   class="admin-nav-link <?php echo adminActive('bookings/new'); ?>"
+                   data-tooltip="<?php echo lang('admin_new_bookings'); ?>">
+                    <i class="fas fa-calendar-plus" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('admin_new_bookings'); ?></span>
+                    <?php if(($pending['new_bookings'] ?? 0) > 0): ?>
+                    <span class="admin-nav-badge" aria-label="<?php echo $pending['new_bookings']; ?> new">
+                        <?php echo $pending['new_bookings']; ?>
+                    </span>
+                    <?php endif; ?>
+                </a>
+                <a href="<?php echo SITE_URL; ?>admin/bookings/refunds"
+                   class="admin-nav-link <?php echo adminActive('refunds'); ?>"
+                   data-tooltip="<?php echo lang('admin_refunds'); ?>">
+                    <i class="fas fa-undo" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('admin_refunds'); ?></span>
+                    <?php if(($pending['refund_bookings'] ?? 0) > 0): ?>
+                    <span class="admin-nav-badge"><?php echo $pending['refund_bookings']; ?></span>
+                    <?php endif; ?>
+                </a>
+                <a href="<?php echo SITE_URL; ?>admin/bookings/records"
+                   class="admin-nav-link <?php echo adminActive('records'); ?>"
+                   data-tooltip="<?php echo lang('admin_records'); ?>">
+                    <i class="fas fa-list-alt" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('admin_records'); ?></span>
+                </a>
+            </div>
+
+            <!-- Content -->
+            <div class="admin-nav-section">
+                <div class="admin-nav-label"><?php echo lang('admin_content'); ?></div>
+                <a href="<?php echo SITE_URL; ?>admin/rooms"
+                   class="admin-nav-link <?php echo adminActive('admin/rooms'); ?>"
+                   data-tooltip="<?php echo lang('rooms'); ?>">
+                    <i class="fas fa-bed" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('rooms'); ?></span>
+                </a>
+                <a href="<?php echo SITE_URL; ?>admin/facilities"
+                   class="admin-nav-link <?php echo adminActive('facilities'); ?>"
+                   data-tooltip="<?php echo lang('admin_features_fac'); ?>">
+                    <i class="fas fa-concierge-bell" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('admin_features_fac'); ?></span>
+                </a>
+                <a href="<?php echo SITE_URL; ?>admin/carousel"
+                   class="admin-nav-link <?php echo adminActive('carousel'); ?>"
+                   data-tooltip="<?php echo lang('admin_carousel'); ?>">
+                    <i class="fas fa-images" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('admin_carousel'); ?></span>
+                </a>
+            </div>
+
+            <!-- Users -->
+            <div class="admin-nav-section">
+                <div class="admin-nav-label"><?php echo lang('admin_users_section'); ?></div>
+                <a href="<?php echo SITE_URL; ?>admin/users"
+                   class="admin-nav-link <?php echo adminActive('admin/users'); ?>"
+                   data-tooltip="<?php echo lang('admin_users'); ?>">
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('admin_users'); ?></span>
+                </a>
+                <a href="<?php echo SITE_URL; ?>admin/queries"
+                   class="admin-nav-link <?php echo adminActive('queries'); ?>"
+                   data-tooltip="<?php echo lang('admin_queries'); ?>">
+                    <i class="fas fa-comments" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('admin_queries'); ?></span>
+                </a>
+                <a href="<?php echo SITE_URL; ?>admin/reviews"
+                   class="admin-nav-link <?php echo adminActive('reviews'); ?>"
+                   data-tooltip="<?php echo lang('admin_reviews'); ?>">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('admin_reviews'); ?></span>
+                </a>
+            </div>
+
+            <!-- System -->
+            <div class="admin-nav-section">
+                <div class="admin-nav-label"><?php echo lang('admin_system'); ?></div>
+                <a href="<?php echo SITE_URL; ?>admin/settings"
+                   class="admin-nav-link <?php echo adminActive('settings'); ?>"
+                   data-tooltip="<?php echo lang('admin_settings'); ?>">
+                    <i class="fas fa-cog" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('admin_settings'); ?></span>
+                </a>
+                <a href="<?php echo SITE_URL; ?>" class="admin-nav-link" target="_blank" rel="noopener"
+                   data-tooltip="<?php echo lang('admin_view_site'); ?>">
+                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                    <span class="admin-nav-text"><?php echo lang('admin_view_site'); ?></span>
+                </a>
+            </div>
+
+            <!-- Logout -->
+            <div class="admin-nav-divider"></div>
+            <a href="<?php echo SITE_URL; ?>admin/logout"
+               class="admin-nav-link"
+               style="color:#f87171;"
+               data-tooltip="<?php echo lang('admin_logout'); ?>">
+                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                <span class="admin-nav-text"><?php echo lang('admin_logout'); ?></span>
             </a>
 
-            <div class="admin-nav-label"><?php echo lang('admin_bookings'); ?></div>
-            <a href="<?php echo SITE_URL; ?>admin/bookings/new" class="admin-nav-link <?php echo adminActive('bookings/new'); ?>">
-                <i class="fas fa-calendar-plus"></i><?php echo lang('admin_new_bookings'); ?>
-                <?php if(($pending['new_bookings'] ?? 0) > 0): ?>
-                <span class="admin-nav-badge"><?php echo $pending['new_bookings']; ?></span>
-                <?php endif; ?>
-            </a>
-            <a href="<?php echo SITE_URL; ?>admin/bookings/refunds" class="admin-nav-link <?php echo adminActive('refunds'); ?>">
-                <i class="fas fa-undo"></i><?php echo lang('admin_refunds'); ?>
-                <?php if(($pending['refund_bookings'] ?? 0) > 0): ?>
-                <span class="admin-nav-badge"><?php echo $pending['refund_bookings']; ?></span>
-                <?php endif; ?>
-            </a>
-            <a href="<?php echo SITE_URL; ?>admin/bookings/records" class="admin-nav-link <?php echo adminActive('records'); ?>">
-                <i class="fas fa-list-alt"></i><?php echo lang('admin_records'); ?>
-            </a>
-
-            <div class="admin-nav-label"><?php echo lang('admin_content'); ?></div>
-            <a href="<?php echo SITE_URL; ?>admin/rooms" class="admin-nav-link <?php echo adminActive('admin/rooms'); ?>">
-                <i class="fas fa-bed"></i><?php echo lang('rooms'); ?>
-            </a>
-            <a href="<?php echo SITE_URL; ?>admin/facilities" class="admin-nav-link <?php echo adminActive('facilities'); ?>">
-                <i class="fas fa-concierge-bell"></i><?php echo lang('admin_features_fac'); ?>
-            </a>
-            <a href="<?php echo SITE_URL; ?>admin/carousel" class="admin-nav-link <?php echo adminActive('carousel'); ?>">
-                <i class="fas fa-images"></i><?php echo lang('admin_carousel'); ?>
-            </a>
-
-            <div class="admin-nav-label"><?php echo lang('admin_users_section'); ?></div>
-            <a href="<?php echo SITE_URL; ?>admin/users" class="admin-nav-link <?php echo adminActive('admin/users'); ?>">
-                <i class="fas fa-users"></i><?php echo lang('admin_users'); ?>
-            </a>
-            <a href="<?php echo SITE_URL; ?>admin/queries" class="admin-nav-link <?php echo adminActive('queries'); ?>">
-                <i class="fas fa-comments"></i><?php echo lang('admin_queries'); ?>
-            </a>
-            <a href="<?php echo SITE_URL; ?>admin/reviews" class="admin-nav-link <?php echo adminActive('reviews'); ?>">
-                <i class="fas fa-star"></i><?php echo lang('admin_reviews'); ?>
-            </a>
-
-            <div class="admin-nav-label"><?php echo lang('admin_system'); ?></div>
-            <a href="<?php echo SITE_URL; ?>admin/settings" class="admin-nav-link <?php echo adminActive('settings'); ?>">
-                <i class="fas fa-cog"></i><?php echo lang('admin_settings'); ?>
-            </a>
-            <a href="<?php echo SITE_URL; ?>" class="admin-nav-link" target="_blank">
-                <i class="fas fa-external-link-alt"></i><?php echo lang('admin_view_site'); ?>
-            </a>
-            <a href="<?php echo SITE_URL; ?>admin/logout" class="admin-nav-link" style="color:#f87171;">
-                <i class="fas fa-sign-out-alt"></i><?php echo lang('admin_logout'); ?>
-            </a>
         </nav>
     </aside>
 
     <!-- Main -->
-    <div class="admin-main">
+    <div class="admin-main" id="adminMain">
 
         <!-- Topbar -->
         <div class="admin-topbar">
             <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-sm btn-outline-secondary d-lg-none" id="sidebarToggle">
+                <!-- Mobile hamburger -->
+                <button class="btn btn-sm btn-outline-secondary d-lg-none"
+                        id="sidebarToggle" aria-label="Toggle menu">
                     <i class="fas fa-bars"></i>
                 </button>
                 <span class="admin-topbar-title"><?php echo $pageTitle ?? lang('admin_dashboard'); ?></span>
@@ -432,9 +527,9 @@ function adminActive(string $path): string {
                 <!-- Language Switcher -->
                 <div class="dropdown">
                     <button class="btn btn-sm btn-outline-secondary dropdown-toggle shadow-none"
-                            type="button" data-bs-toggle="dropdown">
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-language"></i>
-                        <?php echo $langLabels[$lang]; ?>
+                        <span class="d-none d-md-inline"><?php echo $langLabels[$lang]; ?></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <?php foreach($langLabels as $code => $label): ?>
@@ -450,13 +545,17 @@ function adminActive(string $path): string {
                 </div>
 
                 <!-- Dark Mode -->
-                <button class="dark-toggle" id="darkToggle" aria-label="<?php echo lang('toggle_dark'); ?>">
+                <button class="dark-toggle" id="darkToggle"
+                        aria-label="<?php echo lang('toggle_dark'); ?>"
+                        title="<?php echo lang('toggle_dark'); ?>">
                     <i class="fas fa-moon"></i>
                 </button>
 
-                <span class="text-secondary d-none d-md-inline" style="font-size:var(--fs-sm);">
+                <!-- Admin badge -->
+                <span class="d-none d-md-flex align-items-center gap-1 text-secondary"
+                      style="font-size:var(--fs-xs); padding:.25rem .6rem; background:var(--bg-hover); border-radius:var(--r-full); border:1px solid var(--border-color);">
                     <i class="fas fa-user-shield text-primary-custom"></i>
-                    <?php echo lang('admin_panel'); ?>
+                    Admin
                 </span>
             </div>
         </div>
@@ -473,9 +572,8 @@ function adminActive(string $path): string {
 <script>
 const APP = { siteUrl: '<?php echo SITE_URL; ?>' };
 
-/* Dark mode */
+/* ── Dark mode ── */
 (function(){
-    // Theme already set on <html> by PHP via cookie — just sync the icon
     const t    = document.documentElement.getAttribute('data-theme') || 'light';
     const icon = document.querySelector('#darkToggle i');
     if(icon) icon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
@@ -489,12 +587,50 @@ document.getElementById('darkToggle')?.addEventListener('click', function(){
     if(icon) icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 });
 
-/* Sidebar toggle (mobile) */
-document.getElementById('sidebarToggle')?.addEventListener('click', () => {
-    document.getElementById('adminSidebar').classList.toggle('open');
+/* ── Sidebar collapse (desktop) ── */
+const sidebar      = document.getElementById('adminSidebar');
+const collapseBtn  = document.getElementById('sidebarCollapseBtn');
+const COLLAPSED_KEY = 'admin_sidebar_collapsed';
+
+// Restore saved state
+if(localStorage.getItem(COLLAPSED_KEY) === '1') {
+    sidebar?.classList.add('collapsed');
+}
+
+collapseBtn?.addEventListener('click', () => {
+    const isCollapsed = sidebar.classList.toggle('collapsed');
+    localStorage.setItem(COLLAPSED_KEY, isCollapsed ? '1' : '0');
+    collapseBtn.setAttribute('aria-label', isCollapsed ? 'Expand sidebar' : 'Collapse sidebar');
 });
 
-/* Alert helper */
+/* ── Sidebar mobile ── */
+const overlay     = document.getElementById('sidebarOverlay');
+const toggleBtn   = document.getElementById('sidebarToggle');
+
+function openMobileSidebar() {
+    sidebar?.classList.add('mobile-open');
+    overlay?.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    toggleBtn?.setAttribute('aria-expanded', 'true');
+}
+function closeMobileSidebar() {
+    sidebar?.classList.remove('mobile-open');
+    overlay?.classList.remove('show');
+    document.body.style.overflow = '';
+    toggleBtn?.setAttribute('aria-expanded', 'false');
+}
+
+toggleBtn?.addEventListener('click', () => {
+    sidebar?.classList.contains('mobile-open') ? closeMobileSidebar() : openMobileSidebar();
+});
+overlay?.addEventListener('click', closeMobileSidebar);
+
+// Close on Escape
+document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') closeMobileSidebar();
+});
+
+/* ── Alert helper ── */
 function alert(type, msg){
     const cls  = type === 'success' ? 'alert-success' : 'alert-danger';
     const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
