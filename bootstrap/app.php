@@ -8,6 +8,17 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Global exception handler — shows real error instead of JSON 500
+set_exception_handler(function(Throwable $e) {
+    http_response_code(500);
+    echo '<pre style="background:#1e1e2e;color:#f8f8f2;padding:2rem;margin:0;font-size:14px;">';
+    echo '<strong style="color:#ff5555;">Error:</strong> ' . htmlspecialchars($e->getMessage()) . "\n\n";
+    echo '<strong style="color:#8be9fd;">File:</strong> ' . htmlspecialchars($e->getFile()) . ':' . $e->getLine() . "\n\n";
+    echo '<strong style="color:#50fa7b;">Trace:</strong>' . "\n" . htmlspecialchars($e->getTraceAsString());
+    echo '</pre>';
+    exit;
+});
+
 // Define base path — only if not already defined (constants.php may define it)
 if (!defined('BASE_PATH')) {
     define('BASE_PATH', dirname(__DIR__));

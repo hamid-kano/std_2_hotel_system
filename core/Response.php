@@ -78,6 +78,13 @@ class Response {
     public static function serverError($message = 'Internal Server Error') {
         http_response_code(500);
         error_log($message);
-        self::view('errors/500');
+        // Render directly — avoid calling view() which may itself throw
+        $viewFile = BASE_PATH . '/views/errors/500.php';
+        if (file_exists($viewFile)) {
+            require $viewFile;
+        } else {
+            echo '<h1>500 — Internal Server Error</h1><p>' . htmlspecialchars($message) . '</p>';
+        }
+        exit;
     }
 }

@@ -68,8 +68,21 @@ class Router {
         if (is_string($action)) {
             [$controller, $method] = explode('@', $action);
             
-            $controllerFile = BASE_PATH . '/controllers/' . $controller . '.php';
-            if (!file_exists($controllerFile)) {
+            // Search in controllers/ then controllers/admin/
+            $paths = [
+                BASE_PATH . '/controllers/' . $controller . '.php',
+                BASE_PATH . '/controllers/admin/' . $controller . '.php',
+            ];
+            
+            $controllerFile = null;
+            foreach ($paths as $path) {
+                if (file_exists($path)) {
+                    $controllerFile = $path;
+                    break;
+                }
+            }
+            
+            if (!$controllerFile) {
                 Response::serverError("Controller not found: $controller");
             }
             
