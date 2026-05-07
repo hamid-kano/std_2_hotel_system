@@ -47,7 +47,19 @@ Router::post('/api/user/update-password', 'UserController@updatePassword');
 Router::post('/api/user/add-balance', 'UserController@addBalance');
 Router::post('/api/user/update-avatar', 'UserController@updateAvatar');
 
-// ========== Admin Routes ==========
+// ========== Debug (remove in production) ==========
+Router::get('/debug/session', function() {
+    Session::start();
+    header('Content-Type: application/json');
+    echo json_encode([
+        'session_id'   => session_id(),
+        'session_data' => $_SESSION,
+        'cookie'       => $_COOKIE['PHPSESSID'] ?? 'no cookie',
+        'login'        => $_SESSION['login'] ?? false,
+        'uName'        => $_SESSION['uName'] ?? null,
+    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    exit;
+});
 Router::any('/admin/login',    'AuthController@adminLogin');
 Router::get('/admin/logout',   'AuthController@adminLogout');
 Router::get('/admin',          'AdminDashboardController@index');
