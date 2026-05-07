@@ -8,17 +8,19 @@ class Session {
     
     public static function start() {
         if (session_status() === PHP_SESSION_NONE) {
+            // Ensure cookie is available across the whole site
             ini_set('session.cookie_httponly', 1);
             ini_set('session.use_only_cookies', 1);
-            ini_set('session.cookie_secure', 0); // Set to 1 in production with HTTPS
+            ini_set('session.cookie_secure', 0);
             ini_set('session.cookie_samesite', 'Lax');
+            ini_set('session.cookie_path', '/');
             
             session_start();
             
-            // Regenerate session ID periodically
+            // Regenerate session ID periodically (every 30 min)
             if (!isset($_SESSION['created'])) {
                 $_SESSION['created'] = time();
-            } else if (time() - $_SESSION['created'] > 1800) {
+            } elseif (time() - $_SESSION['created'] > 1800) {
                 session_regenerate_id(true);
                 $_SESSION['created'] = time();
             }

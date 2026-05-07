@@ -8,7 +8,7 @@ class Auth {
     
     // User Authentication
     public static function loginUser($id, $name, $phone) {
-        Session::regenerate();
+        // Write session data
         Session::set('login', true);
         Session::set('uId', $id);
         Session::set('uName', $name);
@@ -42,7 +42,6 @@ class Auth {
     
     // Admin Authentication
     public static function loginAdmin($id) {
-        Session::regenerate();
         Session::set('adminLogin', true);
         Session::set('adminId', $id);
     }
