@@ -1164,3 +1164,24 @@ footer nav a:hover { color: var(--primary); }
     .auth-form-wrap { padding: var(--sp-3) var(--sp-2); }
     .auth-title { font-size: var(--fs-2xl); }
 }
+
+/* ===== ADMIN PANEL — DARK MODE OVERRIDES ===== */
+[data-theme="dark"] .admin-table tbody td { background: var(--bg-card); }
+[data-theme="dark"] .admin-table tbody tr:hover td { background: var(--bg-hover); }
+[data-theme="dark"] .admin-table thead th { background: var(--bg-hover); color: var(--text-secondary); }
+[data-theme="dark"] .admin-stat-card { background: var(--bg-card); border-color: var(--border-color); }
+[data-theme="dark"] .admin-stat-card:hover { box-shadow: var(--shadow-lg); }
+[data-theme="dark"] .admin-topbar { background: var(--bg-card); border-bottom-color: var(--border-color); }
+[data-theme="dark"] .admin-content .card { background: var(--bg-card); border-color: var(--border-color); }
+[data-theme="dark"] .admin-content .form-control,
+[data-theme="dark"] .admin-content .form-select { background: var(--bg-input); color: var(--text-primary); border-color: var(--border-color); }
+[data-theme="dark"] .admin-content .modal-content { background: var(--bg-card); border-color: var(--border-color); }
+[data-theme="dark"] .admin-content .modal-header,
+[data-theme="dark"] .admin-content .modal-footer { border-color: var(--border-color); }
+[data-theme="dark"] .admin-content .table { color: var(--text-primary); }
+[data-theme="dark"] .admin-content .table td,
+[data-theme="dark"] .admin-content .table th { border-color: var(--border-color); }
+[data-theme="dark"] .admin-content .btn-outline-secondary { color: var(--text-primary); border-color: var(--border-color); }
+[data-theme="dark"] .admin-content .btn-outline-secondary:hover { background: var(--bg-hover); color: var(--primary); border-color: var(--primary); }
+[data-theme="dark"] .admin-content .badge.bg-light { background: var(--bg-hover) !important; color: var(--text-primary) !important; }
+[data-theme="dark"] .admin-content input[type="file"] { background: var(--bg-input); color: var(--text-primary); border-color: var(--border-color); }

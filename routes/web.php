@@ -35,6 +35,9 @@ Router::get('/bookings', 'BookingController@index');
 Router::get('/booking/confirm', 'BookingController@confirm');
 Router::post('/api/booking/check-availability', 'BookingController@checkAvailability');
 Router::post('/booking/pay', 'BookingController@pay');
+Router::get('/booking/payment', 'BookingController@paymentPage');
+Router::post('/api/booking/process-payment', 'BookingController@processPayment');
+Router::get('/booking/success', 'BookingController@paymentSuccess');
 Router::post('/api/booking/cancel', 'BookingController@cancel');
 Router::post('/api/booking/review', 'BookingController@review');
 
@@ -45,10 +48,57 @@ Router::post('/api/user/add-balance', 'UserController@addBalance');
 Router::post('/api/user/update-avatar', 'UserController@updateAvatar');
 
 // ========== Admin Routes ==========
-Router::any('/admin/login', 'AuthController@adminLogin');
-Router::get('/admin/logout', 'AuthController@adminLogout');
+Router::any('/admin/login',    'AuthController@adminLogin');
+Router::get('/admin/logout',   'AuthController@adminLogout');
+Router::get('/admin',          'AdminDashboardController@index');
+Router::get('/admin/dashboard','AdminDashboardController@index');
+Router::post('/admin/dashboard','AdminDashboardController@analytics');
 
-// Admin Dashboard (will be added later)
-// Router::get('/admin/dashboard', 'AdminController@dashboard');
-// Router::get('/admin/rooms', 'AdminRoomController@index');
-// ... etc
+// Bookings
+Router::get('/admin/bookings/new',          'AdminBookingController@newBookings');
+Router::post('/admin/bookings/assign',      'AdminBookingController@assignRoom');
+Router::post('/admin/bookings/cancel',      'AdminBookingController@cancelBooking');
+Router::get('/admin/bookings/refunds',      'AdminBookingController@refundBookings');
+Router::post('/admin/bookings/refund',      'AdminBookingController@processRefund');
+Router::get('/admin/bookings/records',      'AdminBookingController@records');
+
+// Rooms
+Router::get('/admin/rooms',                 'AdminRoomController@index');
+Router::post('/admin/rooms/add',            'AdminRoomController@addRoom');
+Router::post('/admin/rooms/edit',           'AdminRoomController@editRoom');
+Router::post('/admin/rooms/toggle',         'AdminRoomController@toggleStatus');
+Router::post('/admin/rooms/remove',         'AdminRoomController@removeRoom');
+Router::get('/admin/rooms/{id}/images',         'AdminRoomController@images');
+Router::post('/admin/rooms/{id}/images/add',    'AdminRoomController@addImage');
+Router::post('/admin/rooms/{id}/images/remove', 'AdminRoomController@removeImage');
+Router::post('/admin/rooms/{id}/images/thumb',  'AdminRoomController@setThumb');
+
+// Users
+Router::get('/admin/users',                 'AdminUserController@index');
+Router::post('/admin/users/toggle',         'AdminUserController@toggleStatus');
+Router::post('/admin/users/remove',         'AdminUserController@removeUser');
+
+// Facilities & Features
+Router::get('/admin/facilities',            'AdminFacilityController@index');
+Router::post('/admin/features/add',         'AdminFacilityController@addFeature');
+Router::post('/admin/features/remove',      'AdminFacilityController@removeFeature');
+Router::post('/admin/facilities/add',       'AdminFacilityController@addFacility');
+Router::post('/admin/facilities/remove',    'AdminFacilityController@removeFacility');
+
+// Reviews & Queries
+Router::get('/admin/reviews',               'AdminReviewController@reviews');
+Router::post('/admin/reviews/seen',         'AdminReviewController@markReviewSeen');
+Router::get('/admin/queries',               'AdminReviewController@queries');
+Router::post('/admin/queries/seen',         'AdminReviewController@markQuerySeen');
+
+// Settings
+Router::get('/admin/settings',              'AdminSettingsController@index');
+Router::post('/admin/settings/general',     'AdminSettingsController@updateGeneral');
+Router::post('/admin/settings/contacts',    'AdminSettingsController@updateContacts');
+Router::post('/admin/settings/member/add',  'AdminSettingsController@addMember');
+Router::post('/admin/settings/member/remove','AdminSettingsController@removeMember');
+
+// Carousel
+Router::get('/admin/carousel',              'AdminSettingsController@carousel');
+Router::post('/admin/carousel/add',         'AdminSettingsController@addCarousel');
+Router::post('/admin/carousel/remove',      'AdminSettingsController@removeCarousel');

@@ -97,27 +97,30 @@ class AuthController extends BaseController {
     }
     
     public function adminLogin() {
-        if (!Request::isPost()) {
-            $this->view('admin/login');
-            return;
+        if (Auth::isAdminLoggedIn()) {
+            $this->redirect(SITE_URL . 'admin/dashboard');
         }
-        
+
+        if (!Request::isPost()) {
+            require BASE_PATH . '/views/admin/login.php';
+            exit;
+        }
+
         $name     = $this->post('admin_name');
         $password = Request::post('admin_pass');
-        
+
         $admin = Admin::findByName($name);
-        
+
         if (!$admin || !Admin::verifyPassword($admin, $password)) {
-            Session::flash('error', 'Invalid credentials');
-            $this->view('admin/login', ['error' => 'Invalid credentials']);
-            return;
+            $error = 'Invalid credentials. Please try again.';
+            require BASE_PATH . '/views/admin/login.php';
+            exit;
         }
-        
-        // Upgrade plain-text password to bcrypt
+
         if (!password_get_info($admin['admin_pass'])['algo']) {
             Admin::upgradePassword($admin['sr_no'], $password);
         }
-        
+
         Auth::loginAdmin($admin['sr_no']);
         $this->redirect(SITE_URL . 'admin/dashboard');
     }

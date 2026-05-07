@@ -47,6 +47,16 @@ require_once BASE_PATH . '/controllers/RoomController.php';
 require_once BASE_PATH . '/controllers/BookingController.php';
 require_once BASE_PATH . '/controllers/UserController.php';
 
+// Load admin controllers
+require_once BASE_PATH . '/controllers/admin/AdminBaseController.php';
+require_once BASE_PATH . '/controllers/admin/AdminDashboardController.php';
+require_once BASE_PATH . '/controllers/admin/AdminBookingController.php';
+require_once BASE_PATH . '/controllers/admin/AdminRoomController.php';
+require_once BASE_PATH . '/controllers/admin/AdminUserController.php';
+require_once BASE_PATH . '/controllers/admin/AdminFacilityController.php';
+require_once BASE_PATH . '/controllers/admin/AdminReviewController.php';
+require_once BASE_PATH . '/controllers/admin/AdminSettingsController.php';
+
 // Start session
 Session::start();
 

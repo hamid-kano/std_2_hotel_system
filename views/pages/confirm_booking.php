@@ -55,8 +55,7 @@
                         <?php echo lang('booking_confirm'); ?>
                     </h5>
 
-                    <form action="<?php echo SITE_URL; ?>booking/pay" method="POST" id="booking_form">
-                        <div class="row g-3">
+                    <form action="<?php echo SITE_URL; ?>booking/pay" method="POST" id="booking_form">                        <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label"><i class="fas fa-user"></i><?php echo lang('name'); ?></label>
                                 <input type="text" name="name" value="<?php echo htmlspecialchars($user['name']); ?>"

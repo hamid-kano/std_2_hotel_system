@@ -94,26 +94,67 @@ class BookingController extends BaseController {
     
     public function pay() {
         $this->requireAuth();
-        
+
         if (!Request::isPost()) {
             $this->redirect(SITE_URL . 'rooms');
         }
-        
+
         $room = Session::get('room');
         if (!$room || !$room['available']) {
             $this->redirect(SITE_URL . 'rooms');
         }
-        
-        $userId  = Auth::userId();
-        $balance = User::getBalance($userId);
-        
-        if ($balance < $room['payment']) {
-            Session::flash('error', 'Insufficient balance');
-            $this->redirect(SITE_URL . 'booking/confirm?id=' . $room['id']);
+
+        // Store guest details in session, then go to mock payment page
+        Session::set('booking_guest', [
+            'name'    => $this->post('name'),
+            'phonenum'=> $this->post('phonenum'),
+            'address' => $this->post('address'),
+        ]);
+
+        $this->redirect(SITE_URL . 'booking/payment');
+    }
+
+    public function paymentPage() {
+        $this->requireAuth();
+
+        $room  = Session::get('room');
+        $guest = Session::get('booking_guest');
+
+        if (!$room || !$room['available'] || !$guest) {
+            $this->redirect(SITE_URL . 'rooms');
         }
-        
+
+        $this->view('pages/payment', compact('room', 'guest'));
+    }
+
+    public function processPayment() {
+        $this->requireAuth();
+
+        if (!Request::isPost()) exit;
+
+        $room  = Session::get('room');
+        $guest = Session::get('booking_guest');
+
+        if (!$room || !$room['available'] || !$guest) {
+            $this->json(['status' => 'error', 'message' => 'Session expired.']);
+        }
+
+        // Simulate processing delay (already done client-side)
+        $cardNumber = $this->post('card_number');
+        $expiry     = $this->post('expiry');
+        $cvv        = $this->post('cvv');
+        $cardName   = $this->post('card_name');
+
+        // Mock validation — decline if card starts with 0000
+        $cleanCard = preg_replace('/\s+/', '', $cardNumber);
+        if (str_starts_with($cleanCard, '0000')) {
+            $this->json(['status' => 'declined', 'message' => 'Card declined. Please try another card.']);
+        }
+
+        // Create booking
+        $userId  = Auth::userId();
         $orderId = Booking::generateOrderId();
-        
+
         $bookingId = Booking::create(
             [
                 'user_id'   => $userId,
@@ -125,23 +166,48 @@ class BookingController extends BaseController {
                 'total_pay' => $room['payment'],
             ],
             [
-                'user_name' => $this->post('name'),
-                'phonenum'  => $this->post('phonenum'),
-                'address'   => $this->post('address'),
+                'user_name' => $guest['name'],
+                'phonenum'  => $guest['phonenum'],
+                'address'   => $guest['address'],
                 'room_name' => $room['name'],
                 'price'     => $room['price'],
             ]
         );
-        
+
         if (!$bookingId) {
-            Session::flash('error', 'Booking failed. Please try again.');
-            $this->redirect(SITE_URL . 'booking/confirm?id=' . $room['id']);
+            $this->json(['status' => 'error', 'message' => 'Booking failed. Please try again.']);
         }
-        
-        User::deductBalance($userId, $room['payment']);
+
         Session::remove('room');
-        
-        $this->redirect(SITE_URL . 'bookings?success=1');
+        Session::remove('booking_guest');
+
+        $this->json([
+            'status'     => 'success',
+            'order_id'   => $orderId,
+            'booking_id' => $bookingId,
+            'redirect'   => SITE_URL . 'booking/success?order=' . $orderId,
+        ]);
+    }
+
+    public function paymentSuccess() {
+        $this->requireAuth();
+
+        $orderId = Request::get('order');
+        if (!$orderId) $this->redirect(SITE_URL . 'bookings');
+
+        $result = Database::getInstance()->select(
+            "SELECT bo.*, bd.*, uc.email
+             FROM `booking_order` bo
+             INNER JOIN `booking_details` bd ON bo.booking_id = bd.booking_id
+             INNER JOIN `user_cred` uc ON bo.user_id = uc.id
+             WHERE bo.order_id = ? AND bo.user_id = ? LIMIT 1",
+            [$orderId, Auth::userId()], 'si'
+        );
+        $booking = Model::fetchOne($result);
+
+        if (!$booking) $this->redirect(SITE_URL . 'bookings');
+
+        $this->view('pages/payment_success', compact('booking'));
     }
     
     public function cancel() {
