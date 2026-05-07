@@ -8,9 +8,14 @@ if (!isset($contact)) {
 }
 $lang  = Session::getLang();
 $isRTL = $lang === 'ar';
+
+// Read theme from cookie to avoid flash on page load
+$savedTheme = $_COOKIE['vana_theme'] ?? 'light';
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang; ?>" dir="<?php echo $isRTL ? 'rtl' : 'ltr'; ?>">
+<html lang="<?php echo $lang; ?>"
+      dir="<?php echo $isRTL ? 'rtl' : 'ltr'; ?>"
+      data-theme="<?php echo htmlspecialchars($savedTheme); ?>">
 <head>
     <?php require BASE_PATH . '/views/layouts/head.php'; ?>
     <title><?php echo $pageTitle ?? APP_NAME; ?></title>

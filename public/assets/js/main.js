@@ -14,9 +14,8 @@ function alert(type, msg){
 
 /* ===== DARK MODE ===== */
 (function(){
-    const saved = localStorage.getItem('vana_theme') || 'light';
-    document.documentElement.setAttribute('data-theme', saved);
-    _applyDarkToggleIcon(saved);
+    // Sync icon with current theme (already set on <html> by PHP via cookie)
+    _applyDarkToggleIcon(document.documentElement.getAttribute('data-theme') || 'light');
 })();
 
 function _applyDarkToggleIcon(theme) {
@@ -33,6 +32,8 @@ document.getElementById('darkToggle')?.addEventListener('click', function(){
     const next = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('vana_theme', next);
+    // Also set cookie so PHP can read it server-side (prevents theme flash)
+    document.cookie = `vana_theme=${next};path=/;max-age=31536000`;
     _applyDarkToggleIcon(next);
 });
 

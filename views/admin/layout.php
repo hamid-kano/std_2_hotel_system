@@ -13,12 +13,17 @@ $lang       = Session::getLang();
 $isRTL      = ($lang === 'ar');
 $langLabels = ['ar' => 'العربية 🇮🇶', 'en' => 'English 🇬🇧', 'ku' => 'کوردی 🏳'];
 
+// Read theme from cookie to avoid flash
+$savedTheme = $_COOKIE['vana_theme'] ?? 'light';
+
 function adminActive(string $path): string {
     return str_contains(Request::uri(), $path) ? 'active' : '';
 }
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang; ?>" dir="<?php echo $isRTL ? 'rtl' : 'ltr'; ?>">
+<html lang="<?php echo $lang; ?>"
+      dir="<?php echo $isRTL ? 'rtl' : 'ltr'; ?>"
+      data-theme="<?php echo htmlspecialchars($savedTheme); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

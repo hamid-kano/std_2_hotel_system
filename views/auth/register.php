@@ -1,13 +1,35 @@
 <?php
-$lang  = Session::getLang();
-$isRTL = $lang === 'ar';
+// Language switcher handler
+if (isset($_GET['set_lang'])) {
+    Session::setLang($_GET['set_lang']);
+    header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
+    exit;
+}
+
+$lang      = Session::getLang();
+$isRTL     = ($lang === 'ar');
 $pageTitle = APP_NAME . ' — ' . lang('register');
+
+$savedTheme = $_COOKIE['vana_theme'] ?? 'light';
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang; ?>" dir="<?php echo $isRTL ? 'rtl' : 'ltr'; ?>">
+<html lang="<?php echo $lang; ?>"
+      dir="<?php echo $isRTL ? 'rtl' : 'ltr'; ?>"
+      data-theme="<?php echo htmlspecialchars($savedTheme); ?>">
 <head>
     <?php require BASE_PATH . '/views/layouts/head.php'; ?>
     <title><?php echo $pageTitle; ?></title>
+    <style>
+        .auth-lang-btn {
+            font-size: var(--fs-xs);
+            padding: .35rem .75rem;
+            border-radius: var(--r-full);
+        }
+        [data-theme="dark"] .auth-lang-btn {
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+    </style>
 </head>
 <body class="auth-body">
 
@@ -45,15 +67,7 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
     <!-- Right panel -->
     <div class="auth-panel-right">
 
-        <div class="auth-topbar">
-            <a href="<?php echo SITE_URL; ?>" class="auth-back">
-                <i class="fas fa-arrow-left"></i>
-                <span><?php echo lang('back_to_site'); ?></span>
-            </a>
-            <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
-                <i class="fas fa-moon"></i>
-            </button>
-        </div>
+        <?php require BASE_PATH . '/views/auth/partials/topbar.php'; ?>
 
         <div class="auth-form-wrap auth-form-wrap--wide">
 
@@ -75,7 +89,8 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
                             <i class="fas fa-user"></i><?php echo lang('name'); ?>
                         </label>
                         <input type="text" name="name" class="form-control"
-                               placeholder="Full name" autocomplete="name" required>
+                               placeholder="<?php echo lang('full_name_hint'); ?>"
+                               autocomplete="name" required>
                     </div>
 
                     <div class="col-md-6 auth-field">
@@ -83,7 +98,8 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
                             <i class="fas fa-envelope"></i><?php echo lang('email'); ?>
                         </label>
                         <input type="email" name="email" class="form-control"
-                               placeholder="email@example.com" autocomplete="email" required>
+                               placeholder="<?php echo lang('email_hint'); ?>"
+                               autocomplete="email" required>
                     </div>
 
                     <div class="col-md-6 auth-field">
@@ -91,7 +107,8 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
                             <i class="fas fa-phone"></i><?php echo lang('phone'); ?>
                         </label>
                         <input type="text" name="phonenum" class="form-control"
-                               placeholder="07xxxxxxxx" autocomplete="tel" required>
+                               placeholder="<?php echo lang('phone_hint'); ?>"
+                               autocomplete="tel" required>
                     </div>
 
                     <div class="col-md-6 auth-field">
@@ -106,7 +123,8 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
                             <i class="fas fa-map-marker-alt"></i><?php echo lang('address'); ?>
                         </label>
                         <input type="text" name="address" class="form-control"
-                               placeholder="<?php echo lang('address_hint'); ?>" autocomplete="street-address" required>
+                               placeholder="<?php echo lang('address_hint'); ?>"
+                               autocomplete="street-address" required>
                     </div>
 
                     <div class="col-md-6 auth-field">
@@ -117,7 +135,7 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
                                placeholder="<?php echo lang('pincode_hint'); ?>" required>
                     </div>
 
-                    <div class="col-md-6"></div><!-- spacer -->
+                    <div class="col-md-6"></div>
 
                     <div class="col-md-6 auth-field">
                         <label class="form-label">
@@ -126,9 +144,10 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
                         <div class="auth-password-wrap">
                             <input type="password" name="pass" id="pass"
                                    class="form-control"
-                                   placeholder="Min. 8 characters"
+                                   placeholder="<?php echo lang('pass_min_hint'); ?>"
                                    autocomplete="new-password" required>
-                            <button type="button" class="auth-eye" id="togglePass" aria-label="Show password">
+                            <button type="button" class="auth-eye" id="togglePass"
+                                    aria-label="<?php echo lang('show_password'); ?>">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -143,13 +162,13 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
                                    class="form-control"
                                    placeholder="<?php echo lang('pass_repeat'); ?>"
                                    autocomplete="new-password" required>
-                            <button type="button" class="auth-eye" id="toggleCpass" aria-label="Show password">
+                            <button type="button" class="auth-eye" id="toggleCpass"
+                                    aria-label="<?php echo lang('show_password'); ?>">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Password strength -->
                     <div class="col-12">
                         <div class="auth-strength">
                             <div class="auth-strength-bar" id="strengthBar"></div>
@@ -182,71 +201,72 @@ $pageTitle = APP_NAME . ' — ' . lang('register');
 <script>
 const APP = { siteUrl: '<?php echo SITE_URL; ?>' };
 
-/* Dark mode */
-(function(){
-    const t = localStorage.getItem('vana_theme') || 'light';
-    document.documentElement.setAttribute('data-theme', t);
+/* ── Dark mode ── */
+function _applyThemeIcon(theme) {
     const icon = document.querySelector('#darkToggle i');
-    if(icon) icon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-})();
-document.getElementById('darkToggle')?.addEventListener('click', function(){
-    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+}
+_applyThemeIcon(document.documentElement.getAttribute('data-theme') || 'light');
+
+document.getElementById('darkToggle')?.addEventListener('click', function () {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next    = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('vana_theme', next);
-    const icon = this.querySelector('i');
-    if(icon) icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    document.cookie = `vana_theme=${next};path=/;max-age=31536000`;
+    _applyThemeIcon(next);
 });
 
-/* Password toggles */
-function makeToggle(btnId, inputId){
-    document.getElementById(btnId)?.addEventListener('click', function(){
-        const inp = document.getElementById(inputId);
+/* ── Password toggles ── */
+function makeToggle(btnId, inputId) {
+    document.getElementById(btnId)?.addEventListener('click', function () {
+        const inp  = document.getElementById(inputId);
         const icon = this.querySelector('i');
-        inp.type = inp.type === 'password' ? 'text' : 'password';
+        inp.type   = inp.type === 'password' ? 'text' : 'password';
         icon.className = inp.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
     });
 }
 makeToggle('togglePass', 'pass');
 makeToggle('toggleCpass', 'cpass');
 
-/* Password strength */
-document.getElementById('pass')?.addEventListener('input', function(){
-    const v = this.value;
+/* ── Password strength ── */
+document.getElementById('pass')?.addEventListener('input', function () {
+    const v   = this.value;
     const bar = document.getElementById('strengthBar');
     const lbl = document.getElementById('strengthLabel');
     let score = 0;
-    if(v.length >= 8) score++;
-    if(/[A-Z]/.test(v)) score++;
-    if(/[0-9]/.test(v)) score++;
-    if(/[^A-Za-z0-9]/.test(v)) score++;
+    if (v.length >= 8)          score++;
+    if (/[A-Z]/.test(v))        score++;
+    if (/[0-9]/.test(v))        score++;
+    if (/[^A-Za-z0-9]/.test(v)) score++;
     const levels = [
-        { w:'0%',   color:'transparent', text:'' },
-        { w:'25%',  color:'#dc3545',     text:'<?php echo lang('pass_strength_weak'); ?>' },
-        { w:'50%',  color:'#ffc107',     text:'<?php echo lang('pass_strength_fair'); ?>' },
-        { w:'75%',  color:'#17a2b8',     text:'<?php echo lang('pass_strength_good'); ?>' },
-        { w:'100%', color:'#28a745',     text:'<?php echo lang('pass_strength_strong'); ?>' },
+        { w: '0%',   color: 'transparent', text: '' },
+        { w: '25%',  color: '#dc3545',     text: '<?php echo addslashes(lang('pass_strength_weak')); ?>' },
+        { w: '50%',  color: '#ffc107',     text: '<?php echo addslashes(lang('pass_strength_fair')); ?>' },
+        { w: '75%',  color: '#17a2b8',     text: '<?php echo addslashes(lang('pass_strength_good')); ?>' },
+        { w: '100%', color: '#28a745',     text: '<?php echo addslashes(lang('pass_strength_strong')); ?>' },
     ];
-    bar.style.width  = levels[score].w;
+    bar.style.width      = levels[score].w;
     bar.style.background = levels[score].color;
-    lbl.textContent  = levels[score].text;
-    lbl.style.color  = levels[score].color;
+    lbl.textContent      = levels[score].text;
+    lbl.style.color      = levels[score].color;
 });
 
-/* Alert helper */
-function showAlert(msg, type){
-    const el = document.getElementById('auth-alert');
-    const icons = { success:'fa-check-circle', danger:'fa-exclamation-circle', warning:'fa-exclamation-triangle' };
+/* ── Alert ── */
+function showAlert(msg, type) {
+    const el    = document.getElementById('auth-alert');
+    const icons = { success: 'fa-check-circle', danger: 'fa-exclamation-circle', warning: 'fa-exclamation-triangle' };
     el.className = `auth-alert auth-alert-${type}`;
-    el.innerHTML = `<i class="fas ${icons[type]||'fa-info-circle'}"></i><span>${msg}</span>`;
+    el.innerHTML = `<i class="fas ${icons[type] || 'fa-info-circle'}"></i><span>${msg}</span>`;
 }
 
-/* Register form */
-document.getElementById('register-form').addEventListener('submit', function(e){
+/* ── Register form ── */
+document.getElementById('register-form').addEventListener('submit', function (e) {
     e.preventDefault();
     const pass  = this.elements['pass'].value;
     const cpass = this.elements['cpass'].value;
-    if(pass !== cpass){ showAlert('<?php echo lang('err_pass_mismatch'); ?>', 'warning'); return; }
-    if(pass.length < 8){ showAlert('<?php echo lang('err_pass_min'); ?>', 'warning'); return; }
+    if (pass !== cpass)  { showAlert('<?php echo addslashes(lang('err_pass_mismatch')); ?>', 'warning'); return; }
+    if (pass.length < 8) { showAlert('<?php echo addslashes(lang('err_pass_min')); ?>', 'warning'); return; }
 
     const btn = document.getElementById('submit-btn');
     btn.classList.add('btn-loading');
@@ -258,28 +278,28 @@ document.getElementById('register-form').addEventListener('submit', function(e){
     });
     data.append('register', '');
 
-    fetch(APP.siteUrl + 'api/auth/register', { method:'POST', body:data })
+    fetch(APP.siteUrl + 'api/auth/register', { method: 'POST', body: data })
         .then(r => r.text())
         .then(r => {
             btn.classList.remove('btn-loading');
             btn.disabled = false;
             const msgs = {
-                pass_mismatch: '<?php echo lang('err_pass_mismatch'); ?>',
-                email_already: '<?php echo lang('err_email_exists'); ?>',
-                phone_already: '<?php echo lang('err_phone_exists'); ?>',
-                ins_failed:    '<?php echo lang('err_reg_failed'); ?>'
+                pass_mismatch: '<?php echo addslashes(lang('err_pass_mismatch')); ?>',
+                email_already: '<?php echo addslashes(lang('err_email_exists')); ?>',
+                phone_already: '<?php echo addslashes(lang('err_phone_exists')); ?>',
+                ins_failed:    '<?php echo addslashes(lang('err_reg_failed')); ?>'
             };
-            if(msgs[r]){
+            if (msgs[r]) {
                 showAlert(msgs[r], 'danger');
             } else {
-                showAlert('<?php echo lang('register_created'); ?>', 'success');
+                showAlert('<?php echo addslashes(lang('register_created')); ?>', 'success');
                 setTimeout(() => window.location.href = APP.siteUrl + 'login', 1200);
             }
         })
         .catch(() => {
             btn.classList.remove('btn-loading');
             btn.disabled = false;
-            showAlert('Connection error. Please try again.', 'danger');
+            showAlert('<?php echo addslashes(lang('connection_error')); ?>', 'danger');
         });
 });
 </script>
