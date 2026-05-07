@@ -25,35 +25,117 @@ $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>css/style.css">
     <style>
-        body { background: #0a0f1e; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .admin-login-wrap { width: 100%; max-width: 400px; padding: var(--sp-3); }
+        /* ── Admin Login — theme-aware ── */
+
+        /* Light theme: clean white card on light grey */
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-body);
+        }
+
+        .admin-login-wrap {
+            width: 100%;
+            max-width: 400px;
+            padding: var(--sp-3);
+        }
+
         .admin-login-card {
-            background: #111827;
-            border: 1px solid rgba(255,255,255,.08);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: var(--r-2xl);
             padding: 2.5rem;
-            box-shadow: 0 24px 64px rgba(0,0,0,.6);
+            box-shadow: var(--shadow-xl);
         }
+
+        /* Form controls inherit design system */
         .admin-login-card .form-control {
-            background: rgba(255,255,255,.06);
-            border-color: rgba(255,255,255,.12);
-            color: #e2e8f0;
+            background: var(--bg-input);
+            border-color: var(--border-color);
+            color: var(--text-primary);
             border-radius: var(--r-lg);
         }
         .admin-login-card .form-control:focus {
-            background: rgba(255,255,255,.1);
+            background: var(--bg-input);
             border-color: var(--primary);
-            color: #e2e8f0;
+            color: var(--text-primary);
             box-shadow: 0 0 0 3px var(--primary-light);
         }
-        .admin-login-card .form-control::placeholder { color: rgba(255,255,255,.25); }
-        .admin-login-card .form-label { color: rgba(255,255,255,.6); font-size: var(--fs-sm); font-weight: 500; }
-        .admin-login-title { color: #f1f5f9; font-family: var(--font-heading); }
-        .admin-login-sub   { color: rgba(255,255,255,.35); font-size: var(--fs-sm); }
-        .admin-login-back  { color: rgba(255,255,255,.3); font-size: var(--fs-xs); text-decoration: none; transition: color var(--t-fast); }
+        .admin-login-card .form-control::placeholder {
+            color: var(--text-muted);
+        }
+        .admin-login-card .form-label {
+            color: var(--text-secondary);
+            font-size: var(--fs-sm);
+            font-weight: 500;
+        }
+
+        .admin-login-title {
+            color: var(--text-primary);
+            font-family: var(--font-heading);
+        }
+        .admin-login-sub {
+            color: var(--text-secondary);
+            font-size: var(--fs-sm);
+        }
+        .admin-login-back {
+            color: var(--text-muted);
+            font-size: var(--fs-xs);
+            text-decoration: none;
+            transition: color var(--t-fast);
+        }
         .admin-login-back:hover { color: var(--primary); }
-        .admin-login-topbar { position: fixed; top: var(--sp-2); right: var(--sp-3); display: flex; gap: var(--sp-1); }
+
+        /* Topbar */
+        .admin-login-topbar {
+            position: fixed;
+            top: var(--sp-2);
+            right: var(--sp-3);
+            display: flex;
+            gap: var(--sp-1);
+            z-index: 100;
+        }
         [dir="rtl"] .admin-login-topbar { right: auto; left: var(--sp-3); }
+
+        /* Lang button adapts to theme */
+        .admin-lang-btn {
+            font-size: var(--fs-xs);
+            padding: .35rem .75rem;
+            border-radius: var(--r-full);
+            background: var(--bg-card);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        .admin-lang-btn:hover {
+            background: var(--bg-hover);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Dropdown adapts to theme */
+        .admin-login-topbar .dropdown-menu {
+            background: var(--bg-card);
+            border-color: var(--border-color);
+        }
+        .admin-login-topbar .dropdown-item {
+            color: var(--text-primary);
+        }
+        .admin-login-topbar .dropdown-item:hover {
+            background: var(--bg-hover);
+            color: var(--primary);
+        }
+
+        /* Dark theme — add a subtle accent to the card */
+        [data-theme="dark"] .admin-login-card {
+            background: var(--bg-card);
+            border-color: var(--border-color);
+            box-shadow: var(--shadow-xl);
+        }
+        [data-theme="dark"] body {
+            background: var(--bg-body);
+        }
     </style>
 </head>
 <body>
@@ -62,9 +144,8 @@ $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
 <div class="admin-login-topbar">
     <!-- Language switcher -->
     <div class="dropdown">
-        <button class="btn btn-sm btn-outline-secondary dropdown-toggle shadow-none"
-                type="button" data-bs-toggle="dropdown"
-                style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.15); color:#e2e8f0; font-size:var(--fs-xs);">
+        <button class="btn btn-sm dropdown-toggle shadow-none admin-lang-btn"
+                type="button" data-bs-toggle="dropdown">
             <i class="fas fa-language"></i> <?php echo $langLabels[$lang]; ?>
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
