@@ -1,4 +1,4 @@
-<?php $pageTitle = 'Carousel Images'; ?>
+<?php $pageTitle = lang('admin_carousel'); ?>
 
 <?php if(!empty($flash)): ?>
 <div class="alert alert-success alert-dismissible fade show mb-4">
@@ -13,11 +13,10 @@
 </div>
 <?php endif; ?>
 
-<!-- Upload -->
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body p-4">
         <h6 class="fw-700 mb-3">
-            <i class="fas fa-upload text-primary-custom"></i> Add Image
+            <i class="fas fa-upload text-primary-custom"></i> <?php echo lang('admin_add_image_btn'); ?>
         </h6>
         <form method="POST" action="<?php echo SITE_URL; ?>admin/carousel/add" enctype="multipart/form-data">
             <div class="d-flex gap-3 align-items-end">
@@ -25,19 +24,18 @@
                     <input type="file" name="picture" accept=".jpg,.png,.webp,.jpeg" class="form-control" required>
                 </div>
                 <button type="submit" class="btn custom-bg flex-shrink-0">
-                    <i class="fas fa-upload"></i> Upload
+                    <i class="fas fa-upload"></i> <?php echo lang('admin_upload'); ?>
                 </button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- Grid -->
 <div class="row g-3">
 <?php if(empty($images)): ?>
 <div class="col-12 empty-state">
     <i class="fas fa-images"></i>
-    <p>No carousel images yet.</p>
+    <p><?php echo lang('admin_no_carousel'); ?></p>
 </div>
 <?php else: ?>
 <?php foreach($images as $img): ?>
@@ -47,10 +45,10 @@
              class="w-100" style="height:180px; object-fit:cover;" loading="lazy">
         <div class="card-body p-2 text-center">
             <form method="POST" action="<?php echo SITE_URL; ?>admin/carousel/remove"
-                  onsubmit="return confirm('Delete this image?')">
+                  onsubmit="return confirm('<?php echo lang('admin_confirm_del_img_c'); ?>')">
                 <input type="hidden" name="id" value="<?php echo $img['sr_no']; ?>">
                 <button type="submit" class="btn btn-sm btn-danger w-100">
-                    <i class="fas fa-trash"></i> Delete
+                    <i class="fas fa-trash"></i> <?php echo lang('admin_delete'); ?>
                 </button>
             </form>
         </div>

@@ -1,4 +1,4 @@
-<?php $pageTitle = 'Users'; ?>
+<?php $pageTitle = lang('admin_users'); ?>
 
 <?php if(!empty($flash)): ?>
 <div class="alert alert-success alert-dismissible fade show mb-4">
@@ -10,7 +10,7 @@
 <form method="GET" action="<?php echo SITE_URL; ?>admin/users" class="mb-4 d-flex gap-2">
     <div class="admin-search">
         <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>"
-               class="form-control" placeholder="Search name, email, phone…">
+               class="form-control" placeholder="<?php echo lang('search'); ?>…">
     </div>
     <button type="submit" class="btn btn-outline-secondary">
         <i class="fas fa-search"></i>
@@ -21,13 +21,19 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>#</th><th>Name</th><th>Email</th><th>Phone</th>
-                <th>Address</th><th>Joined</th><th>Status</th><th>Action</th>
+                <th>#</th>
+                <th><?php echo lang('name'); ?></th>
+                <th><?php echo lang('email'); ?></th>
+                <th><?php echo lang('phone'); ?></th>
+                <th><?php echo lang('address'); ?></th>
+                <th><?php echo lang('admin_joined'); ?></th>
+                <th><?php echo lang('admin_status_col'); ?></th>
+                <th><?php echo lang('admin_actions'); ?></th>
             </tr>
         </thead>
         <tbody>
         <?php if(empty($users)): ?>
-        <tr><td colspan="8" class="text-center text-secondary py-4">No users found</td></tr>
+        <tr><td colspan="8" class="text-center text-secondary py-4"><?php echo lang('admin_no_users'); ?></td></tr>
         <?php else: ?>
         <?php foreach($users as $i => $u): ?>
         <tr>
@@ -44,13 +50,13 @@
                     <input type="hidden" name="search" value="<?php echo htmlspecialchars($search); ?>">
                     <input type="hidden" name="page" value="<?php echo $page; ?>">
                     <button type="submit" class="btn btn-sm <?php echo $u['status']==1?'btn-success':'btn-danger'; ?>">
-                        <?php echo $u['status']==1?'Active':'Inactive'; ?>
+                        <?php echo $u['status']==1 ? lang('admin_status_active') : lang('admin_status_inactive'); ?>
                     </button>
                 </form>
             </td>
             <td>
                 <form method="POST" action="<?php echo SITE_URL; ?>admin/users/remove"
-                      class="d-inline" onsubmit="return confirm('Delete this user permanently?')">
+                      class="d-inline" onsubmit="return confirm('<?php echo lang('admin_confirm_del_user'); ?>')">
                     <input type="hidden" name="user_id" value="<?php echo $u['id']; ?>">
                     <button type="submit" class="btn btn-sm btn-danger">
                         <i class="fas fa-trash"></i>

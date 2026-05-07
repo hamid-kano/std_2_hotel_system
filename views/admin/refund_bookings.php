@@ -1,4 +1,4 @@
-<?php $pageTitle = 'Refund Bookings'; ?>
+<?php $pageTitle = lang('admin_refunds'); ?>
 
 <?php if(!empty($flash)): ?>
 <div class="alert alert-success alert-dismissible fade show mb-4">
@@ -10,7 +10,7 @@
 <form method="GET" action="<?php echo SITE_URL; ?>admin/bookings/refunds" class="mb-4">
     <div class="admin-search">
         <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>"
-               class="form-control" placeholder="Search order, name, phone…">
+               class="form-control" placeholder="<?php echo lang('search'); ?>…">
     </div>
 </form>
 
@@ -18,18 +18,18 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Guest / Order</th>
-                <th>Room & Dates</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th>Action</th>
+                <th><?php echo lang('admin_guest_order'); ?></th>
+                <th><?php echo lang('admin_room_dates'); ?></th>
+                <th><?php echo lang('amount'); ?></th>
+                <th><?php echo lang('admin_date_col'); ?></th>
+                <th><?php echo lang('admin_actions'); ?></th>
             </tr>
         </thead>
         <tbody>
         <?php if(empty($bookings)): ?>
         <tr><td colspan="5" class="text-center text-secondary py-4">
             <i class="fas fa-undo fa-2x mb-2 d-block text-primary-custom"></i>
-            No pending refunds
+            <?php echo lang('admin_no_refunds'); ?>
         </td></tr>
         <?php else: ?>
         <?php foreach($bookings as $b): ?>
@@ -41,17 +41,17 @@
             </td>
             <td>
                 <strong><?php echo htmlspecialchars($b['room_name']); ?></strong><br>
-                <small>In: <?php echo date('d-m-Y', strtotime($b['check_in'])); ?></small><br>
-                <small>Out: <?php echo date('d-m-Y', strtotime($b['check_out'])); ?></small>
+                <small><?php echo lang('check_in'); ?>: <?php echo date('d-m-Y', strtotime($b['check_in'])); ?></small><br>
+                <small><?php echo lang('check_out'); ?>: <?php echo date('d-m-Y', strtotime($b['check_out'])); ?></small>
             </td>
             <td><strong><?php echo $b['total_pay']; ?></strong></td>
             <td><small class="text-secondary"><?php echo date('d-m-Y', strtotime($b['datentime'])); ?></small></td>
             <td>
                 <form method="POST" action="<?php echo SITE_URL; ?>admin/bookings/refund"
-                      onsubmit="return confirm('Process refund for this booking?')">
+                      onsubmit="return confirm('<?php echo lang('admin_confirm_refund'); ?>')">
                     <input type="hidden" name="booking_id" value="<?php echo $b['booking_id']; ?>">
                     <button type="submit" class="btn btn-sm btn-success">
-                        <i class="fas fa-undo"></i> Refund
+                        <i class="fas fa-undo"></i> <?php echo lang('admin_process_refund'); ?>
                     </button>
                 </form>
             </td>

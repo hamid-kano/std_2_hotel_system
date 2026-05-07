@@ -1,4 +1,4 @@
-<?php $pageTitle = 'Rooms'; ?>
+<?php $pageTitle = lang('rooms'); ?>
 
 <?php if(!empty($flash)): ?>
 <div class="alert alert-success alert-dismissible fade show mb-4">
@@ -15,7 +15,7 @@
 
 <div class="d-flex justify-content-end mb-4">
     <button class="btn custom-bg" data-bs-toggle="modal" data-bs-target="#addRoomModal">
-        <i class="fas fa-plus"></i> Add Room
+        <i class="fas fa-plus"></i> <?php echo lang('admin_add_room'); ?>
     </button>
 </div>
 
@@ -23,13 +23,19 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>#</th><th>Name</th><th>Area</th><th>Guests</th>
-                <th>Price</th><th>Qty</th><th>Status</th><th>Actions</th>
+                <th>#</th>
+                <th><?php echo lang('admin_room_name'); ?></th>
+                <th><?php echo lang('admin_area'); ?></th>
+                <th><?php echo lang('admin_guests_col'); ?></th>
+                <th><?php echo lang('admin_price_col'); ?></th>
+                <th><?php echo lang('admin_qty_col'); ?></th>
+                <th><?php echo lang('admin_status_col'); ?></th>
+                <th><?php echo lang('admin_actions'); ?></th>
             </tr>
         </thead>
         <tbody>
         <?php if(empty($rooms)): ?>
-        <tr><td colspan="8" class="text-center text-secondary py-4">No rooms yet</td></tr>
+        <tr><td colspan="8" class="text-center text-secondary py-4"><?php echo lang('admin_no_rooms'); ?></td></tr>
         <?php else: ?>
         <?php foreach($rooms as $i => $r): ?>
         <tr>
@@ -37,8 +43,8 @@
             <td><strong><?php echo htmlspecialchars($r['name']); ?></strong></td>
             <td><?php echo $r['area']; ?> m²</td>
             <td>
-                <small><?php echo $r['adult']; ?> Adults /
-                <?php echo $r['children']; ?> Children</small>
+                <small><?php echo $r['adult']; ?> <?php echo lang('admin_adults_col'); ?> /
+                <?php echo $r['children']; ?> <?php echo lang('admin_children_col'); ?></small>
             </td>
             <td><?php echo $r['price']; ?></td>
             <td><?php echo $r['quantity']; ?></td>
@@ -47,7 +53,7 @@
                     <input type="hidden" name="room_id" value="<?php echo $r['id']; ?>">
                     <input type="hidden" name="status" value="<?php echo $r['status']==1?0:1; ?>">
                     <button type="submit" class="btn btn-sm <?php echo $r['status']==1?'btn-success':'btn-warning'; ?>">
-                        <?php echo $r['status']==1?'Active':'Inactive'; ?>
+                        <?php echo $r['status']==1 ? lang('admin_status_active') : lang('admin_status_inactive'); ?>
                     </button>
                 </form>
             </td>
@@ -64,7 +70,7 @@
                     <i class="fas fa-images"></i>
                 </a>
                 <form method="POST" action="<?php echo SITE_URL; ?>admin/rooms/remove"
-                      class="d-inline" onsubmit="return confirm('Remove this room?')">
+                      class="d-inline" onsubmit="return confirm('<?php echo lang('admin_confirm_remove_room'); ?>')">
                     <input type="hidden" name="room_id" value="<?php echo $r['id']; ?>">
                     <button type="submit" class="btn btn-sm btn-danger">
                         <i class="fas fa-trash"></i>
@@ -85,7 +91,7 @@
             <form method="POST" action="<?php echo SITE_URL; ?>admin/rooms/add" id="addRoomForm">
                 <div class="modal-header">
                     <h5 class="modal-title fw-700">
-                        <i class="fas fa-plus text-primary-custom"></i> Add Room
+                        <i class="fas fa-plus text-primary-custom"></i> <?php echo lang('admin_add_room'); ?>
                     </h5>
                     <button type="reset" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
@@ -93,8 +99,8 @@
                     <?php include BASE_PATH . '/views/admin/partials/room_form.php'; ?>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn custom-bg">Add Room</button>
+                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"><?php echo lang('cancel'); ?></button>
+                    <button type="submit" class="btn custom-bg"><?php echo lang('admin_add_room'); ?></button>
                 </div>
             </form>
         </div>
@@ -108,7 +114,7 @@
             <form method="POST" action="<?php echo SITE_URL; ?>admin/rooms/edit" id="editRoomForm">
                 <div class="modal-header">
                     <h5 class="modal-title fw-700">
-                        <i class="fas fa-edit text-primary-custom"></i> Edit Room
+                        <i class="fas fa-edit text-primary-custom"></i> <?php echo lang('admin_edit_room'); ?>
                     </h5>
                     <button type="reset" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
@@ -117,8 +123,8 @@
                     <input type="hidden" name="room_id" id="editRoomId">
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn custom-bg">Save Changes</button>
+                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"><?php echo lang('cancel'); ?></button>
+                    <button type="submit" class="btn custom-bg"><?php echo lang('save_changes'); ?></button>
                 </div>
             </form>
         </div>
@@ -136,19 +142,11 @@ function openEditModal(room, features, facilities) {
     f.elements['children'].value = room.children;
     f.elements['desc'].value     = room.description;
     document.getElementById('editRoomId').value = room.id;
-
     const featIds = features.map(f => String(f.id));
     const facIds  = facilities.map(f => String(f.id));
-
-    f.querySelectorAll('[name="features"]').forEach(cb => {
-        cb.checked = featIds.includes(cb.value);
-    });
-    f.querySelectorAll('[name="facilities"]').forEach(cb => {
-        cb.checked = facIds.includes(cb.value);
-    });
+    f.querySelectorAll('[name="features"]').forEach(cb => cb.checked = featIds.includes(cb.value));
+    f.querySelectorAll('[name="facilities"]').forEach(cb => cb.checked = facIds.includes(cb.value));
 }
-
-// Serialize checkboxes to hidden JSON inputs before submit
 ['addRoomForm','editRoomForm'].forEach(id => {
     document.getElementById(id)?.addEventListener('submit', function(){
         const feats = [...this.querySelectorAll('[name="features"]:checked')].map(c=>c.value);
@@ -159,7 +157,6 @@ function openEditModal(room, features, facilities) {
         if(!faci){ faci = document.createElement('input'); faci.type='hidden'; faci.name='facilities'; this.appendChild(faci); }
         fi.value   = JSON.stringify(feats);
         faci.value = JSON.stringify(facs);
-        // Disable checkboxes so they don't double-submit
         this.querySelectorAll('[name="features"],[name="facilities"]').forEach(c => c.disabled=true);
     });
 });

@@ -1,4 +1,4 @@
-<?php $pageTitle = 'Features & Facilities'; ?>
+<?php $pageTitle = lang('admin_features_fac'); ?>
 
 <?php if(!empty($flash)): ?>
 <div class="alert alert-success alert-dismissible fade show mb-4">
@@ -14,24 +14,22 @@
 <?php endif; ?>
 
 <div class="row g-4">
-
-    <!-- Features -->
     <div class="col-lg-6">
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="fw-700 mb-0">
-                        <i class="fas fa-list text-primary-custom"></i> Features
+                        <i class="fas fa-list text-primary-custom"></i> <?php echo lang('admin_features'); ?>
                     </h6>
                     <button class="btn btn-sm custom-bg" data-bs-toggle="modal" data-bs-target="#addFeatureModal">
-                        <i class="fas fa-plus"></i> Add
+                        <i class="fas fa-plus"></i> <?php echo lang('admin_add_feature'); ?>
                     </button>
                 </div>
                 <table class="table table-sm">
-                    <thead><tr><th>#</th><th>Name</th><th></th></tr></thead>
+                    <thead><tr><th>#</th><th><?php echo lang('name'); ?></th><th></th></tr></thead>
                     <tbody>
                     <?php if(empty($features)): ?>
-                    <tr><td colspan="3" class="text-center text-secondary">No features yet</td></tr>
+                    <tr><td colspan="3" class="text-center text-secondary"><?php echo lang('admin_no_features'); ?></td></tr>
                     <?php else: ?>
                     <?php foreach($features as $i => $f): ?>
                     <tr>
@@ -39,7 +37,7 @@
                         <td><?php echo htmlspecialchars($f['name']); ?></td>
                         <td>
                             <form method="POST" action="<?php echo SITE_URL; ?>admin/features/remove"
-                                  onsubmit="return confirm('Delete this feature?')">
+                                  onsubmit="return confirm('<?php echo lang('admin_confirm_del_feat'); ?>')">
                                 <input type="hidden" name="id" value="<?php echo $f['id']; ?>">
                                 <button type="submit" class="btn btn-sm btn-danger">
                                     <i class="fas fa-trash"></i>
@@ -55,23 +53,30 @@
         </div>
     </div>
 
-    <!-- Facilities -->
     <div class="col-lg-6">
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="fw-700 mb-0">
-                        <i class="fas fa-concierge-bell text-primary-custom"></i> Facilities
+                        <i class="fas fa-concierge-bell text-primary-custom"></i> <?php echo lang('admin_facilities_col'); ?>
                     </h6>
                     <button class="btn btn-sm custom-bg" data-bs-toggle="modal" data-bs-target="#addFacilityModal">
-                        <i class="fas fa-plus"></i> Add
+                        <i class="fas fa-plus"></i> <?php echo lang('admin_add_facility'); ?>
                     </button>
                 </div>
                 <table class="table table-sm">
-                    <thead><tr><th>#</th><th>Icon</th><th>Name</th><th>Desc</th><th></th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th><?php echo lang('admin_facility_icon'); ?></th>
+                            <th><?php echo lang('admin_facility_name'); ?></th>
+                            <th><?php echo lang('admin_facility_desc'); ?></th>
+                            <th></th>
+                        </tr>
+                    </thead>
                     <tbody>
                     <?php if(empty($facilities)): ?>
-                    <tr><td colspan="5" class="text-center text-secondary">No facilities yet</td></tr>
+                    <tr><td colspan="5" class="text-center text-secondary"><?php echo lang('admin_no_facilities'); ?></td></tr>
                     <?php else: ?>
                     <?php foreach($facilities as $i => $f): ?>
                     <tr>
@@ -81,7 +86,7 @@
                         <td><small class="text-secondary"><?php echo htmlspecialchars($f['description'] ?? ''); ?></small></td>
                         <td>
                             <form method="POST" action="<?php echo SITE_URL; ?>admin/facilities/remove"
-                                  onsubmit="return confirm('Delete this facility?')">
+                                  onsubmit="return confirm('<?php echo lang('admin_confirm_del_fac'); ?>')">
                                 <input type="hidden" name="id" value="<?php echo $f['id']; ?>">
                                 <button type="submit" class="btn btn-sm btn-danger">
                                     <i class="fas fa-trash"></i>
@@ -96,7 +101,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <!-- Add Feature Modal -->
@@ -105,16 +109,16 @@
         <div class="modal-content">
             <form method="POST" action="<?php echo SITE_URL; ?>admin/features/add">
                 <div class="modal-header">
-                    <h5 class="modal-title fw-700">Add Feature</h5>
+                    <h5 class="modal-title fw-700"><?php echo lang('admin_add_feature'); ?></h5>
                     <button type="reset" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <label class="form-label">Feature Name</label>
+                    <label class="form-label"><?php echo lang('admin_feature_name'); ?></label>
                     <input type="text" name="name" class="form-control" required>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn custom-bg">Add</button>
+                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"><?php echo lang('cancel'); ?></button>
+                    <button type="submit" class="btn custom-bg"><?php echo lang('submit'); ?></button>
                 </div>
             </form>
         </div>
@@ -127,26 +131,26 @@
         <div class="modal-content">
             <form method="POST" action="<?php echo SITE_URL; ?>admin/facilities/add" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h5 class="modal-title fw-700">Add Facility</h5>
+                    <h5 class="modal-title fw-700"><?php echo lang('admin_add_facility'); ?></h5>
                     <button type="reset" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Name</label>
+                        <label class="form-label"><?php echo lang('admin_facility_name'); ?></label>
                         <input type="text" name="name" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Description</label>
+                        <label class="form-label"><?php echo lang('admin_facility_desc'); ?></label>
                         <input type="text" name="desc" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Icon (SVG/PNG)</label>
+                        <label class="form-label"><?php echo lang('admin_facility_icon'); ?></label>
                         <input type="file" name="icon" accept=".svg,.png" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn custom-bg">Add</button>
+                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"><?php echo lang('cancel'); ?></button>
+                    <button type="submit" class="btn custom-bg"><?php echo lang('submit'); ?></button>
                 </div>
             </form>
         </div>
