@@ -363,8 +363,8 @@ const APP = { siteUrl: '<?php echo SITE_URL; ?>' };
 
 /* Dark mode */
 (function(){
-    const t = localStorage.getItem('vana_theme') || 'light';
-    document.documentElement.setAttribute('data-theme', t);
+    // Theme already set on <html> by PHP via cookie — just sync the icon
+    const t    = document.documentElement.getAttribute('data-theme') || 'light';
     const icon = document.querySelector('#darkToggle i');
     if(icon) icon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 })();
@@ -372,6 +372,7 @@ document.getElementById('darkToggle')?.addEventListener('click', function(){
     const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('vana_theme', next);
+    document.cookie = `vana_theme=${next};path=/;max-age=31536000`;
     const icon = this.querySelector('i');
     if(icon) icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 });

@@ -8,9 +8,14 @@ if (isset($_GET['set_lang'])) {
     exit;
 }
 $langLabels = ['ar' => 'العربية 🇮🇶', 'en' => 'English 🇬🇧', 'ku' => 'کوردی 🏳'];
+
+// Read theme from cookie — prevents flash on page load
+$savedTheme = $_COOKIE['vana_theme'] ?? 'light';
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang; ?>" dir="<?php echo $isRTL ? 'rtl' : 'ltr'; ?>">
+<html lang="<?php echo $lang; ?>"
+      dir="<?php echo $isRTL ? 'rtl' : 'ltr'; ?>"
+      data-theme="<?php echo htmlspecialchars($savedTheme); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -125,17 +130,20 @@ $langLabels = ['ar' => 'العربية 🇮🇶', 'en' => 'English 🇬🇧', 'k
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 (function(){
-    const t = localStorage.getItem('vana_theme') || 'light';
-    document.documentElement.setAttribute('data-theme', t);
+    // Theme already set on <html> by PHP — just sync the icon
+    const t    = document.documentElement.getAttribute('data-theme') || 'light';
     const icon = document.querySelector('#darkToggle i');
-    if(icon) icon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    if (icon) icon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 })();
+
 document.getElementById('darkToggle')?.addEventListener('click', function(){
-    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    const current = document.documentElement.getAttribute('data-theme');
+    const next    = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('vana_theme', next);
+    document.cookie = `vana_theme=${next};path=/;max-age=31536000`;
     const icon = this.querySelector('i');
-    if(icon) icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    if (icon) icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 });
 </script>
 </body>
