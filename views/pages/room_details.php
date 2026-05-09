@@ -1,4 +1,7 @@
-<?php $pageTitle = APP_NAME . ' — ' . htmlspecialchars($room['name']); ?>
+<?php 
+$roomName = getTranslation('rooms_translations', $room['id'], 'name', $room['name']);
+$pageTitle = APP_NAME . ' — ' . htmlspecialchars($roomName); 
+?>
 <?php require BASE_PATH . '/views/layouts/header.php'; ?>
 
 <div class="container my-5">
@@ -6,7 +9,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>"><i class="fas fa-home"></i><?php echo lang('home'); ?></a></li>
             <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>rooms"><i class="fas fa-bed"></i><?php echo lang('rooms'); ?></a></li>
-            <li class="breadcrumb-item active"><?php echo htmlspecialchars($room['name']); ?></li>
+            <li class="breadcrumb-item active"><?php echo htmlspecialchars($roomName); ?></li>
         </ol>
     </nav>
 
@@ -17,14 +20,14 @@
                 <div class="carousel-inner" style="height:380px;">
                     <?php if(empty($room['images'])): ?>
                     <div class="carousel-item active">
-                        <img src="<?php echo ROOMS_IMG_PATH; ?>thumbnail.jpg" class="d-block w-100 h-100" style="object-fit:cover;" alt="<?php echo htmlspecialchars($room['name']); ?>">
+                        <img src="<?php echo ROOMS_IMG_PATH; ?>thumbnail.jpg" class="d-block w-100 h-100" style="object-fit:cover;" alt="<?php echo htmlspecialchars($roomName); ?>">
                     </div>
                     <?php else: ?>
                     <?php foreach($room['images'] as $i => $img): ?>
                     <div class="carousel-item <?php echo $i===0?'active':''; ?>">
                         <img src="<?php echo ROOMS_IMG_PATH . htmlspecialchars($img['image']); ?>"
                              class="d-block w-100 h-100" style="object-fit:cover;"
-                             alt="<?php echo htmlspecialchars($room['name']); ?>" loading="lazy">
+                             alt="<?php echo htmlspecialchars($roomName); ?>" loading="lazy">
                     </div>
                     <?php endforeach; ?>
                     <?php endif; ?>
@@ -39,12 +42,15 @@
                 <?php endif; ?>
             </div>
 
-            <?php if(!empty($room['description'])): ?>
+            <?php 
+            $roomDescription = getTranslation('rooms_translations', $room['id'], 'description', $room['description']);
+            if(!empty($roomDescription)): 
+            ?>
             <div class="card border-0 shadow-sm rounded-3 mt-4 p-4">
                 <h5 class="fw-700 mb-3">
                     <i class="fas fa-align-left text-primary-custom"></i><?php echo lang('description'); ?>
                 </h5>
-                <p class="text-secondary mb-0"><?php echo nl2br(htmlspecialchars($room['description'])); ?></p>
+                <p class="text-secondary mb-0"><?php echo nl2br(htmlspecialchars($roomDescription)); ?></p>
             </div>
             <?php endif; ?>
 
@@ -116,7 +122,7 @@
                         <i class="fas fa-list"></i><?php echo lang('features'); ?>
                     </small>
                     <?php foreach($room['features'] as $f): ?>
-                    <span class="badge bg-light me-1 mb-1"><?php echo htmlspecialchars($f['name']); ?></span>
+                    <span class="badge bg-light me-1 mb-1"><?php echo getTranslation('features_translations', $f['id'], 'name', $f['name']); ?></span>
                     <?php endforeach; ?>
                 </div>
                 <?php endif; ?>
@@ -127,7 +133,7 @@
                         <i class="fas fa-concierge-bell"></i><?php echo lang('facilities'); ?>
                     </small>
                     <?php foreach($room['facilities'] as $f): ?>
-                    <span class="badge bg-light me-1 mb-1"><?php echo htmlspecialchars($f['name']); ?></span>
+                    <span class="badge bg-light me-1 mb-1"><?php echo getTranslation('facilities_translations', $f['id'], 'name', $f['name']); ?></span>
                     <?php endforeach; ?>
                 </div>
                 <?php endif; ?>
