@@ -19,19 +19,21 @@ class AdminFacilityController extends AdminBaseController {
             $db = Database::getInstance();
             
             // Insert into features table (use English as default)
-            $db->insert("INSERT INTO `features`(name) VALUES (?)", [$name_en], 's');
-            
-            // Get the inserted ID
-            $featureId = $db->getConnection()->insert_id;
+            $featureId = $db->insert("INSERT INTO `features`(name) VALUES (?)", [$name_en], 's');
             
             // Insert translations for all languages
-            $db->insert(
-                "INSERT INTO `features_translations`(feature_id, lang, name) VALUES (?, 'ar', ?), (?, 'en', ?), (?, 'ku', ?)",
-                [$featureId, $name_ar, $featureId, $name_en, $featureId, $name_ku],
-                'isisisis'
-            );
-            
-            Session::flash('success', "Feature \"$name_en\" added with translations.");
+            if ($featureId) {
+                $db->insert(
+                    "INSERT INTO `features_translations`(feature_id, lang, name) VALUES (?, 'ar', ?), (?, 'en', ?), (?, 'ku', ?)",
+                    [$featureId, $name_ar, $featureId, $name_en, $featureId, $name_ku],
+                    'isisisis'
+                );
+                Session::flash('success', "Feature \"$name_en\" added with translations.");
+            } else {
+                Session::flash('error', 'Failed to add feature.');
+            }
+        } else {
+            Session::flash('error', 'Please fill all language fields.');
         }
         $this->redirect(SITE_URL . 'admin/facilities');
     }
@@ -65,6 +67,11 @@ class AdminFacilityController extends AdminBaseController {
         $desc_en = $this->post('desc_en') ?: '';
         $desc_ku = $this->post('desc_ku') ?: '';
         
+        if (!$name_ar || !$name_en || !$name_ku) {
+            Session::flash('error', 'Please fill all name fields.');
+            $this->redirect(SITE_URL . 'admin/facilities');
+        }
+        
         $filename = uploadImage(Request::file('icon'), FACILITIES_FOLDER);
         if (in_array($filename, ['inv_img', 'inv_size', 'upd_failed'])) {
             Session::flash('error', "Upload failed: $filename");
@@ -74,22 +81,22 @@ class AdminFacilityController extends AdminBaseController {
         $db = Database::getInstance();
         
         // Insert into facilities table (use English as default)
-        $db->insert(
+        $facilityId = $db->insert(
             "INSERT INTO `facilities`(icon,name,description) VALUES (?,?,?)",
             [$filename, $name_en, $desc_en], 'sss'
         );
         
-        // Get the inserted ID
-        $facilityId = $db->getConnection()->insert_id;
-        
         // Insert translations for all languages
-        $db->insert(
-            "INSERT INTO `facilities_translations`(facility_id, lang, name, description) VALUES (?, 'ar', ?, ?), (?, 'en', ?, ?), (?, 'ku', ?, ?)",
-            [$facilityId, $name_ar, $desc_ar, $facilityId, $name_en, $desc_en, $facilityId, $name_ku, $desc_ku],
-            'ississississ'
-        );
-        
-        Session::flash('success', 'Facility added with translations.');
+        if ($facilityId) {
+            $db->insert(
+                "INSERT INTO `facilities_translations`(facility_id, lang, name, description) VALUES (?, 'ar', ?, ?), (?, 'en', ?, ?), (?, 'ku', ?, ?)",
+                [$facilityId, $name_ar, $desc_ar, $facilityId, $name_en, $desc_en, $facilityId, $name_ku, $desc_ku],
+                'ississississ'
+            );
+            Session::flash('success', 'Facility added with translations.');
+        } else {
+            Session::flash('error', 'Failed to add facility.');
+        }
         $this->redirect(SITE_URL . 'admin/facilities');
     }
 
