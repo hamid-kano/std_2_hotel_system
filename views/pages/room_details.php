@@ -7,8 +7,8 @@ $pageTitle = APP_NAME . ' — ' . htmlspecialchars($roomName);
 <div class="container my-5">
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>"><i class="fas fa-home"></i><?php echo lang('home'); ?></a></li>
-            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>rooms"><i class="fas fa-bed"></i><?php echo lang('rooms'); ?></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>"><i class="fas fa-home me-2"></i><?php echo lang('home'); ?></a></li>
+            <li class="breadcrumb-item"><a href="<?php echo SITE_URL; ?>rooms"><i class="fas fa-bed me-2"></i><?php echo lang('rooms'); ?></a></li>
             <li class="breadcrumb-item active"><?php echo htmlspecialchars($roomName); ?></li>
         </ol>
     </nav>
