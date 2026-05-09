@@ -25,8 +25,14 @@
                         <i class="fas fa-plus"></i> <?php echo lang('admin_add_feature'); ?>
                     </button>
                 </div>
-                <table class="table table-sm">
-                    <thead><tr><th>#</th><th><?php echo lang('name'); ?></th><th></th></tr></thead>
+                <table class="table table-sm table-hover admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th><?php echo lang('name'); ?></th>
+                            <th></th>
+                        </tr>
+                    </thead>
                     <tbody>
                     <?php if(empty($features)): ?>
                     <tr><td colspan="3" class="text-center text-secondary"><?php echo lang('admin_no_features'); ?></td></tr>
@@ -64,7 +70,7 @@
                         <i class="fas fa-plus"></i> <?php echo lang('admin_add_facility'); ?>
                     </button>
                 </div>
-                <table class="table table-sm">
+                <table class="table table-sm table-hover admin-table">
                     <thead>
                         <tr>
                             <th>#</th>
