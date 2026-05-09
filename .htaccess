@@ -1,0 +1,21 @@
+# Redirect all requests to public folder
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /std_2_hotel_system/
+    
+    # If the request is not for public folder, redirect to public
+    RewriteCond %{REQUEST_URI} !^/std_2_hotel_system/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect sensitive files and folders
+<FilesMatch "\.(env|log|sql|md|json|lock)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect config, core, models, controllers, etc.
+RedirectMatch 403 ^/std_2_hotel_system/(config|core|models|controllers|helpers|lang|routes|storage|database|tests|vendor)/.*$
