@@ -4,7 +4,7 @@ class AdminSettingsController extends AdminBaseController {
     public function index() {
         $general  = Setting::get();
         $contacts = Setting::getContact();
-        $members  = Model::fetchAll(Database::getInstance()->selectAll('team_detalis3'));
+        $members  = Model::fetchAll(Database::getInstance()->selectAll('team_members'));
         $flash    = Session::flash('success');
         $error    = Session::flash('error');
         $this->adminView('settings', compact('general', 'contacts', 'members', 'flash', 'error'));
@@ -46,7 +46,7 @@ class AdminSettingsController extends AdminBaseController {
             $this->redirect(SITE_URL . 'admin/settings');
         }
         Database::getInstance()->insert(
-            "INSERT INTO `team_detalis3`(name,picture) VALUES (?,?)",
+            "INSERT INTO `team_members`(name,picture) VALUES (?,?)",
             [$this->post('name'), $filename], 'ss'
         );
         Session::flash('success', 'Team member added.');
@@ -56,10 +56,10 @@ class AdminSettingsController extends AdminBaseController {
     public function removeMember() {
         $id  = (int)$this->post('id');
         $img = Model::fetchOne(Database::getInstance()->select(
-            "SELECT picture FROM `team_detalis3` WHERE sr_no=?", [$id], 'i'
+            "SELECT picture FROM `team_members` WHERE sr_no=?", [$id], 'i'
         ));
         if ($img) deleteImage($img['picture'], ABOUT_FOLDER);
-        Database::getInstance()->delete("DELETE FROM `team_detalis3` WHERE sr_no=?", [$id], 'i');
+        Database::getInstance()->delete("DELETE FROM `team_members` WHERE sr_no=?", [$id], 'i');
         Session::flash('success', 'Member removed.');
         $this->redirect(SITE_URL . 'admin/settings');
     }

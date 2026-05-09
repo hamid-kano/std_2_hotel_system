@@ -7,7 +7,7 @@ class AdminDashboardController extends AdminBaseController {
         $pending = Booking::getPendingCounts();
 
         $unreadQueries = Model::fetchOne($db->select(
-            "SELECT COUNT(sr_no) AS count FROM `user_queries1` WHERE `seen`=0"
+            "SELECT COUNT(sr_no) AS count FROM `user_queries` WHERE `seen`=0"
         ))['count'] ?? 0;
 
         $unreadReviews = Model::fetchOne($db->select(
@@ -35,7 +35,7 @@ class AdminDashboardController extends AdminBaseController {
         $db       = Database::getInstance();
 
         $unreadQueries = Model::fetchOne($db->select(
-            "SELECT COUNT(sr_no) AS count FROM `user_queries1` WHERE `seen`=0"
+            "SELECT COUNT(sr_no) AS count FROM `user_queries` WHERE `seen`=0"
         ))['count'] ?? 0;
         $unreadReviews = Model::fetchOne($db->select(
             "SELECT COUNT(sr_no) AS count FROM `rating_review` WHERE `seen`=0"
@@ -82,7 +82,7 @@ class AdminDashboardController extends AdminBaseController {
         $db = Database::getInstance();
         return [
             'reviews' => Model::fetchOne($db->select("SELECT COUNT(sr_no) AS c FROM `rating_review` $cond"))['c'] ?? 0,
-            'queries' => Model::fetchOne($db->select("SELECT COUNT(sr_no) AS c FROM `user_queries1` $cond"))['c'] ?? 0,
+            'queries' => Model::fetchOne($db->select("SELECT COUNT(sr_no) AS c FROM `user_queries` $cond"))['c'] ?? 0,
             'new_reg' => Model::fetchOne($db->select("SELECT COUNT(id) AS c FROM `user_cred` $cond"))['c'] ?? 0,
         ];
     }

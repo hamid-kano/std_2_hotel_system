@@ -34,7 +34,7 @@ class HomeController extends BaseController {
     }
     
     public function about() {
-        $teamResult = Database::getInstance()->selectAll('team_detalis3');
+        $teamResult = Database::getInstance()->selectAll('team_members');
         $team       = Model::fetchAll($teamResult);
         $settings   = Cache::remember('settings_1', 300, fn() => Setting::get());
         $contact    = Cache::remember('contact_1',  300, fn() => Setting::getContact());
@@ -62,7 +62,7 @@ class HomeController extends BaseController {
             ];
             
             $result = Database::getInstance()->insert(
-                "INSERT INTO `user_queries1`(`name`, `email`, `subject`, `message`) VALUES (?,?,?,?)",
+                "INSERT INTO `user_queries`(`name`, `email`, `subject`, `message`) VALUES (?,?,?,?)",
                 array_values($data),
                 'ssss'
             );
