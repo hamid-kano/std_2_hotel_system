@@ -84,16 +84,20 @@ class RoomController extends BaseController {
             }
             
             $featHtml = '';
-            foreach ($features[$rid] ?? [] as $name) {
-                $featHtml .= "<span class='badge rounded-pill bg-light text-dark text-wrap'>$name</span> ";
+            foreach ($features[$rid] ?? [] as $feat) {
+                $featName = getTranslation('features_translations', $feat['id'], 'name', $feat['name']);
+                $featHtml .= "<span class='badge rounded-pill bg-light text-dark text-wrap'>$featName</span> ";
             }
             
             $facHtml = '';
             foreach ($facilities[$rid] ?? [] as $f) {
-                $facHtml .= "<span class='badge rounded-pill bg-light text-dark text-wrap'>{$f['name']}</span> ";
+                $facName = getTranslation('facilities_translations', $f['id'], 'name', $f['name']);
+                $facHtml .= "<span class='badge rounded-pill bg-light text-dark text-wrap'>$facName</span> ";
             }
             
             $thumb = $thumbnails[$rid] ?? ROOMS_IMG_PATH . 'thumbnail.jpg';
+            $roomName = getTranslation('rooms_translations', $rid, 'name', $room['name']);
+            
             $bookBtn = "<button onclick='checkLoginToBook($login,$rid)'
                             class='btn btn-sm w-100 text-white custom-bg shadow-none mb-2'>
                             " . lang('book_now') . "
@@ -103,10 +107,10 @@ class RoomController extends BaseController {
                 <div class='card room-card mb-4'>
                     <div class='row g-0 p-3 align-items-center'>
                         <div class='col-md-4 mb-lg-0 mb-3'>
-                            <img src='$thumb' class='img-fluid rounded' alt='{$room['name']}' loading='lazy'>
+                            <img src='$thumb' class='img-fluid rounded' alt='$roomName' loading='lazy'>
                         </div>
                         <div class='col-md-6 px-lg-3 px-md-3 px-0'>
-                            <h5 class='mb-2 fw-bold'>{$room['name']}</h5>
+                            <h5 class='mb-2 fw-bold'>$roomName</h5>
                             <div class='features mb-2'>
                                 <small class='fw-bold text-muted text-uppercase'>Features</small><br>$featHtml
                             </div>

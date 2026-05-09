@@ -98,7 +98,7 @@
                 </div>
                 <div class="card-body p-4 d-flex flex-column">
                     <div class="d-flex justify-content-between align-items-start mb-2">
-                        <h5 class="fw-700 mb-0"><?php echo htmlspecialchars($room['name']); ?></h5>
+                        <h5 class="fw-700 mb-0"><?php echo getTranslation('rooms_translations', $rid, 'name', $room['name']); ?></h5>
                         <?php if($rating > 0): ?>
                         <span class="badge bg-light ms-2">
                             <i class="fas fa-star text-warning"></i><?php echo $rating; ?>
@@ -112,7 +112,7 @@
                     <?php if(!empty($features[$rid])): ?>
                     <div class="mb-2">
                         <?php foreach(array_slice($features[$rid], 0, 3) as $f): ?>
-                        <span class="badge bg-light me-1 mb-1"><?php echo htmlspecialchars($f); ?></span>
+                        <span class="badge bg-light me-1 mb-1"><?php echo getTranslation('features_translations', $f['id'], 'name', $f['name']); ?></span>
                         <?php endforeach; ?>
                     </div>
                     <?php endif; ?>
@@ -121,7 +121,7 @@
                             <i class="fas fa-concierge-bell"></i><?php echo lang('facilities'); ?>
                         </small>
                         <?php foreach(array_slice($facilities[$rid] ?? [], 0, 3) as $f): ?>
-                        <span class="badge bg-light me-1 mb-1"><?php echo htmlspecialchars($f['name']); ?></span>
+                        <span class="badge bg-light me-1 mb-1"><?php echo getTranslation('facilities_translations', $f['id'], 'name', $f['name']); ?></span>
                         <?php endforeach; ?>
                     </div>
                     <div class="mb-3">

@@ -125,7 +125,7 @@ class Room extends Model {
         $types = str_repeat('i', count($ids));
         
         $result = static::db()->select(
-            "SELECT rf.room_id, f.name FROM `features` f
+            "SELECT rf.room_id, f.id, f.name FROM `features` f
              INNER JOIN `room_features` rf ON f.id = rf.features_id
              WHERE rf.room_id IN ($placeholders)",
             $ids, $types
@@ -133,7 +133,7 @@ class Room extends Model {
         
         $map = [];
         while ($row = mysqli_fetch_assoc($result)) {
-            $map[$row['room_id']][] = $row['name'];
+            $map[$row['room_id']][] = ['id' => $row['id'], 'name' => $row['name']];
         }
         return $map;
     }

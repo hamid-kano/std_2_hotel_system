@@ -43,7 +43,7 @@
                                value="<?php echo $fac['id']; ?>" id="fac_<?php echo $fac['id']; ?>"
                                class="form-check-input me-2">
                         <label for="fac_<?php echo $fac['id']; ?>" class="form-check-label" style="font-size:var(--fs-sm);">
-                            <?php echo htmlspecialchars($fac['name']); ?>
+                            <?php echo getTranslation('facilities_translations', $fac['id'], 'name', $fac['name']); ?>
                         </label>
                     </div>
                     <?php endforeach; ?>
