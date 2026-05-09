@@ -17,8 +17,8 @@ TRUNCATE TABLE `rooms`;
 TRUNCATE TABLE `features`;
 TRUNCATE TABLE `facilities`;
 TRUNCATE TABLE `carousel`;
-TRUNCATE TABLE `team_detalis3`;
-TRUNCATE TABLE `user_queries1`;
+TRUNCATE TABLE `team_members`;
+TRUNCATE TABLE `user_queries`;
 TRUNCATE TABLE `balances`;
 TRUNCATE TABLE `user_cred`;
 TRUNCATE TABLE `settings`;
@@ -157,7 +157,7 @@ INSERT INTO `room_images` (`room_id`, `image`, `thumb`) VALUES
 (6, 'IMG_62925.png',  0);
 
 -- ── 11. Team Members ─────────────────────────────────────────
-INSERT INTO `team_detalis3` (`sr_no`, `name`, `picture`) VALUES
+INSERT INTO `team_members` (`sr_no`, `name`, `picture`) VALUES
 (1, 'Ahmed Al-Rashid',  'IMG_35847.jpg'),
 (2, 'Sara Hassan',      'IMG_94008.webp'),
 (3, 'Omar Khalid',      'IMG_14806.webp'),
@@ -243,7 +243,7 @@ VALUES
  0, '2024-06-23 08:00:00');
 
 -- ── 16. User Queries ─────────────────────────────────────────
-INSERT INTO `user_queries1`
+INSERT INTO `user_queries`
   (`name`, `email`, `subject`, `message`, `datentime`, `seen`)
 VALUES
 ('Ahmed Ali',   'ahmed@demo.com',  'Room Availability',
