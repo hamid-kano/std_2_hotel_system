@@ -29,11 +29,11 @@
                         <?php endif; ?>
                     </div>
                     <h5 class="fw-700 text-center mb-3">
-                        <?php echo htmlspecialchars($facility['name']); ?>
+                        <?php echo getTranslation('facilities_translations', $facility['id'], 'name', $facility['name']); ?>
                     </h5>
                     <?php if (!empty($facility['description'])): ?>
                         <p class="text-secondary text-center mb-0">
-                            <?php echo htmlspecialchars($facility['description']); ?>
+                            <?php echo getTranslation('facilities_translations', $facility['id'], 'description', $facility['description']); ?>
                         </p>
                     <?php endif; ?>
                 </div>

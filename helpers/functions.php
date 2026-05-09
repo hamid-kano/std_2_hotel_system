@@ -14,6 +14,41 @@ function lang($key) {
     return $translations[$key] ?? $key;
 }
 
+/**
+ * Translate dynamic content (from database)
+ * Gets translation from translation tables based on current language
+ * 
+ * @param string $table The translation table (features_translations, facilities_translations, rooms_translations)
+ * @param int $id The ID of the item
+ * @param string $field The field to translate (name, description)
+ * @param string $fallback Fallback value if translation not found
+ * @return string Translated text
+ */
+function getTranslation($table, $id, $field = 'name', $fallback = '') {
+    static $cache = [];
+    $lang = Session::getLang();
+    $cacheKey = "{$table}_{$id}_{$field}_{$lang}";
+    
+    if (isset($cache[$cacheKey])) {
+        return $cache[$cacheKey];
+    }
+    
+    $db = Database::getInstance();
+    $idColumn = str_replace('_translations', '', $table) . '_id';
+    
+    $result = $db->select(
+        "SELECT `{$field}` FROM `{$table}` WHERE `{$idColumn}` = ? AND `lang` = ? LIMIT 1",
+        [$id, $lang],
+        'is'
+    );
+    
+    $row = Model::fetchOne($result);
+    $translation = $row ? $row[$field] : $fallback;
+    
+    $cache[$cacheKey] = $translation;
+    return $translation;
+}
+
 function redirect($url) {
     Response::redirect($url);
 }
