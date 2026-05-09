@@ -73,8 +73,16 @@ class AdminFacilityController extends AdminBaseController {
         }
         
         $filename = uploadImage(Request::file('icon'), FACILITIES_FOLDER);
-        if (in_array($filename, ['inv_img', 'inv_size', 'upd_failed'])) {
-            Session::flash('error', "Upload failed: $filename");
+        
+        // Handle upload errors with better messages
+        if ($filename === 'inv_img') {
+            Session::flash('error', 'Invalid file type. Please upload SVG or PNG only.');
+            $this->redirect(SITE_URL . 'admin/facilities');
+        } elseif ($filename === 'inv_size') {
+            Session::flash('error', 'File too large. Max size: 1MB for SVG, 2MB for PNG.');
+            $this->redirect(SITE_URL . 'admin/facilities');
+        } elseif ($filename === 'upd_failed' || $filename === 'upload_error') {
+            Session::flash('error', 'Upload failed. Please try again.');
             $this->redirect(SITE_URL . 'admin/facilities');
         }
         

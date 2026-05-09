@@ -74,12 +74,26 @@ function uploadImage($file, $folder) {
         return 'upload_error';
     }
     
-    if (!in_array($file['type'], ALLOWED_IMAGE_TYPES)) {
-        return 'inv_img';
-    }
+    // Check if it's SVG or regular image
+    $isSvg = ($file['type'] === 'image/svg+xml');
     
-    if ($file['size'] > MAX_IMAGE_SIZE) {
-        return 'inv_size';
+    // Validate file type
+    if ($isSvg) {
+        if (!in_array($file['type'], ALLOWED_SVG_TYPES)) {
+            return 'inv_img';
+        }
+        // Check SVG size limit
+        if ($file['size'] > MAX_SVG_SIZE) {
+            return 'inv_size';
+        }
+    } else {
+        if (!in_array($file['type'], ALLOWED_IMAGE_TYPES)) {
+            return 'inv_img';
+        }
+        // Check regular image size limit
+        if ($file['size'] > MAX_IMAGE_SIZE) {
+            return 'inv_size';
+        }
     }
     
     $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
