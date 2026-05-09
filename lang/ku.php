@@ -347,4 +347,9 @@ return [
     'admin_err_feat_in_use'     => 'Nabe were jêbirin — taybetmendî di odeyekê de tê bikaranîn.',
     'admin_err_fac_in_use'      => 'Nabe were jêbirin — tesîs di odeyekê de tê bikaranîn.',
     'admin_err_add_room'        => 'Zêdekirina odeyê bi ser neket.',
+    
+    // Navên zimanan
+    'arabic'                    => 'Erebî',
+    'english'                   => 'Îngilîzî',
+    'kurdish'                   => 'Kurdî',
 ];

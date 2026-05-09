@@ -40,7 +40,7 @@
                     <?php foreach($features as $i => $f): ?>
                     <tr>
                         <td><?php echo $i+1; ?></td>
-                        <td><?php echo htmlspecialchars($f['name']); ?></td>
+                        <td><?php echo htmlspecialchars(getTranslation('features_translations', $f['id'], 'name', $f['name'])); ?></td>
                         <td>
                             <form method="POST" action="<?php echo SITE_URL; ?>admin/features/remove"
                                   onsubmit="return confirm('<?php echo lang('admin_confirm_del_feat'); ?>')">
@@ -88,8 +88,8 @@
                     <tr>
                         <td><?php echo $i+1; ?></td>
                         <td><img src="<?php echo FACILITIES_IMG_PATH . htmlspecialchars($f['icon']); ?>" width="40" style="object-fit:contain;"></td>
-                        <td><?php echo htmlspecialchars($f['name']); ?></td>
-                        <td><small class="text-secondary"><?php echo htmlspecialchars($f['description'] ?? ''); ?></small></td>
+                        <td><?php echo htmlspecialchars(getTranslation('facilities_translations', $f['id'], 'name', $f['name'])); ?></td>
+                        <td><small class="text-secondary"><?php echo htmlspecialchars(getTranslation('facilities_translations', $f['id'], 'description', $f['description'] ?? '')); ?></small></td>
                         <td>
                             <form method="POST" action="<?php echo SITE_URL; ?>admin/facilities/remove"
                                   onsubmit="return confirm('<?php echo lang('admin_confirm_del_fac'); ?>')">
@@ -119,8 +119,18 @@
                     <button type="reset" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <label class="form-label"><?php echo lang('admin_feature_name'); ?></label>
-                    <input type="text" name="name" class="form-control" required>
+                    <div class="mb-3">
+                        <label class="form-label"><?php echo lang('admin_feature_name'); ?> (<?php echo lang('arabic'); ?>)</label>
+                        <input type="text" name="name_ar" class="form-control" required placeholder="مثال: واي فاي مجاني">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><?php echo lang('admin_feature_name'); ?> (<?php echo lang('english'); ?>)</label>
+                        <input type="text" name="name_en" class="form-control" required placeholder="Example: Free WiFi">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><?php echo lang('admin_feature_name'); ?> (<?php echo lang('kurdish'); ?>)</label>
+                        <input type="text" name="name_ku" class="form-control" required placeholder="نموونە: ئینتەرنێتی بێبەرامبەر">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"><?php echo lang('cancel'); ?></button>
@@ -133,7 +143,7 @@
 
 <!-- Add Facility Modal -->
 <div class="modal fade" id="addFacilityModal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form method="POST" action="<?php echo SITE_URL; ?>admin/facilities/add" enctype="multipart/form-data">
                 <div class="modal-header">
@@ -141,13 +151,33 @@
                     <button type="reset" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label"><?php echo lang('admin_facility_name'); ?></label>
-                        <input type="text" name="name" class="form-control" required>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><?php echo lang('admin_facility_name'); ?> (<?php echo lang('arabic'); ?>)</label>
+                            <input type="text" name="name_ar" class="form-control" required placeholder="مثال: مسبح">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><?php echo lang('admin_facility_name'); ?> (<?php echo lang('english'); ?>)</label>
+                            <input type="text" name="name_en" class="form-control" required placeholder="Example: Swimming Pool">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><?php echo lang('admin_facility_name'); ?> (<?php echo lang('kurdish'); ?>)</label>
+                            <input type="text" name="name_ku" class="form-control" required placeholder="نموونە: مەلەوانگە">
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label"><?php echo lang('admin_facility_desc'); ?></label>
-                        <input type="text" name="desc" class="form-control">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><?php echo lang('admin_facility_desc'); ?> (<?php echo lang('arabic'); ?>)</label>
+                            <textarea name="desc_ar" class="form-control" rows="2" placeholder="وصف المرفق بالعربية"></textarea>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><?php echo lang('admin_facility_desc'); ?> (<?php echo lang('english'); ?>)</label>
+                            <textarea name="desc_en" class="form-control" rows="2" placeholder="Facility description in English"></textarea>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><?php echo lang('admin_facility_desc'); ?> (<?php echo lang('kurdish'); ?>)</label>
+                            <textarea name="desc_ku" class="form-control" rows="2" placeholder="وەسفی خزمەتگوزاری بە کوردی"></textarea>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><?php echo lang('admin_facility_icon'); ?></label>

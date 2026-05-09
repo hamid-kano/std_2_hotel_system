@@ -402,4 +402,9 @@ return [
     'admin_err_feat_in_use'     => 'Cannot delete — feature is used by a room.',
     'admin_err_fac_in_use'      => 'Cannot delete — facility is used by a room.',
     'admin_err_add_room'        => 'Failed to add room.',
+    
+    // Language names
+    'arabic'                    => 'Arabic',
+    'english'                   => 'English',
+    'kurdish'                   => 'Kurdish',
 ];

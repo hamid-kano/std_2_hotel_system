@@ -11,10 +11,27 @@ class AdminFacilityController extends AdminBaseController {
 
     // ── Features ──────────────────────────────────────────────
     public function addFeature() {
-        $name = $this->post('name');
-        if ($name) {
-            Database::getInstance()->insert("INSERT INTO `features`(name) VALUES (?)", [$name], 's');
-            Session::flash('success', "Feature \"$name\" added.");
+        $name_ar = $this->post('name_ar');
+        $name_en = $this->post('name_en');
+        $name_ku = $this->post('name_ku');
+        
+        if ($name_ar && $name_en && $name_ku) {
+            $db = Database::getInstance();
+            
+            // Insert into features table (use English as default)
+            $db->insert("INSERT INTO `features`(name) VALUES (?)", [$name_en], 's');
+            
+            // Get the inserted ID
+            $featureId = $db->getConnection()->insert_id;
+            
+            // Insert translations for all languages
+            $db->insert(
+                "INSERT INTO `features_translations`(feature_id, lang, name) VALUES (?, 'ar', ?), (?, 'en', ?), (?, 'ku', ?)",
+                [$featureId, $name_ar, $featureId, $name_en, $featureId, $name_ku],
+                'isisisis'
+            );
+            
+            Session::flash('success', "Feature \"$name_en\" added with translations.");
         }
         $this->redirect(SITE_URL . 'admin/facilities');
     }
@@ -40,16 +57,39 @@ class AdminFacilityController extends AdminBaseController {
             Session::flash('error', 'Please upload an icon.');
             $this->redirect(SITE_URL . 'admin/facilities');
         }
+        
+        $name_ar = $this->post('name_ar');
+        $name_en = $this->post('name_en');
+        $name_ku = $this->post('name_ku');
+        $desc_ar = $this->post('desc_ar') ?: '';
+        $desc_en = $this->post('desc_en') ?: '';
+        $desc_ku = $this->post('desc_ku') ?: '';
+        
         $filename = uploadImage(Request::file('icon'), FACILITIES_FOLDER);
         if (in_array($filename, ['inv_img', 'inv_size', 'upd_failed'])) {
             Session::flash('error', "Upload failed: $filename");
             $this->redirect(SITE_URL . 'admin/facilities');
         }
-        Database::getInstance()->insert(
+        
+        $db = Database::getInstance();
+        
+        // Insert into facilities table (use English as default)
+        $db->insert(
             "INSERT INTO `facilities`(icon,name,description) VALUES (?,?,?)",
-            [$filename, $this->post('name'), $this->post('desc')], 'sss'
+            [$filename, $name_en, $desc_en], 'sss'
         );
-        Session::flash('success', 'Facility added.');
+        
+        // Get the inserted ID
+        $facilityId = $db->getConnection()->insert_id;
+        
+        // Insert translations for all languages
+        $db->insert(
+            "INSERT INTO `facilities_translations`(facility_id, lang, name, description) VALUES (?, 'ar', ?, ?), (?, 'en', ?, ?), (?, 'ku', ?, ?)",
+            [$facilityId, $name_ar, $desc_ar, $facilityId, $name_en, $desc_en, $facilityId, $name_ku, $desc_ku],
+            'ississississ'
+        );
+        
+        Session::flash('success', 'Facility added with translations.');
         $this->redirect(SITE_URL . 'admin/facilities');
     }
 
