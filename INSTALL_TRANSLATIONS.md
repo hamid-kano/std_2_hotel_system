@@ -1,19 +1,24 @@
 # تثبيت نظام الترجمة - Install Translation System
 # دليل سريع - Quick Guide
 
-## ⚡ التثبيت السريع (دقيقتان)
+## ⚡ التثبيت السريع (دقيقة واحدة!)
 
-### الخطوة 1: إنشاء جداول الترجمة
+### الطريقة الجديدة (موصى به) ⭐
 ```bash
-mysql -u root -p homework_std_ro_db < database/schema_translations.sql
+# تثبيت كل شيء بأمر واحد (البنية + البيانات + الترجمات)
+mysql -u root -p homework_std_ro_db < database/install.sql
 ```
 
-### الخطوة 2: إدراج بيانات الترجمة
+### الطريقة القديمة (خطوة بخطوة)
 ```bash
+# 1. إنشاء جداول الترجمة
+mysql -u root -p homework_std_ro_db < database/schema_translations.sql
+
+# 2. إدراج بيانات الترجمة
 mysql -u root -p homework_std_ro_db < database/seeder_translations.sql
 ```
 
-### الخطوة 3: اختبار
+### الخطوة الأخيرة: اختبار
 افتح الموقع وبدّل اللغة - يجب أن ترى الترجمات تعمل!
 
 ---

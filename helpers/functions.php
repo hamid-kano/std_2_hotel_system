@@ -34,7 +34,15 @@ function getTranslation($table, $id, $field = 'name', $fallback = '') {
     }
     
     $db = Database::getInstance();
-    $idColumn = str_replace('_translations', '', $table) . '_id';
+    
+    // Map table names to their ID column names
+    $columnMap = [
+        'features_translations' => 'feature_id',
+        'facilities_translations' => 'facility_id',
+        'rooms_translations' => 'room_id'
+    ];
+    
+    $idColumn = $columnMap[$table] ?? str_replace('_translations', '', $table) . '_id';
     
     $result = $db->select(
         "SELECT `{$field}` FROM `{$table}` WHERE `{$idColumn}` = ? AND `lang` = ? LIMIT 1",
