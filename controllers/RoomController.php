@@ -112,15 +112,15 @@ class RoomController extends BaseController {
                         <div class='col-md-6 px-lg-3 px-md-3 px-0'>
                             <h5 class='mb-2 fw-bold'>$roomName</h5>
                             <div class='features mb-2'>
-                                <small class='fw-bold text-muted text-uppercase'>Features</small><br>$featHtml
+                                <small class='fw-bold text-muted text-uppercase'>" . lang('features') . "</small><br>$featHtml
                             </div>
                             <div class='facilities mb-2'>
-                                <small class='fw-bold text-muted text-uppercase'>Facilities</small><br>$facHtml
+                                <small class='fw-bold text-muted text-uppercase'>" . lang('facilities') . "</small><br>$facHtml
                             </div>
                             <div class='guests'>
-                                <small class='fw-bold text-muted text-uppercase'>Guests</small><br>
-                                <span class='badge rounded-pill text-bg-light'>{$room['adult']} Adults</span>
-                                <span class='badge rounded-pill text-bg-light'>{$room['children']} Children</span>
+                                <small class='fw-bold text-muted text-uppercase'>" . lang('guests') . "</small><br>
+                                <span class='badge rounded-pill text-bg-light'>{$room['adult']} " . lang('adults') . "</span>
+                                <span class='badge rounded-pill text-bg-light'>{$room['children']} " . lang('children') . "</span>
                             </div>
                         </div>
                         <div class='col-md-2 mt-lg-0 mt-4 text-center'>
