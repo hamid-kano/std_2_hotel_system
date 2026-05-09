@@ -8,7 +8,7 @@
     </h2>
     <div class="section-divider"></div>
     <p class="text-secondary mx-auto" style="max-width:700px;">
-        <?php echo lang('facilities_intro') ?? 'Discover our world-class facilities designed to make your stay comfortable and memorable.'; ?>
+        <?php echo lang('facilities_intro'); ?>
     </p>
 </div>
 
@@ -43,7 +43,7 @@
             <div class="col-12">
                 <div class="alert alert-info text-center">
                     <i class="fas fa-info-circle me-2"></i>
-                    <?php echo lang('no_facilities') ?? 'No facilities available at the moment.'; ?>
+                    <?php echo lang('no_facilities'); ?>
                 </div>
             </div>
         <?php endif; ?>

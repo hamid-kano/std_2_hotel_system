@@ -182,6 +182,10 @@ return [
     'about_intro'       => 'At our hotel, we aim to provide a comfortable and enjoyable stay for all our guests. Our experienced team is dedicated to consistently delivering the highest levels of service.',
     'elevated_exp'      => 'Elevated Experiences',
     'elevated_exp_text' => 'At our prestigious hotel, we are dedicated to exceeding the expectations of our discerning guests. Our seasoned hospitality professionals curate tailored experiences that capture the spirit of our vibrant location.',
+    
+    /* ===== FACILITIES ===== */
+    'facilities_intro'  => 'Discover our world-class facilities designed to make your stay comfortable and memorable.',
+    'no_facilities'     => 'No facilities available at the moment.',
     'stat_rooms'        => 'Rooms',
     'stat_reviews'      => 'Reviews',
     'stat_customers'    => 'Customers',

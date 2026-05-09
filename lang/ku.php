@@ -156,6 +156,11 @@ return [
     'about_intro'       => 'Li otêla me, armanca me peydakirina mayînek rehets e ji bo hemû mêvanên me.',
     'elevated_exp'      => 'Ezmuneya bilind',
     'elevated_exp_text' => 'Li otêla navdar a me, em hêviyên mêvanên xwe derbas dikin.',
+    
+    /* ===== TESÎS (FACILITIES) ===== */
+    'facilities_intro'  => 'Tesîsên me yên cîhanî bibînin ku ji bo mayîna we rehet û bîrhatî hatine çêkirin.',
+    'no_facilities'     => 'Niha tu tesîs tune.',
+    
     'stat_rooms'        => 'Ode',
     'stat_reviews'      => 'Nirxandin',
     'stat_customers'    => 'Mişterî',
