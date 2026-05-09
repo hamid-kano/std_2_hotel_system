@@ -352,4 +352,12 @@ return [
     'arabic'                    => 'Erebî',
     'english'                   => 'Îngilîzî',
     'kurdish'                   => 'Kurdî',
+    
+    // Peyamên çewtiya barkirinê
+    'err_upload_icon'           => 'Ji kerema xwe îkonekê bar bike.',
+    'err_fill_all_names'        => 'Ji kerema xwe hemû qadên navan dagire.',
+    'err_invalid_file_type'     => 'Cureya pelê nederbasdar e. Tenê SVG an PNG bar bike.',
+    'err_file_too_large'        => 'Pel pir mezin e. Mezinahiya herî zêde: 1MB ji bo SVG, 2MB ji bo PNG.',
+    'err_upload_failed'         => 'Barkirin bi ser neket. Dîsa biceribîne.',
+    'err_fill_all_langs'        => 'Ji kerema xwe hemû qadên zimanan dagire.',
 ];

@@ -30,10 +30,10 @@ class AdminFacilityController extends AdminBaseController {
                 );
                 Session::flash('success', "Feature \"$name_en\" added with translations.");
             } else {
-                Session::flash('error', 'Failed to add feature.');
+                Session::flash('error', lang('err_generic'));
             }
         } else {
-            Session::flash('error', 'Please fill all language fields.');
+            Session::flash('error', lang('err_fill_all_langs'));
         }
         $this->redirect(SITE_URL . 'admin/facilities');
     }
@@ -56,7 +56,7 @@ class AdminFacilityController extends AdminBaseController {
     // ── Facilities ────────────────────────────────────────────
     public function addFacility() {
         if (!Request::hasFile('icon')) {
-            Session::flash('error', 'Please upload an icon.');
+            Session::flash('error', lang('err_upload_icon'));
             $this->redirect(SITE_URL . 'admin/facilities');
         }
         
@@ -68,21 +68,21 @@ class AdminFacilityController extends AdminBaseController {
         $desc_ku = $this->post('desc_ku') ?: '';
         
         if (!$name_ar || !$name_en || !$name_ku) {
-            Session::flash('error', 'Please fill all name fields.');
+            Session::flash('error', lang('err_fill_all_names'));
             $this->redirect(SITE_URL . 'admin/facilities');
         }
         
         $filename = uploadImage(Request::file('icon'), FACILITIES_FOLDER);
         
-        // Handle upload errors with better messages
+        // Handle upload errors with translated messages
         if ($filename === 'inv_img') {
-            Session::flash('error', 'Invalid file type. Please upload SVG or PNG only.');
+            Session::flash('error', lang('err_invalid_file_type'));
             $this->redirect(SITE_URL . 'admin/facilities');
         } elseif ($filename === 'inv_size') {
-            Session::flash('error', 'File too large. Max size: 1MB for SVG, 2MB for PNG.');
+            Session::flash('error', lang('err_file_too_large'));
             $this->redirect(SITE_URL . 'admin/facilities');
         } elseif ($filename === 'upd_failed' || $filename === 'upload_error') {
-            Session::flash('error', 'Upload failed. Please try again.');
+            Session::flash('error', lang('err_upload_failed'));
             $this->redirect(SITE_URL . 'admin/facilities');
         }
         
@@ -101,9 +101,9 @@ class AdminFacilityController extends AdminBaseController {
                 [$facilityId, $name_ar, $desc_ar, $facilityId, $name_en, $desc_en, $facilityId, $name_ku, $desc_ku],
                 'ississississ'
             );
-            Session::flash('success', 'Facility added with translations.');
+            Session::flash('success', lang('admin_facility_added'));
         } else {
-            Session::flash('error', 'Failed to add facility.');
+            Session::flash('error', lang('err_generic'));
         }
         $this->redirect(SITE_URL . 'admin/facilities');
     }

@@ -407,4 +407,12 @@ return [
     'arabic'                    => 'Arabic',
     'english'                   => 'English',
     'kurdish'                   => 'Kurdish',
+    
+    // File upload error messages
+    'err_upload_icon'           => 'Please upload an icon.',
+    'err_fill_all_names'        => 'Please fill all name fields.',
+    'err_invalid_file_type'     => 'Invalid file type. Please upload SVG or PNG only.',
+    'err_file_too_large'        => 'File too large. Max size: 1MB for SVG, 2MB for PNG.',
+    'err_upload_failed'         => 'Upload failed. Please try again.',
+    'err_fill_all_langs'        => 'Please fill all language fields.',
 ];

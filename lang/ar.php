@@ -407,4 +407,12 @@ return [
     'arabic'                    => 'عربي',
     'english'                   => 'إنجليزي',
     'kurdish'                   => 'كردي',
+    
+    // رسائل خطأ رفع الملفات
+    'err_upload_icon'           => 'يرجى رفع أيقونة.',
+    'err_fill_all_names'        => 'يرجى ملء جميع حقول الأسماء.',
+    'err_invalid_file_type'     => 'نوع الملف غير صالح. يرجى رفع SVG أو PNG فقط.',
+    'err_file_too_large'        => 'الملف كبير جداً. الحد الأقصى: 1MB لـ SVG، 2MB لـ PNG.',
+    'err_upload_failed'         => 'فشل الرفع. يرجى المحاولة مرة أخرى.',
+    'err_fill_all_langs'        => 'يرجى ملء جميع حقول اللغات.',
 ];
