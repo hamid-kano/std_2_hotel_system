@@ -129,7 +129,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label"><?php echo lang('admin_feature_name'); ?> (<?php echo lang('kurdish'); ?>)</label>
-                        <input type="text" name="name_ku" class="form-control" required placeholder="نموونە: ئینتەرنێتی بێبەرامبەر">
+                        <input type="text" name="name_ku" class="form-control" required placeholder="Mînak: WiFi belaş">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -162,7 +162,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label"><?php echo lang('admin_facility_name'); ?> (<?php echo lang('kurdish'); ?>)</label>
-                            <input type="text" name="name_ku" class="form-control" required placeholder="نموونە: مەلەوانگە">
+                            <input type="text" name="name_ku" class="form-control" required placeholder="Mînak: Hewza avê">
                         </div>
                     </div>
                     <div class="row">
@@ -176,7 +176,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label"><?php echo lang('admin_facility_desc'); ?> (<?php echo lang('kurdish'); ?>)</label>
-                            <textarea name="desc_ku" class="form-control" rows="2" placeholder="وەسفی خزمەتگوزاری بە کوردی"></textarea>
+                            <textarea name="desc_ku" class="form-control" rows="2" placeholder="Danasîna tesîsê bi Kurmancî"></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
