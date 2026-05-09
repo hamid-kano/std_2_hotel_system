@@ -30,7 +30,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ── 1. Admin ─────────────────────────────────────────────────
 -- Password: admin123 (bcrypt)
 INSERT INTO `admin_cred` (`sr_no`, `admin_name`, `admin_pass`) VALUES
-(1, 'admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+(1, 'admin', '$2y$10$NtHmTjp28qX2seosp73lH.D7t5mvMDLTa9XFfYG4sBjlg4CpA49CC');
 
 -- ── 2. Settings ──────────────────────────────────────────────
 INSERT INTO `settings` (`sr_no`, `site_title`, `site_about`, `shutdown`) VALUES
@@ -169,19 +169,19 @@ INSERT INTO `user_cred`
   (`id`, `name`, `email`, `address`, `phonenum`, `pincode`, `dob`, `profile`, `password`, `is_verified`, `token`, `status`, `datentime`)
 VALUES
 (1, 'Ahmed Ali',    'ahmed@demo.com',  'Erbil, Kurdistan',  '07501111111', 44001, '1990-05-15', 0,
- '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, NULL, 1, '2024-01-10 09:00:00'),
+ '$2y$10$RAbSdtV39PhveSXla7BjQ.XkFDGMnHg8zK8.ibKHu3mO86NA6P56m', 1, NULL, 1, '2024-01-10 09:00:00'),
 
 (2, 'Sara Hassan',  'sara@demo.com',   'Sulaymaniyah',      '07502222222', 46001, '1995-08-22', 0,
- '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, NULL, 1, '2024-02-14 10:30:00'),
+ '$2y$10$RAbSdtV39PhveSXla7BjQ.XkFDGMnHg8zK8.ibKHu3mO86NA6P56m', 1, NULL, 1, '2024-02-14 10:30:00'),
 
 (3, 'Omar Khalid',  'omar@demo.com',   'Duhok, Kurdistan',  '07503333333', 42001, '1988-12-01', 0,
- '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, NULL, 1, '2024-03-05 14:00:00'),
+ '$2y$10$RAbSdtV39PhveSXla7BjQ.XkFDGMnHg8zK8.ibKHu3mO86NA6P56m', 1, NULL, 1, '2024-03-05 14:00:00'),
 
 (4, 'Layla Nouri',  'layla@demo.com',  'Baghdad, Iraq',     '07504444444', 10001, '1992-03-18', 0,
- '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, NULL, 1, '2024-04-20 08:15:00'),
+ '$2y$10$RAbSdtV39PhveSXla7BjQ.XkFDGMnHg8zK8.ibKHu3mO86NA6P56m', 1, NULL, 1, '2024-04-20 08:15:00'),
 
 (5, 'Karwan Aziz',  'karwan@demo.com', 'Erbil, Kurdistan',  '07505555555', 44002, '1997-07-30', 0,
- '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1, NULL, 1, '2024-05-11 16:45:00');
+ '$2y$10$RAbSdtV39PhveSXla7BjQ.XkFDGMnHg8zK8.ibKHu3mO86NA6P56m', 1, NULL, 1, '2024-05-11 16:45:00');
 
 -- ── 13. Balances ─────────────────────────────────────────────
 INSERT INTO `balances` (`user_id`, `balance`) VALUES
