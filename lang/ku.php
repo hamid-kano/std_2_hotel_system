@@ -360,4 +360,9 @@ return [
     'err_file_too_large'        => 'Pel pir mezin e. Mezinahiya herî zêde: 1MB ji bo SVG, 2MB ji bo PNG.',
     'err_upload_failed'         => 'Barkirin bi ser neket. Dîsa biceribîne.',
     'err_fill_all_langs'        => 'Ji kerema xwe hemû qadên zimanan dagire.',
+    'err_feat_in_use'           => 'Nabe were jêbirin — taybetmendî di odeyekê de tê bikaranîn.',
+    'err_fac_in_use'            => 'Nabe were jêbirin — tesîs di odeyekê de tê bikaranîn.',
+    'success_feat_deleted'      => 'Taybetmendî hate jêbirin.',
+    'success_fac_deleted'       => 'Tesîs hate jêbirin.',
+    'success_feat_added'        => 'Taybetmendî bi wergeran hate zêdekirin.',
 ];

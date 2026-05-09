@@ -415,4 +415,9 @@ return [
     'err_file_too_large'        => 'الملف كبير جداً. الحد الأقصى: 1MB لـ SVG، 2MB لـ PNG.',
     'err_upload_failed'         => 'فشل الرفع. يرجى المحاولة مرة أخرى.',
     'err_fill_all_langs'        => 'يرجى ملء جميع حقول اللغات.',
+    'err_feat_in_use'           => 'لا يمكن الحذف — الميزة مستخدمة في غرفة.',
+    'err_fac_in_use'            => 'لا يمكن الحذف — المرفق مستخدم في غرفة.',
+    'success_feat_deleted'      => 'تم حذف الميزة.',
+    'success_fac_deleted'       => 'تم حذف المرفق.',
+    'success_feat_added'        => 'تمت إضافة الميزة مع الترجمات.',
 ];

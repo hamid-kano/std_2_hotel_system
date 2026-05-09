@@ -415,4 +415,9 @@ return [
     'err_file_too_large'        => 'File too large. Max size: 1MB for SVG, 2MB for PNG.',
     'err_upload_failed'         => 'Upload failed. Please try again.',
     'err_fill_all_langs'        => 'Please fill all language fields.',
+    'err_feat_in_use'           => 'Cannot delete — feature is used by a room.',
+    'err_fac_in_use'            => 'Cannot delete — facility is used by a room.',
+    'success_feat_deleted'      => 'Feature deleted.',
+    'success_fac_deleted'       => 'Facility deleted.',
+    'success_feat_added'        => 'Feature added with translations.',
 ];

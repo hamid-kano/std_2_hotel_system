@@ -28,7 +28,7 @@ class AdminFacilityController extends AdminBaseController {
                     [$featureId, $name_ar, $featureId, $name_en, $featureId, $name_ku],
                     'isisisis'
                 );
-                Session::flash('success', "Feature \"$name_en\" added with translations.");
+                Session::flash('success', lang('success_feat_added'));
             } else {
                 Session::flash('error', lang('err_generic'));
             }
@@ -45,10 +45,10 @@ class AdminFacilityController extends AdminBaseController {
         ))['c'] ?? 0;
 
         if ($inUse > 0) {
-            Session::flash('error', 'Cannot delete — feature is used by a room.');
+            Session::flash('error', lang('err_feat_in_use'));
         } else {
             Database::getInstance()->delete("DELETE FROM `features` WHERE id=?", [$id], 'i');
-            Session::flash('success', 'Feature deleted.');
+            Session::flash('success', lang('success_feat_deleted'));
         }
         $this->redirect(SITE_URL . 'admin/facilities');
     }
@@ -115,14 +115,14 @@ class AdminFacilityController extends AdminBaseController {
         ))['c'] ?? 0;
 
         if ($inUse > 0) {
-            Session::flash('error', 'Cannot delete — facility is used by a room.');
+            Session::flash('error', lang('err_fac_in_use'));
         } else {
             $img = Model::fetchOne(Database::getInstance()->select(
                 "SELECT icon FROM `facilities` WHERE id=?", [$id], 'i'
             ));
             if ($img) deleteImage($img['icon'], FACILITIES_FOLDER);
             Database::getInstance()->delete("DELETE FROM `facilities` WHERE id=?", [$id], 'i');
-            Session::flash('success', 'Facility deleted.');
+            Session::flash('success', lang('success_fac_deleted'));
         }
         $this->redirect(SITE_URL . 'admin/facilities');
     }
