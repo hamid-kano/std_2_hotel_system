@@ -25,8 +25,7 @@ Router::get('/api/rooms/search', 'RoomController@search');
 
 // ========== Auth Routes ==========
 Router::any('/login',    'AuthController@loginPage');
-Router::get('/register', 'AuthController@registerPage');
-Router::post('/api/auth/register', 'AuthController@register');
+Router::any('/register', 'AuthController@registerPage');
 Router::get('/logout', 'AuthController@logout');
 
 // ========== User Routes (Require Login) ==========
@@ -36,13 +35,12 @@ Router::post('/api/booking/check-availability', 'BookingController@checkAvailabi
 Router::post('/booking/pay', 'BookingController@pay');
 Router::get('/booking/payment', 'BookingController@paymentPage');
 Router::post('/api/booking/process-payment', 'BookingController@processPayment');
+Router::post('/booking/process-payment', 'BookingController@processPayment');
 Router::get('/booking/success', 'BookingController@paymentSuccess');
-Router::post('/api/booking/cancel', 'BookingController@cancel');
-Router::post('/api/booking/review', 'BookingController@review');
+Router::post('/booking/cancel', 'BookingController@cancel');
+Router::post('/booking/review', 'BookingController@review');
 
-Router::get('/profile', 'UserController@profile');
-Router::post('/api/user/update-profile', 'UserController@updateProfile');
-Router::post('/api/user/update-password', 'UserController@updatePassword');
+Router::any('/profile', 'UserController@profile');
 Router::post('/api/user/add-balance', 'UserController@addBalance');
 Router::post('/api/user/update-avatar', 'UserController@updateAvatar');
 

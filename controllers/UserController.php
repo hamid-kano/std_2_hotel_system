@@ -8,47 +8,47 @@ class UserController extends BaseController {
     
     public function profile() {
         $this->requireAuth();
+
+        $error   = null;
+        $success = null;
+
+        if (Request::isPost()) {
+            $formType = $this->post('form_type');
+
+            if ($formType === 'info') {
+                $data = [
+                    'name'     => $this->post('name'),
+                    'email'    => $this->post('email'),
+                    'phonenum' => $this->post('phonenum'),
+                    'address'  => $this->post('address'),
+                ];
+                $result = User::updateProfile(Auth::userId(), $data);
+                if ($result) {
+                    $success = lang('changes_saved');
+                } else {
+                    $error = lang('err_update_failed');
+                }
+            } elseif ($formType === 'password') {
+                $currentPass = Request::post('current_pass');
+                $newPass     = Request::post('new_pass');
+                $confirmPass = Request::post('confirm_pass');
+
+                if ($newPass !== $confirmPass) {
+                    $error = lang('err_pass_mismatch');
+                } else {
+                    $user = User::find(Auth::userId());
+                    if (!User::verifyPassword($user, $currentPass)) {
+                        $error = lang('err_curr_pass');
+                    } else {
+                        $result = User::updatePassword(Auth::userId(), $newPass);
+                        $success = $result ? lang('pass_updated') : lang('err_update_failed');
+                    }
+                }
+            }
+        }
+
         $user = User::find(Auth::userId());
-        $this->view('pages/profile', compact('user'));
-    }
-    
-    public function updateProfile() {
-        $this->requireAuth();
-        
-        if (!Request::isPost()) exit;
-        
-        $data = [
-            'name'     => $this->post('name'),
-            'email'    => $this->post('email'),
-            'phonenum' => $this->post('phonenum'),
-            'address'  => $this->post('address'),
-        ];
-        
-        $result = User::updateProfile(Auth::userId(), $data);
-        $this->json($result ? 1 : 0);
-    }
-    
-    public function updatePassword() {
-        $this->requireAuth();
-        
-        if (!Request::isPost()) exit;
-        
-        $userId      = Auth::userId();
-        $currentPass = Request::post('current_pass');
-        $newPass     = Request::post('new_pass');
-        $confirmPass = Request::post('confirm_pass');
-        
-        if ($newPass !== $confirmPass) {
-            $this->json('pass_mismatch');
-        }
-        
-        $user = User::find($userId);
-        if (!User::verifyPassword($user, $currentPass)) {
-            $this->json('invalid_current_pass');
-        }
-        
-        $result = User::updatePassword($userId, $newPass);
-        $this->json($result ? 1 : 0);
+        $this->view('pages/profile', compact('user', 'error', 'success'));
     }
     
     public function addBalance() {

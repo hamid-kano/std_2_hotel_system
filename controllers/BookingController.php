@@ -130,30 +130,27 @@ class BookingController extends BaseController {
     public function processPayment() {
         $this->requireAuth();
 
-        if (!Request::isPost()) exit;
+        if (!Request::isPost()) {
+            $this->redirect(SITE_URL . 'rooms');
+        }
 
         $room  = Session::get('room');
         $guest = Session::get('booking_guest');
 
         if (!$room || !$room['available'] || !$guest) {
-            $this->json(['status' => 'error', 'message' => 'Session expired.']);
+            $this->redirect(SITE_URL . 'rooms');
         }
 
-        // Simulate processing delay (already done client-side)
         $cardNumber = $this->post('card_number');
-        $expiry     = $this->post('expiry');
-        $cvv        = $this->post('cvv');
-        $cardName   = $this->post('card_name');
+        $cleanCard  = preg_replace('/\s+/', '', $cardNumber);
 
-        // Mock validation — decline if card starts with 0000
-        $cleanCard = preg_replace('/\s+/', '', $cardNumber);
         if (str_starts_with($cleanCard, '0000')) {
-            $this->json(['status' => 'declined', 'message' => 'Card declined. Please try another card.']);
+            Session::set('payment_error', 'Card declined. Please try another card.');
+            $this->redirect(SITE_URL . 'booking/payment');
         }
 
-        // Create booking
-        $userId  = Auth::userId();
-        $orderId = Booking::generateOrderId();
+        $userId   = Auth::userId();
+        $orderId  = Booking::generateOrderId();
 
         $bookingId = Booking::create(
             [
@@ -175,18 +172,14 @@ class BookingController extends BaseController {
         );
 
         if (!$bookingId) {
-            $this->json(['status' => 'error', 'message' => 'Booking failed. Please try again.']);
+            Session::set('payment_error', 'Booking failed. Please try again.');
+            $this->redirect(SITE_URL . 'booking/payment');
         }
 
         Session::remove('room');
         Session::remove('booking_guest');
 
-        $this->json([
-            'status'     => 'success',
-            'order_id'   => $orderId,
-            'booking_id' => $bookingId,
-            'redirect'   => SITE_URL . 'booking/success?order=' . $orderId,
-        ]);
+        $this->redirect(SITE_URL . 'booking/success?order=' . $orderId);
     }
 
     public function paymentSuccess() {
@@ -212,28 +205,29 @@ class BookingController extends BaseController {
     
     public function cancel() {
         $this->requireAuth();
-        
-        if (!Request::isPost()) exit;
-        
+
+        if (!Request::isPost()) {
+            $this->redirect(SITE_URL . 'bookings');
+        }
+
         $bookingId = (int)$this->post('id');
-        $userId    = Auth::userId();
-        
-        $result = Booking::cancel($bookingId, $userId);
-        echo $result ? 1 : 0;
+        Booking::cancel($bookingId, Auth::userId());
+        $this->redirect(SITE_URL . 'bookings');
     }
-    
+
     public function review() {
         $this->requireAuth();
-        
-        if (!Request::isPost()) exit;
-        
+
+        if (!Request::isPost()) {
+            $this->redirect(SITE_URL . 'bookings');
+        }
+
         $bookingId = (int)$this->post('booking_id');
         $roomId    = (int)$this->post('room_id');
         $rating    = (int)$this->post('rating');
         $review    = $this->post('review');
-        $userId    = Auth::userId();
-        
-        $result = Review::add($bookingId, $roomId, $userId, $rating, $review);
-        echo $result ? 1 : 0;
+
+        Review::add($bookingId, $roomId, Auth::userId(), $rating, $review);
+        $this->redirect(SITE_URL . 'bookings');
     }
 }

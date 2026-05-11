@@ -46,10 +46,13 @@
                                  </button>";
                     }
                 } else {
-                    $btn = "<button type='button' onclick='cancel_booking({$data['booking_id']})'
-                                class='btn btn-sm btn-outline-danger'>
-                                <i class='fas fa-times'></i>" . lang('cancel') . "
-                            </button>";
+                    $btn = "<form method='POST' action='" . SITE_URL . "booking/cancel' style='display:inline;'
+                                onsubmit='return confirm(\"" . addslashes(lang('confirm_cancel')) . "\")'>
+                                <input type='hidden' name='id' value='{$data['booking_id']}'>
+                                <button type='submit' class='btn btn-sm btn-outline-danger'>
+                                    <i class='fas fa-times'></i>" . lang('cancel') . "
+                                </button>
+                            </form>";
                 }
             } elseif($data['booking_status']==='cancelled'){
                 $btn = $data['refund']==0
@@ -130,7 +133,7 @@
 <div class="modal fade" id="reviewModal" data-bs-backdrop="static" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="review-form">
+            <form id="review-form" method="POST" action="<?php echo SITE_URL; ?>booking/review">
                 <div class="modal-header">
                     <h5 class="modal-title">
                         <i class="fas fa-star text-primary-custom"></i><?php echo lang('rate_review'); ?>
@@ -168,39 +171,9 @@
 <?php require BASE_PATH . '/views/layouts/footer.php'; ?>
 
 <script>
-const LANG = {
-    confirm_cancel: '<?php echo lang('confirm_cancel'); ?>',
-    cancel_failed:  '<?php echo lang('cancel_failed'); ?>',
-    review_failed:  '<?php echo lang('review_failed'); ?>',
-};
-
-function cancel_booking(id){
-    if(!confirm(LANG.confirm_cancel)) return;
-    const data = new FormData();
-    data.append('cancel_booking','');
-    data.append('id', id);
-    fetch(APP.siteUrl + 'api/booking/cancel', {method:'POST', body:data})
-        .then(r=>r.text())
-        .then(r=>{ if(r==1) window.location.reload(); else alert('error', LANG.cancel_failed); });
-}
-
-const reviewForm = document.getElementById('review-form');
 function review_room(bid, rid){
-    reviewForm.elements['booking_id'].value = bid;
-    reviewForm.elements['room_id'].value = rid;
+    const form = document.getElementById('review-form');
+    form.elements['booking_id'].value = bid;
+    form.elements['room_id'].value = rid;
 }
-reviewForm.addEventListener('submit', function(e){
-    e.preventDefault();
-    const data = new FormData(this);
-    data.append('review_form','');
-    fetch(APP.siteUrl + 'api/booking/review', {method:'POST', body:data})
-        .then(r=>r.text())
-        .then(r=>{
-            if(r==1){ window.location.reload(); }
-            else{
-                bootstrap.Modal.getInstance(document.getElementById('reviewModal'))?.hide();
-                alert('error', LANG.review_failed);
-            }
-        });
-});
 </script>

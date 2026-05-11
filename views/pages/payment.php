@@ -356,9 +356,15 @@ $isRTL = $lang === 'ar';
                 </div>
 
                 <!-- Alert -->
+                <?php $payError = Session::flash('payment_error'); ?>
+                <?php if ($payError): ?>
+                <div class="mb-3" style="border-radius:var(--r-lg); padding:.75rem 1rem; font-size:var(--fs-sm); background:rgba(220,53,69,.12); border:1px solid rgba(220,53,69,.3); color:#b02a37;">
+                    <i class="fas fa-exclamation-circle me-2"></i><?php echo htmlspecialchars($payError); ?>
+                </div>
+                <?php endif; ?>
                 <div id="pay-alert" class="d-none mb-3" style="border-radius:var(--r-lg); padding:.75rem 1rem; font-size:var(--fs-sm);"></div>
 
-                <form id="payment-form" novalidate>
+                <form id="payment-form" method="POST" action="<?php echo SITE_URL; ?>booking/process-payment">
                     <div class="mb-3">
                         <label class="form-label"><i class="fas fa-user"></i> Cardholder Name</label>
                         <input type="text" id="card_name" name="card_name" class="form-control"
@@ -478,61 +484,27 @@ function showAlert(msg, type){
     el.classList.remove('d-none');
 }
 
-/* Submit */
+/* Submit — client-side validation only, then normal form submit */
 document.getElementById('payment-form').addEventListener('submit', function(e){
-    e.preventDefault();
-
     const num  = document.getElementById('card_number').value.trim();
     const exp  = document.getElementById('expiry').value.trim();
     const cvv  = document.getElementById('cvv').value.trim();
     const name = document.getElementById('card_name').value.trim();
 
     if(!name || !num || !exp || !cvv){
+        e.preventDefault();
         showAlert('Please fill in all card details.', 'warning');
         return;
     }
     if(num.replace(/\s/g,'').length < 16){
+        e.preventDefault();
         showAlert('Invalid card number.', 'danger');
         return;
     }
 
-    // Show overlay
-    const overlay = document.getElementById('payOverlay');
-    overlay.classList.add('show');
+    // Show overlay while form submits
+    document.getElementById('payOverlay').classList.add('show');
     document.getElementById('pay-btn').disabled = true;
-
-    // Simulate processing delay (2.5s)
-    setTimeout(() => {
-        const data = new FormData();
-        data.append('card_number', num);
-        data.append('expiry', exp);
-        data.append('cvv', cvv);
-        data.append('card_name', name);
-
-        fetch(APP.siteUrl + 'api/booking/process-payment', { method:'POST', body:data })
-            .then(r => r.json())
-            .then(res => {
-                if(res.status === 'success'){
-                    document.getElementById('overlay-title').textContent = 'Payment Successful!';
-                    document.getElementById('overlay-sub').textContent = 'Redirecting to your booking…';
-                    document.querySelector('.payment-spinner').style.borderTopColor = '#28a745';
-                    setTimeout(() => window.location.href = res.redirect, 1000);
-                } else if(res.status === 'declined'){
-                    overlay.classList.remove('show');
-                    document.getElementById('pay-btn').disabled = false;
-                    showAlert(res.message, 'danger');
-                } else {
-                    overlay.classList.remove('show');
-                    document.getElementById('pay-btn').disabled = false;
-                    showAlert(res.message || 'Payment failed. Please try again.', 'danger');
-                }
-            })
-            .catch(() => {
-                overlay.classList.remove('show');
-                document.getElementById('pay-btn').disabled = false;
-                showAlert('Connection error. Please try again.', 'danger');
-            });
-    }, 2500);
 });
 </script>
 </body>

@@ -1,5 +1,4 @@
 <?php
-// Language switcher handler
 if (isset($_GET['set_lang'])) {
     Session::setLang($_GET['set_lang']);
     header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
@@ -9,7 +8,6 @@ if (isset($_GET['set_lang'])) {
 $lang      = Session::getLang();
 $isRTL     = ($lang === 'ar');
 $pageTitle = APP_NAME . ' — ' . lang('register');
-
 $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
 ?>
 <!DOCTYPE html>
@@ -79,9 +77,13 @@ $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
                 <p class="auth-subtitle"><?php echo lang('register_subtitle'); ?></p>
             </div>
 
-            <div id="auth-alert" class="auth-alert d-none"></div>
+            <?php if (!empty($error)): ?>
+            <div class="auth-alert auth-alert-danger">
+                <i class="fas fa-exclamation-circle"></i><span><?php echo htmlspecialchars($error); ?></span>
+            </div>
+            <?php endif; ?>
 
-            <form id="register-form" novalidate>
+            <form id="register-form" method="POST" action="<?php echo SITE_URL; ?>register">
                 <div class="row g-3">
 
                     <div class="col-md-6 auth-field">
@@ -89,6 +91,7 @@ $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
                             <i class="fas fa-user"></i><?php echo lang('name'); ?>
                         </label>
                         <input type="text" name="name" class="form-control"
+                               value="<?php echo htmlspecialchars($_POST['name'] ?? ''); ?>"
                                placeholder="<?php echo lang('full_name_hint'); ?>"
                                autocomplete="name" required>
                     </div>
@@ -98,6 +101,7 @@ $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
                             <i class="fas fa-envelope"></i><?php echo lang('email'); ?>
                         </label>
                         <input type="email" name="email" class="form-control"
+                               value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
                                placeholder="<?php echo lang('email_hint'); ?>"
                                autocomplete="email" required>
                     </div>
@@ -107,6 +111,7 @@ $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
                             <i class="fas fa-phone"></i><?php echo lang('phone'); ?>
                         </label>
                         <input type="text" name="phonenum" class="form-control"
+                               value="<?php echo htmlspecialchars($_POST['phonenum'] ?? ''); ?>"
                                placeholder="<?php echo lang('phone_hint'); ?>"
                                autocomplete="tel" required>
                     </div>
@@ -115,7 +120,8 @@ $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
                         <label class="form-label">
                             <i class="fas fa-calendar"></i><?php echo lang('date_of_birth'); ?>
                         </label>
-                        <input type="date" name="dob" class="form-control" required>
+                        <input type="date" name="dob" class="form-control"
+                               value="<?php echo htmlspecialchars($_POST['dob'] ?? ''); ?>" required>
                     </div>
 
                     <div class="col-12 auth-field">
@@ -123,6 +129,7 @@ $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
                             <i class="fas fa-map-marker-alt"></i><?php echo lang('address'); ?>
                         </label>
                         <input type="text" name="address" class="form-control"
+                               value="<?php echo htmlspecialchars($_POST['address'] ?? ''); ?>"
                                placeholder="<?php echo lang('address_hint'); ?>"
                                autocomplete="street-address" required>
                     </div>
@@ -132,6 +139,7 @@ $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
                             <i class="fas fa-map-pin"></i><?php echo lang('pincode'); ?>
                         </label>
                         <input type="text" name="pincode" class="form-control"
+                               value="<?php echo htmlspecialchars($_POST['pincode'] ?? ''); ?>"
                                placeholder="<?php echo lang('pincode_hint'); ?>" required>
                     </div>
 
@@ -199,15 +207,12 @@ $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-const APP = { siteUrl: '<?php echo SITE_URL; ?>' };
-
 /* ── Dark mode ── */
 function _applyThemeIcon(theme) {
     const icon = document.querySelector('#darkToggle i');
     if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 }
 _applyThemeIcon(document.documentElement.getAttribute('data-theme') || 'light');
-
 document.getElementById('darkToggle')?.addEventListener('click', function () {
     const current = document.documentElement.getAttribute('data-theme');
     const next    = current === 'dark' ? 'light' : 'dark';
@@ -252,55 +257,14 @@ document.getElementById('pass')?.addEventListener('input', function () {
     lbl.style.color      = levels[score].color;
 });
 
-/* ── Alert ── */
-function showAlert(msg, type) {
-    const el    = document.getElementById('auth-alert');
-    const icons = { success: 'fa-check-circle', danger: 'fa-exclamation-circle', warning: 'fa-exclamation-triangle' };
-    el.className = `auth-alert auth-alert-${type}`;
-    el.innerHTML = `<i class="fas ${icons[type] || 'fa-info-circle'}"></i><span>${msg}</span>`;
-}
-
-/* ── Register form ── */
-document.getElementById('register-form').addEventListener('submit', function (e) {
-    e.preventDefault();
+/* ── Client-side password match check ── */
+document.getElementById('register-form').addEventListener('submit', function(e) {
     const pass  = this.elements['pass'].value;
     const cpass = this.elements['cpass'].value;
-    if (pass !== cpass)  { showAlert('<?php echo addslashes(lang('err_pass_mismatch')); ?>', 'warning'); return; }
-    if (pass.length < 8) { showAlert('<?php echo addslashes(lang('err_pass_min')); ?>', 'warning'); return; }
-
-    const btn = document.getElementById('submit-btn');
-    btn.classList.add('btn-loading');
-    btn.disabled = true;
-
-    const data = new FormData();
-    ['name','email','phonenum','address','pincode','dob','pass','cpass'].forEach(k => {
-        data.append(k, this.elements[k].value);
-    });
-    data.append('register', '');
-
-    fetch(APP.siteUrl + 'api/auth/register', { method: 'POST', body: data })
-        .then(r => r.text())
-        .then(r => {
-            btn.classList.remove('btn-loading');
-            btn.disabled = false;
-            const msgs = {
-                pass_mismatch: '<?php echo addslashes(lang('err_pass_mismatch')); ?>',
-                email_already: '<?php echo addslashes(lang('err_email_exists')); ?>',
-                phone_already: '<?php echo addslashes(lang('err_phone_exists')); ?>',
-                ins_failed:    '<?php echo addslashes(lang('err_reg_failed')); ?>'
-            };
-            if (msgs[r]) {
-                showAlert(msgs[r], 'danger');
-            } else {
-                showAlert('<?php echo addslashes(lang('register_created')); ?>', 'success');
-                setTimeout(() => window.location.href = APP.siteUrl + 'login', 1200);
-            }
-        })
-        .catch(() => {
-            btn.classList.remove('btn-loading');
-            btn.disabled = false;
-            showAlert('<?php echo addslashes(lang('connection_error')); ?>', 'danger');
-        });
+    if (pass !== cpass) {
+        e.preventDefault();
+        alert('<?php echo addslashes(lang('err_pass_mismatch')); ?>');
+    }
 });
 </script>
 </body>

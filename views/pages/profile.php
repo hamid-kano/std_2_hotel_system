@@ -16,6 +16,24 @@
             <hr>
         </div>
 
+        <?php if (!empty($success)): ?>
+        <div class="col-12 px-4 mb-3">
+            <div class="alert alert-success alert-dismissible fade show">
+                <i class="fas fa-check-circle me-2"></i><?php echo htmlspecialchars($success); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <?php if (!empty($error)): ?>
+        <div class="col-12 px-4 mb-3">
+            <div class="alert alert-danger alert-dismissible fade show">
+                <i class="fas fa-exclamation-circle me-2"></i><?php echo htmlspecialchars($error); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <!-- Basic Info -->
         <div class="col-12 mb-4 px-4">
             <div class="card border-0 shadow-sm">
@@ -23,7 +41,8 @@
                     <h5 class="fw-700 mb-4 d-flex align-items-center gap-2">
                         <i class="fas fa-id-card text-primary-custom"></i><?php echo lang('basic_info'); ?>
                     </h5>
-                    <form id="info-form">
+                    <form method="POST" action="<?php echo SITE_URL; ?>profile">
+                        <input type="hidden" name="form_type" value="info">
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label class="form-label"><i class="fas fa-user"></i><?php echo lang('name'); ?></label>
@@ -59,7 +78,8 @@
                     <h5 class="fw-700 mb-4 d-flex align-items-center gap-2">
                         <i class="fas fa-lock text-primary-custom"></i><?php echo lang('change_password'); ?>
                     </h5>
-                    <form id="pass-form">
+                    <form method="POST" action="<?php echo SITE_URL; ?>profile">
+                        <input type="hidden" name="form_type" value="password">
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label class="form-label"><i class="fas fa-lock"></i><?php echo lang('current_password'); ?></label>
@@ -67,11 +87,11 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label"><i class="fas fa-key"></i><?php echo lang('new_password'); ?></label>
-                                <input type="password" name="new_pass" class="form-control" required>
+                                <input type="password" name="new_pass" id="new_pass" class="form-control" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label"><i class="fas fa-check-circle"></i><?php echo lang('confirm_password'); ?></label>
-                                <input type="password" name="confirm_pass" class="form-control" required>
+                                <input type="password" name="confirm_pass" id="confirm_pass" class="form-control" required>
                             </div>
                         </div>
                         <div class="mt-4">
@@ -90,48 +110,16 @@
 <?php require BASE_PATH . '/views/layouts/footer.php'; ?>
 
 <script>
-const LANG = {
-    pass_mismatch:   '<?php echo lang('err_pass_mismatch'); ?>',
-    phone_taken:     '<?php echo lang('err_phone_taken'); ?>',
-    no_changes:      '<?php echo lang('err_no_changes'); ?>',
-    update_failed:   '<?php echo lang('err_update_failed'); ?>',
-    curr_pass_wrong: '<?php echo lang('err_curr_pass'); ?>',
-    changes_saved:   '<?php echo lang('changes_saved'); ?>',
-    pass_updated:    '<?php echo lang('pass_updated'); ?>',
-};
-
-document.getElementById('info-form').addEventListener('submit', function(e){
-    e.preventDefault();
-    const btn = this.querySelector('[type=submit]');
-    btn.classList.add('btn-loading');
-    const data = new FormData(this);
-    data.append('info_form','');
-    fetch(APP.siteUrl + 'api/user/update-profile', {method:'POST', body:data})
-        .then(r=>r.text())
-        .then(r=>{
-            btn.classList.remove('btn-loading');
-            if(r==='phone_already') alert('error', LANG.phone_taken);
-            else if(r==='1') alert('success', LANG.changes_saved);
-            else alert('error', LANG.no_changes);
+document.querySelectorAll('form[action*="profile"]').forEach(form => {
+    if (form.querySelector('[name="form_type"][value="password"]')) {
+        form.addEventListener('submit', function(e) {
+            const np = this.elements['new_pass'].value;
+            const cp = this.elements['confirm_pass'].value;
+            if (np !== cp) {
+                e.preventDefault();
+                alert('<?php echo addslashes(lang('err_pass_mismatch')); ?>');
+            }
         });
-});
-
-document.getElementById('pass-form').addEventListener('submit', function(e){
-    e.preventDefault();
-    const np = this.elements['new_pass'].value;
-    const cp = this.elements['confirm_pass'].value;
-    if(np !== cp){ alert('error', LANG.pass_mismatch); return; }
-    const btn = this.querySelector('[type=submit]');
-    btn.classList.add('btn-loading');
-    const data = new FormData(this);
-    fetch(APP.siteUrl + 'api/user/update-password', {method:'POST', body:data})
-        .then(r=>r.text())
-        .then(r=>{
-            btn.classList.remove('btn-loading');
-            if(r==='pass_mismatch') alert('error', LANG.pass_mismatch);
-            else if(r==='invalid_current_pass') alert('error', LANG.curr_pass_wrong);
-            else if(r==='1'){ alert('success', LANG.pass_updated); this.reset(); }
-            else alert('error', LANG.update_failed);
-        }.bind(this));
+    }
 });
 </script>

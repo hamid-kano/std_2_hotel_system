@@ -46,6 +46,37 @@ class AuthController extends BaseController {
         if (Auth::isUserLoggedIn()) {
             $this->redirect(SITE_URL);
         }
+
+        $error = null;
+
+        if (Request::isPost()) {
+            $data = [
+                'name'     => $this->post('name'),
+                'email'    => $this->post('email'),
+                'phonenum' => $this->post('phonenum'),
+                'address'  => $this->post('address'),
+                'pincode'  => $this->post('pincode'),
+                'dob'      => $this->post('dob'),
+                'pass'     => Request::post('pass'),
+                'cpass'    => Request::post('cpass'),
+            ];
+
+            if ($data['pass'] !== $data['cpass']) {
+                $error = lang('err_pass_mismatch');
+            } elseif (User::emailExists($data['email'])) {
+                $error = lang('err_email_exists');
+            } elseif (User::phoneExists($data['phonenum'])) {
+                $error = lang('err_phone_exists');
+            } else {
+                $result = User::register($data);
+                if ($result) {
+                    $this->redirect(SITE_URL . 'login');
+                } else {
+                    $error = lang('err_reg_failed');
+                }
+            }
+        }
+
         $lang = Session::getLang();
         require BASE_PATH . '/views/auth/register.php';
         exit;
