@@ -141,14 +141,6 @@ class BookingController extends BaseController {
             $this->redirect(SITE_URL . 'rooms');
         }
 
-        $cardNumber = $this->post('card_number');
-        $cleanCard  = preg_replace('/\s+/', '', $cardNumber);
-
-        if (str_starts_with($cleanCard, '0000')) {
-            Session::set('payment_error', 'Card declined. Please try another card.');
-            $this->redirect(SITE_URL . 'booking/payment');
-        }
-
         $userId   = Auth::userId();
         $orderId  = Booking::generateOrderId();
 

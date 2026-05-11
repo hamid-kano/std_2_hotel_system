@@ -342,18 +342,6 @@ $isRTL = $lang === 'ar';
                     </div>
                 </div>
 
-                <!-- Test cards hint -->
-                <div class="test-hint">
-                    <strong><i class="fas fa-flask"></i> Demo Mode — Test Cards:</strong>
-                    <div class="test-card-row">
-                        <span>✅ Success: <code>4242 4242 4242 4242</code></span>
-                        <button class="test-card-fill" onclick="fillCard('4242 4242 4242 4242')">Fill</button>
-                    </div>
-                    <div class="test-card-row">
-                        <span>❌ Declined: <code>0000 0000 0000 0000</code></span>
-                        <button class="test-card-fill" onclick="fillCard('0000 0000 0000 0000')">Fill</button>
-                    </div>
-                </div>
 
                 <!-- Alert -->
                 <?php $payError = Session::flash('payment_error'); ?>
@@ -441,13 +429,6 @@ function selectCard(el){
     document.getElementById('card-icon').innerHTML = `<i class="${cardIcons[selectedType]}"></i>`;
 }
 
-/* Fill test card */
-function fillCard(num){
-    document.getElementById('card_number').value = num;
-    document.getElementById('expiry').value = '12 / 28';
-    document.getElementById('cvv').value = '123';
-    document.getElementById('card_name').value = 'TEST USER';
-}
 
 /* Card number formatting */
 document.getElementById('card_number').addEventListener('input', function(){
