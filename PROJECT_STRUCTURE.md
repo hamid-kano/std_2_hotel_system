@@ -151,4 +151,3 @@ std_2_hotel_system/
 
 - **نقطة الدخول:** `public/index.php` (يجب ضبط Document Root على مجلد `public/`)
 - **قاعدة البيانات:** استخدم `database/install.sql` لتثبيت قاعدة البيانات كاملةً
-- **الأرشيف:** مجلد `database/archive/` يحتوي على الملفات القديمة قبل الدمج
