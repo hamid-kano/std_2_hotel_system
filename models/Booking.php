@@ -55,7 +55,7 @@ class Booking extends Model {
              VALUES (?, ?, ?, ?, ?, ?, ?)",
             [$orderData['user_id'], $orderData['room_id'], $orderData['check_in'],
              $orderData['check_out'], $orderData['status'], $orderData['order_id'], $orderData['total_pay']],
-            'iissss'
+            'iissssd'
         );
         
         if (!$bookingId) return false;
