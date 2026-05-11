@@ -5,7 +5,7 @@
  */
 
 // Project Configuration
-define('PROJECT_FOLDER', 'std_2_hotel_system');
+define('PROJECT_FOLDER', 'vana_hotel');
 
 // BASE_PATH = root of the project (one level above /public)
 if (!defined('BASE_PATH')) {

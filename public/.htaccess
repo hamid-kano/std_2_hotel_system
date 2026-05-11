@@ -1,6 +1,6 @@
 # Enable Rewrite Engine
 RewriteEngine On
-RewriteBase /std_2_hotel_system/public/
+RewriteBase /vana_hotel/public/
 
 # Redirect all requests to index.php except existing files/directories
 RewriteCond %{REQUEST_FILENAME} !-f

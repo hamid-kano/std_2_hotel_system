@@ -1,10 +1,10 @@
 # Redirect all requests to public folder
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /std_2_hotel_system/
+    RewriteBase /vana_hotel/
     
     # If the request is not for public folder, redirect to public
-    RewriteCond %{REQUEST_URI} !^/std_2_hotel_system/public/
+    RewriteCond %{REQUEST_URI} !^/vana_hotel/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
 
@@ -18,4 +18,4 @@ Options -Indexes
 </FilesMatch>
 
 # Protect config, core, models, controllers, etc.
-RedirectMatch 403 ^/std_2_hotel_system/(config|core|models|controllers|helpers|lang|routes|storage|database|tests|vendor)/.*$
+RedirectMatch 403 ^/vana_hotel/(config|core|models|controllers|helpers|lang|routes|storage|database|tests|vendor)/.*$
