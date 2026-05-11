@@ -15,6 +15,14 @@ std_2_hotel_system/
 │
 ├── 📁 controllers/            # المتحكمات (Controllers)
 │   ├── 📁 admin/             # متحكمات لوحة التحكم
+│   │   ├── AdminBaseController.php
+│   │   ├── AdminBookingController.php
+│   │   ├── AdminDashboardController.php
+│   │   ├── AdminFacilityController.php
+│   │   ├── AdminReviewController.php
+│   │   ├── AdminRoomController.php
+│   │   ├── AdminSettingsController.php
+│   │   └── AdminUserController.php
 │   ├── AuthController.php    # المصادقة
 │   ├── BaseController.php    # المتحكم الأساسي
 │   ├── BookingController.php # الحجوزات
@@ -31,11 +39,16 @@ std_2_hotel_system/
 │   └── Validator.php         # التحقق من البيانات
 │
 ├── 📁 database/               # قاعدة البيانات
-│   ├── schema.sql            # ⭐ بنية قاعدة البيانات الأساسية
-│   ├── seeder.sql            # ⭐ البيانات التجريبية
-│   ├── README.md             # دليل قاعدة البيانات
-│   ├── QUICK_START.md        # البدء السريع
-│   └── TRANSLATIONS_README.md # دليل نظام الترجمة
+│   ├── 📁 archive/           # ملفات قاعدة البيانات القديمة
+│   │   ├── m_hotel.sql
+│   │   ├── schema.sql
+│   │   ├── schema_translations.sql
+│   │   ├── seeder.sql
+│   │   ├── seeder_translations.sql
+│   │   ├── README.md
+│   │   └── README_OLD.md
+│   ├── install.sql           # ⭐ ملف التثبيت الكامل (schema + seed)
+│   └── INSTALL.md            # دليل التثبيت
 │
 ├── 📁 helpers/                # الدوال المساعدة
 │   ├── cache.php             # التخزين المؤقت
@@ -56,8 +69,17 @@ std_2_hotel_system/
 │   └── User.php              # المستخدمين
 │
 ├── 📁 public/                 # المجلد العام (Document Root)
-│   ├── 📁 assets/            # الأصول (CSS, JS)
-│   ├── 📁 images/            # الصور
+│   ├── 📁 assets/
+│   │   ├── 📁 css/
+│   │   │   └── style.css
+│   │   └── 📁 js/
+│   │       └── main.js
+│   ├── 📁 images/
+│   │   ├── 📁 about/         # صور صفحة من نحن
+│   │   ├── 📁 carousel/      # صور الكاروسيل
+│   │   ├── 📁 facilities/    # صور المرافق (SVG/PNG)
+│   │   ├── 📁 rooms/         # صور الغرف
+│   │   └── 📁 users/         # صور المستخدمين
 │   ├── .htaccess             # إعدادات Apache
 │   └── index.php             # نقطة الدخول
 │
@@ -70,18 +92,63 @@ std_2_hotel_system/
 │
 ├── 📁 tests/                  # الاختبارات
 │   ├── automated_tests.php   # ⭐ الاختبارات التلقائية
-│   ├── TEST_PLAN.md          # خطة الاختبار (107 حالة)
+│   ├── TEST_PLAN.md          # خطة الاختبار
 │   ├── MANUAL_TESTING_GUIDE.md # دليل الاختبار اليدوي
 │   ├── TEST_RESULTS_TEMPLATE.md # نموذج تقرير
 │   └── README.md             # دليل الاختبارات
 │
 ├── 📁 views/                  # ملفات العرض
 │   ├── 📁 admin/             # صفحات لوحة التحكم
+│   │   ├── 📁 partials/
+│   │   │   └── room_form.php
+│   │   ├── booking_records.php
+│   │   ├── carousel.php
+│   │   ├── dashboard.php
+│   │   ├── facilities.php
+│   │   ├── layout.php
+│   │   ├── login.php
+│   │   ├── new_bookings.php
+│   │   ├── queries.php
+│   │   ├── refund_bookings.php
+│   │   ├── reviews.php
+│   │   ├── room_images.php
+│   │   ├── rooms.php
+│   │   ├── settings.php
+│   │   └── users.php
 │   ├── 📁 auth/              # صفحات المصادقة
+│   │   ├── 📁 partials/
+│   │   │   └── topbar.php
+│   │   ├── login.php
+│   │   └── register.php
 │   ├── 📁 errors/            # صفحات الأخطاء
-│   ├── 📁 layouts/           # القوالب
+│   │   ├── 404.php
+│   │   └── 500.php
+│   ├── 📁 layouts/           # القوالب المشتركة
+│   │   ├── footer.php
+│   │   ├── head.php
+│   │   └── header.php
 │   └── 📁 pages/             # الصفحات العامة
+│       ├── about.php
+│       ├── bookings.php
+│       ├── confirm_booking.php
+│       ├── contact.php
+│       ├── facilities.php
+│       ├── home.php
+│       ├── payment.php
+│       ├── payment_success.php
+│       ├── profile.php
+│       ├── room_details.php
+│       └── rooms.php
 │
 ├── .htaccess                  # ⭐ إعادة توجيه للمجلد public
 ├── .gitignore                 # ملفات Git المتجاهلة
-│
+├── DATABASE_MERGE_SUMMARY.md  # ملخص دمج قاعدة البيانات
+├── PROJECT_STRUCTURE.md       # هذا الملف
+└── README.md                  # دليل المشروع الرئيسي
+```
+
+## ملاحظات مهمة
+
+- **نقطة الدخول:** `public/index.php` (يجب ضبط Document Root على مجلد `public/`)
+- **قاعدة البيانات:** استخدم `database/install.sql` لتثبيت قاعدة البيانات كاملةً
+- **الأرشيف:** مجلد `database/archive/` يحتوي على الملفات القديمة قبل الدمج
