@@ -26,7 +26,7 @@ class AdminFacilityController extends AdminBaseController {
                 $db->insert(
                     "INSERT INTO `features_translations`(feature_id, lang, name) VALUES (?, 'ar', ?), (?, 'en', ?), (?, 'ku', ?)",
                     [$featureId, $name_ar, $featureId, $name_en, $featureId, $name_ku],
-                    'isisisis'
+                    'isisis'
                 );
                 Session::flash('success', lang('success_feat_added'));
             } else {
