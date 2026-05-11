@@ -30,3 +30,6 @@ booking_debug.log
 # Temporary files
 *.tmp
 *.bak
+
+# Large installers
+*.exe
