@@ -342,6 +342,10 @@ $isRTL = $lang === 'ar';
                     </div>
                 </div>
 
+                <button type="button" onclick="fillDemoCard()" style="width:100%;margin-bottom:1rem;padding:.5rem;border:1px dashed var(--primary);border-radius:var(--r-lg);background:var(--primary-light);color:var(--primary);font-size:var(--fs-sm);cursor:pointer;">
+                    <i class="fas fa-magic"></i> تعبئة بيانات تجريبية
+                </button>
+
 
                 <!-- Alert -->
                 <?php $payError = Session::flash('payment_error'); ?>
@@ -418,6 +422,15 @@ const APP = { siteUrl: '<?php echo SITE_URL; ?>' };
     const t = localStorage.getItem('vana_theme') || 'light';
     document.documentElement.setAttribute('data-theme', t);
 })();
+
+/* Fill demo card */
+function fillDemoCard(){
+    document.getElementById('card_name').value   = 'Ahmed Ali';
+    document.getElementById('card_number').value = '4242 4242 4242 4242';
+    document.getElementById('expiry').value      = '12 / 28';
+    document.getElementById('cvv').value         = '123';
+    document.querySelector('[data-type="visa"]').click();
+}
 
 /* Card type selector */
 const cardIcons = { visa:'fab fa-cc-visa', mastercard:'fab fa-cc-mastercard', amex:'fab fa-cc-amex' };
