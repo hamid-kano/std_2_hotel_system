@@ -160,6 +160,7 @@ class BookingController extends BaseController {
                 'address'   => $guest['address'],
                 'room_name' => $room['name'],
                 'price'     => $room['price'],
+                'total_pay' => $room['payment'],
             ]
         );
 

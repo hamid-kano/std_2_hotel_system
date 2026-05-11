@@ -51,7 +51,7 @@ class Booking extends Model {
         
         // Insert booking order
         $bookingId = $db->insert(
-            "INSERT INTO `booking_order`(`user_id`, `room_id`, `check_in`, `check_out`, `booking_status`, `order_id`, `total_pay`)
+            "INSERT INTO `booking_order`(`user_id`, `room_id`, `check_in`, `check_out`, `booking_status`, `order_id`, `trans_amt`)
              VALUES (?, ?, ?, ?, ?, ?, ?)",
             [$orderData['user_id'], $orderData['room_id'], $orderData['check_in'],
              $orderData['check_out'], $orderData['status'], $orderData['order_id'], $orderData['total_pay']],
@@ -62,11 +62,11 @@ class Booking extends Model {
         
         // Insert booking details
         $db->insert(
-            "INSERT INTO `booking_details`(`booking_id`, `user_name`, `phonenum`, `address`, `room_name`, `price`)
-             VALUES (?, ?, ?, ?, ?, ?)",
+            "INSERT INTO `booking_details`(`booking_id`, `user_name`, `phonenum`, `address`, `room_name`, `price`, `total_pay`)
+             VALUES (?, ?, ?, ?, ?, ?, ?)",
             [$bookingId, $detailsData['user_name'], $detailsData['phonenum'],
-             $detailsData['address'], $detailsData['room_name'], $detailsData['price']],
-            'issssi'
+             $detailsData['address'], $detailsData['room_name'], $detailsData['price'], $detailsData['total_pay']],
+            'issssdd'
         );
         
         return $bookingId;
