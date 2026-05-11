@@ -23,7 +23,7 @@ class UserController extends BaseController {
                     'address'  => $this->post('address'),
                 ];
                 $result = User::updateProfile(Auth::userId(), $data);
-                if ($result) {
+                if ($result !== false) {
                     $success = lang('changes_saved');
                 } else {
                     $error = lang('err_update_failed');
@@ -41,7 +41,7 @@ class UserController extends BaseController {
                         $error = lang('err_curr_pass');
                     } else {
                         $result = User::updatePassword(Auth::userId(), $newPass);
-                        $success = $result ? lang('pass_updated') : lang('err_update_failed');
+                        $success = ($result !== false) ? lang('pass_updated') : lang('err_update_failed');
                     }
                 }
             }
