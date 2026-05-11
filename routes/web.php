@@ -24,9 +24,8 @@ Router::get('/room/{id}', 'RoomController@show');
 Router::get('/api/rooms/search', 'RoomController@search');
 
 // ========== Auth Routes ==========
-Router::get('/login',    'AuthController@loginPage');
+Router::any('/login',    'AuthController@loginPage');
 Router::get('/register', 'AuthController@registerPage');
-Router::post('/api/auth/login',    'AuthController@login');
 Router::post('/api/auth/register', 'AuthController@register');
 Router::get('/logout', 'AuthController@logout');
 

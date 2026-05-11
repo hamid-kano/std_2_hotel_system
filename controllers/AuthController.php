@@ -10,7 +10,33 @@ class AuthController extends BaseController {
         if (Auth::isUserLoggedIn()) {
             $this->redirect(SITE_URL);
         }
-        // Auth pages use their own layout — no settings/contact needed
+
+        $error = null;
+
+        if (Request::isPost()) {
+            if (!Auth::checkRateLimit('login')) {
+                $error = lang('err_rate_limit');
+            } else {
+                $identifier = $this->post('email_mob');
+                $password   = Request::post('pass');
+                $user       = User::findByEmailOrPhone($identifier);
+
+                if (!$user) {
+                    Auth::incrementRateLimit('login');
+                    $error = lang('err_inv_email_mob');
+                } elseif ($user['status'] == 0) {
+                    $error = lang('err_inactive');
+                } elseif (!User::verifyPassword($user, $password)) {
+                    Auth::incrementRateLimit('login');
+                    $error = lang('err_invalid_pass');
+                } else {
+                    Auth::loginUser($user['id'], $user['name'], $user['phonenum']);
+                    Auth::resetRateLimit('login');
+                    $this->redirect(SITE_URL);
+                }
+            }
+        }
+
         $lang = Session::getLang();
         require BASE_PATH . '/views/auth/login.php';
         exit;
@@ -39,16 +65,18 @@ class AuthController extends BaseController {
         $password   = $this->post('pass');
         
         $user = User::findByEmailOrPhone($identifier);
-        
+
         if (!$user) {
+            Auth::incrementRateLimit('login');
             $this->json('inv_email_mob');
         }
-        
+
         if ($user['status'] == 0) {
             $this->json('inactive');
         }
-        
+
         if (!User::verifyPassword($user, $password)) {
+            Auth::incrementRateLimit('login');
             $this->json('invalid_pass');
         }
         

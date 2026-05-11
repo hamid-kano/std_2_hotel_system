@@ -81,9 +81,13 @@ $savedTheme = $_COOKIE['vana_theme'] ?? 'light';
                 <p class="auth-subtitle"><?php echo lang('login_subtitle'); ?></p>
             </div>
 
-            <div id="auth-alert" class="auth-alert d-none"></div>
+            <?php if (!empty($error)): ?>
+            <div class="auth-alert auth-alert-danger">
+                <i class="fas fa-exclamation-circle"></i><span><?php echo htmlspecialchars($error); ?></span>
+            </div>
+            <?php endif; ?>
 
-            <form id="login-form" novalidate>
+            <form id="login-form" method="POST" action="<?php echo SITE_URL; ?>login">
                 <div class="auth-field">
                     <label class="form-label">
                         <i class="fas fa-envelope"></i><?php echo lang('email_mobile'); ?>
@@ -158,50 +162,6 @@ document.getElementById('togglePass')?.addEventListener('click', function () {
     icon.className = inp.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
 });
 
-/* ── Alert ── */
-function showAlert(msg, type) {
-    const el    = document.getElementById('auth-alert');
-    const icons = { success:'fa-check-circle', danger:'fa-exclamation-circle', warning:'fa-exclamation-triangle' };
-    el.className = `auth-alert auth-alert-${type}`;
-    el.innerHTML = `<i class="fas ${icons[type] || 'fa-info-circle'}"></i><span>${msg}</span>`;
-}
-
-/* ── Login form ── */
-document.getElementById('login-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const btn = document.getElementById('submit-btn');
-    btn.classList.add('btn-loading');
-    btn.disabled = true;
-
-    const data = new FormData();
-    data.append('email_mob', this.elements['email_mob'].value.trim());
-    data.append('pass',      this.elements['pass'].value);
-    data.append('login',     '');
-
-    fetch(APP.siteUrl + 'api/auth/login', { method: 'POST', body: data })
-        .then(r => r.text())
-        .then(r => {
-            btn.classList.remove('btn-loading');
-            btn.disabled = false;
-            const msgs = {
-                inv_email_mob: '<?php echo addslashes(lang('err_inv_email_mob')); ?>',
-                inactive:      '<?php echo addslashes(lang('err_inactive')); ?>',
-                invalid_pass:  '<?php echo addslashes(lang('err_invalid_pass')); ?>',
-                rate_limit:    '<?php echo addslashes(lang('err_rate_limit')); ?>'
-            };
-            if (msgs[r]) {
-                showAlert(msgs[r], 'danger');
-            } else {
-                showAlert('<?php echo addslashes(lang('login_redirecting')); ?>', 'success');
-                setTimeout(() => window.location.href = APP.siteUrl, 800);
-            }
-        })
-        .catch(() => {
-            btn.classList.remove('btn-loading');
-            btn.disabled = false;
-            showAlert('<?php echo addslashes(lang('connection_error')); ?>', 'danger');
-        });
-});
 </script>
 </body>
 </html>

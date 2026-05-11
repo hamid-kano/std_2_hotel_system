@@ -69,29 +69,33 @@ class Auth {
     public static function checkRateLimit($action, $maxAttempts = MAX_LOGIN_ATTEMPTS, $timeout = LOGIN_TIMEOUT) {
         $ip = Request::ip();
         $key = $action . '_' . md5($ip);
-        
+
         if (!Session::has($key)) {
             Session::set($key, ['count' => 0, 'time' => time()]);
         }
-        
+
         $data = Session::get($key);
-        
+
         // Reset if timeout passed
         if (time() - $data['time'] > $timeout) {
             Session::set($key, ['count' => 0, 'time' => time()]);
             return true;
         }
-        
-        // Check limit
+
+        // Check limit before incrementing
         if ($data['count'] >= $maxAttempts) {
             return false;
         }
-        
-        // Increment counter
+
+        return true;
+    }
+
+    public static function incrementRateLimit($action) {
+        $ip = Request::ip();
+        $key = $action . '_' . md5($ip);
+        $data = Session::get($key, ['count' => 0, 'time' => time()]);
         $data['count']++;
         Session::set($key, $data);
-        
-        return true;
     }
     
     public static function resetRateLimit($action) {

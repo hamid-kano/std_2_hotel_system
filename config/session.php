@@ -3,7 +3,6 @@
  * Session Configuration
  * Secure session management
  */
-
 class Session {
     
     public static function start() {
@@ -16,14 +15,6 @@ class Session {
             ini_set('session.cookie_path', '/');
             
             session_start();
-            
-            // Regenerate session ID periodically (every 30 min)
-            if (!isset($_SESSION['created'])) {
-                $_SESSION['created'] = time();
-            } elseif (time() - $_SESSION['created'] > 1800) {
-                session_regenerate_id(true);
-                $_SESSION['created'] = time();
-            }
         }
     }
     
