@@ -99,7 +99,7 @@ class AdminFacilityController extends AdminBaseController {
             $db->insert(
                 "INSERT INTO `facilities_translations`(facility_id, lang, name, description) VALUES (?, 'ar', ?, ?), (?, 'en', ?, ?), (?, 'ku', ?, ?)",
                 [$facilityId, $name_ar, $desc_ar, $facilityId, $name_en, $desc_en, $facilityId, $name_ku, $desc_ku],
-                'ississississ'
+                'issississ'
             );
             Session::flash('success', lang('admin_facility_added'));
         } else {
