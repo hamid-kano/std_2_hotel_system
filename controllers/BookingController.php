@@ -196,6 +196,20 @@ class BookingController extends BaseController {
         $this->view('pages/payment_success', compact('booking'));
     }
     
+    public function pdf() {
+        $this->requireAuth();
+
+        $bookingId = (int)Request::get('id');
+        if (!$bookingId) $this->redirect(SITE_URL . 'bookings');
+
+        $booking = Booking::findWithDetails($bookingId);
+        if (!$booking || $booking['user_id'] != Auth::userId()) {
+            $this->redirect(SITE_URL . 'bookings');
+        }
+
+        $this->view('pages/booking_print', compact('booking'));
+    }
+
     public function cancel() {
         $this->requireAuth();
 

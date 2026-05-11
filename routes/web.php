@@ -37,6 +37,7 @@ Router::get('/booking/payment', 'BookingController@paymentPage');
 Router::post('/api/booking/process-payment', 'BookingController@processPayment');
 Router::post('/booking/process-payment', 'BookingController@processPayment');
 Router::get('/booking/success', 'BookingController@paymentSuccess');
+Router::get('/booking/pdf', 'BookingController@pdf');
 Router::post('/booking/cancel', 'BookingController@cancel');
 Router::post('/booking/review', 'BookingController@review');
 
