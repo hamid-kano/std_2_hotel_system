@@ -92,6 +92,15 @@ return [
     'cancel_failed'     => 'Cancellation failed!',
     'review_failed'     => 'Review failed!',
 
+    /* ===== PAYMENT SUCCESS PAGE ===== */
+    'booking_confirmed_title' => 'Booking Confirmed!',
+    'booking_confirmed_sub'   => 'Your reservation has been successfully placed. A summary is shown below.',
+    'booking_receipt'         => 'Booking Receipt',
+    'confirmed'               => 'Confirmed',
+    'guest'                   => 'Guest',
+    'total_paid'              => 'Total Paid',
+    'present_confirmation'    => 'Please present this confirmation at check-in. Booking ID:',
+
     /* ===== BOOKING STATUS ===== */
     'status_booked'     => 'booked',
     'status_cancelled'  => 'cancelled',

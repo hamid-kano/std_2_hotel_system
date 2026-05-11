@@ -79,6 +79,15 @@ return [
     'no_bookings'       => 'Tu rezervasyon nehate dîtin.',
     'cancel_failed'     => 'Betalî bi ser neket!',
     'review_failed'     => 'Şandina nêrînê bi ser neket!',
+    /* ===== RÛPELA SERFIRAZIYA DRAVDANÊ ===== */
+    'booking_confirmed_title' => 'Rezervasyon Piştrast Bû!',
+    'booking_confirmed_sub'   => 'Rezervasyona te bi serkeftî hate tomar kirin. Kurtasiya rezervasyonê li jêr tê xuyang kirin.',
+    'booking_receipt'         => 'Wergirtina Rezervasyonê',
+    'confirmed'               => 'Piştrast bûye',
+    'guest'                   => 'Mêvan',
+    'total_paid'              => 'Tevahiya Dravdanê',
+    'present_confirmation'    => 'Ji kerema xwe vê piştrast kirinê di dema qeydkirinê de pêşkêş bike. Hejmara Rezervasyonê:',
+
     'status_booked'     => 'Rezervekirî',
     'status_cancelled'  => 'Betal bûye',
     'status_failed'     => 'Bi ser neket',

@@ -92,6 +92,15 @@ return [
     'cancel_failed'     => 'فشل الإلغاء!',
     'review_failed'     => 'فشل إرسال التقييم!',
 
+    /* ===== صفحة نجاح الدفع ===== */
+    'booking_confirmed_title' => 'تم تأكيد الحجز!',
+    'booking_confirmed_sub'   => 'تم تسجيل حجزك بنجاح. ملخص الحجز موضح أدناه.',
+    'booking_receipt'         => 'إيصال الحجز',
+    'confirmed'               => 'مؤكد',
+    'guest'                   => 'النزيل',
+    'total_paid'              => 'المبلغ المدفوع',
+    'present_confirmation'    => 'يرجى تقديم هذا التأكيد عند تسجيل الوصول. رقم الحجز:',
+
     /* ===== حالة الحجز ===== */
     'status_booked'     => 'محجوز',
     'status_cancelled'  => 'ملغى',
